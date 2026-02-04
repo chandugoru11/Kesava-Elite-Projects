@@ -1,13 +1,19 @@
 
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, User, LogOut, Layout, ShieldCheck } from 'lucide-react';
 import { NAVIGATION_LINKS, COMPANY_INFO } from '../constants';
+import { useAuth } from '../App';
+import AuthModal from './AuthModal';
+import Logo from './Logo';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [showUserMenu, setShowUserMenu] = useState(false);
   const navigate = useNavigate();
+  const { user, logout, token } = useAuth();
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => {
@@ -16,111 +22,159 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className="fixed w-full bg-white shadow-md z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
-          {/* Logo Section */}
-          <Link to="/" onClick={closeMenu} className="flex items-center space-x-3">
-            <div className="w-12 h-12 flex items-center justify-center bg-white rounded-lg overflow-hidden border border-gray-100">
-               <img src="https://picsum.photos/id/1/200/200" alt="Logo" className="w-10 h-10 object-contain" />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-red-600 font-bold text-lg leading-none">KESHAVA ELITE</span>
-              <span className="text-gray-500 text-xs font-semibold">PROJECTS PVT.LTD</span>
-            </div>
-          </Link>
-
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex space-x-4 items-center">
-            {NAVIGATION_LINKS.map((link) => (
-              <div
-                key={link.label}
-                className="relative group"
-                onMouseEnter={() => link.children && setActiveDropdown(link.label)}
-                onMouseLeave={() => setActiveDropdown(null)}
-              >
-                <Link
-                  to={link.path}
-                  className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-red-600 transition-colors flex items-center"
-                >
-                  {link.label}
-                  {link.children && <ChevronDown size={14} className="ml-1" />}
-                </Link>
-                {link.children && activeDropdown === link.label && (
-                  <div className="absolute left-0 mt-0 w-56 bg-white border border-gray-100 shadow-xl rounded-md overflow-hidden py-2">
-                    {link.children.map((child) => (
-                      <Link
-                        key={child.label}
-                        to={child.path}
-                        onClick={() => setActiveDropdown(null)}
-                        className="block px-4 py-2 text-sm text-gray-600 hover:bg-red-50 hover:text-red-600"
-                      >
-                        {child.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
+    <>
+      <nav className="fixed w-full bg-white/95 backdrop-blur-md shadow-sm z-50 border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-20">
+            {/* Logo Section */}
+            <Link to="/" onClick={closeMenu} className="flex items-center space-x-2 group">
+              <Logo className="h-14 w-auto transition-transform group-hover:scale-105" />
+              <div className="hidden sm:flex flex-col border-l border-gray-100 pl-3">
+                <span className="text-gray-900 font-black text-[9px] tracking-widest leading-none uppercase">Keshava Elite</span>
+                <span className="text-blue-600 text-[7px] font-black uppercase tracking-[0.4em] mt-1">Robotics & Tech</span>
               </div>
-            ))}
-            <Link
-              to="/contact"
-              className="ml-4 bg-red-600 text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-red-700 transition-colors"
-            >
-              Partner With Us
             </Link>
-          </div>
 
-          {/* Mobile Toggle */}
-          <div className="lg:hidden flex items-center">
-            <button onClick={toggleMenu} className="text-gray-700 p-2 focus:outline-none">
-              {isOpen ? <X size={28} /> : <Menu size={28} />}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile Menu */}
-      {isOpen && (
-        <div className="lg:hidden bg-white border-t border-gray-100 absolute top-20 w-full shadow-2xl animate-fade-in h-[calc(100vh-80px)] overflow-y-auto">
-          <div className="px-4 pt-4 pb-12 space-y-2">
-            {NAVIGATION_LINKS.map((link) => (
-              <div key={link.label}>
-                <div 
-                  className="flex justify-between items-center px-3 py-3 text-base font-semibold text-gray-800 border-b border-gray-50"
-                  onClick={() => link.children ? setActiveDropdown(activeDropdown === link.label ? null : link.label) : (navigate(link.path), closeMenu())}
+            {/* Desktop Navigation */}
+            <div className="hidden lg:flex space-x-4 items-center">
+              {NAVIGATION_LINKS.map((link) => (
+                <div
+                  key={link.label}
+                  className="relative group"
+                  onMouseEnter={() => link.children && setActiveDropdown(link.label)}
+                  onMouseLeave={() => setActiveDropdown(null)}
                 >
-                  <Link to={link.path} onClick={(e) => link.children && e.preventDefault()}>{link.label}</Link>
-                  {link.children && <ChevronDown size={18} className={`transition-transform ${activeDropdown === link.label ? 'rotate-180' : ''}`} />}
+                  <Link
+                    to={link.path}
+                    className="px-3 py-2 text-sm font-black text-gray-700 hover:text-blue-700 transition-colors flex items-center"
+                  >
+                    {link.label}
+                    {link.children && <ChevronDown size={14} className={`ml-1 transition-transform ${activeDropdown === link.label ? 'rotate-180' : ''}`} />}
+                  </Link>
+                  {link.children && activeDropdown === link.label && (
+                    <div className="absolute left-0 mt-0 w-56 bg-white border border-gray-100 shadow-xl rounded-2xl overflow-hidden py-2 animate-scale-up">
+                      {link.children.map((child) => (
+                        <Link
+                          key={child.label}
+                          to={child.path}
+                          onClick={() => setActiveDropdown(null)}
+                          className="block px-4 py-2 text-sm text-gray-600 hover:bg-blue-50 hover:text-blue-700 font-bold"
+                        >
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
                 </div>
-                {link.children && activeDropdown === link.label && (
-                  <div className="bg-gray-50 pl-6 py-2">
-                    {link.children.map((child) => (
-                      <Link
-                        key={child.label}
-                        to={child.path}
-                        onClick={closeMenu}
-                        className="block py-2 text-sm text-gray-600 hover:text-red-600"
-                      >
-                        {child.label}
+              ))}
+
+              <div className="h-6 w-px bg-gray-100 mx-2"></div>
+
+              {user ? (
+                <div className="relative">
+                  <button 
+                    onClick={() => setShowUserMenu(!showUserMenu)}
+                    className="flex items-center space-x-3 bg-blue-50 px-5 py-2.5 rounded-full hover:bg-blue-100 transition-all group"
+                  >
+                    <div className="relative">
+                      <User size={18} className="text-blue-700" />
+                      {token && <div className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-white animate-pulse" title="JWT Active"></div>}
+                    </div>
+                    <span className="text-sm font-black text-gray-800 tracking-tight">{user.name}</span>
+                    <ChevronDown size={14} className={`text-gray-400 transition-transform ${showUserMenu ? 'rotate-180' : ''}`} />
+                  </button>
+                  {showUserMenu && (
+                    <div className="absolute right-0 mt-3 w-64 bg-white border border-gray-100 shadow-2xl rounded-[2rem] overflow-hidden py-3 animate-scale-up">
+                      <div className="px-5 py-3 mb-2 border-b border-gray-50">
+                        <div className="flex items-center space-x-2 mb-1">
+                          <ShieldCheck size={14} className="text-green-600" />
+                          <span className="text-[10px] font-black uppercase tracking-widest text-green-600">Secure Session</span>
+                        </div>
+                        <p className="text-[9px] font-mono text-gray-400 truncate">{token?.substring(0, 32)}...</p>
+                      </div>
+                      <Link to="/lms" onClick={() => setShowUserMenu(false)} className="flex items-center px-5 py-3.5 text-sm text-gray-700 hover:bg-blue-50 transition-colors font-bold">
+                        <Layout size={16} className="mr-3 text-blue-700" />
+                        LMS Dashboard
                       </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-            <div className="pt-6 px-3">
-               <Link
-                to="/contact"
-                onClick={closeMenu}
-                className="block text-center bg-red-600 text-white px-5 py-3 rounded-md text-base font-bold hover:bg-red-700"
-              >
-                Contact Us
-              </Link>
+                      <button onClick={() => { logout(); setShowUserMenu(false); navigate('/'); }} className="w-full flex items-center px-5 py-3.5 text-sm text-red-600 hover:bg-red-50 transition-colors font-bold">
+                        <LogOut size={16} className="mr-3" />
+                        Sign Out
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <button
+                  onClick={() => setIsAuthModalOpen(true)}
+                  className="bg-blue-700 text-white px-8 py-3 rounded-2xl text-sm font-black hover:bg-blue-800 transition-all shadow-lg shadow-blue-700/20 active:scale-95"
+                >
+                  Sign In
+                </button>
+              )}
+            </div>
+
+            {/* Mobile Toggle */}
+            <div className="lg:hidden flex items-center">
+              <button onClick={toggleMenu} className="text-gray-700 p-2 hover:bg-gray-50 rounded-lg transition-colors">
+                {isOpen ? <X size={28} /> : <Menu size={28} />}
+              </button>
             </div>
           </div>
         </div>
-      )}
-    </nav>
+
+        {/* Mobile Menu */}
+        {isOpen && (
+          <div className="lg:hidden bg-white border-t border-gray-100 absolute top-20 w-full shadow-2xl animate-fade-in h-[calc(100vh-80px)] overflow-y-auto">
+            <div className="px-4 pt-4 pb-12 space-y-2">
+              {NAVIGATION_LINKS.map((link) => (
+                <div key={link.label}>
+                  <div 
+                    className="flex justify-between items-center px-3 py-3 text-base font-bold text-gray-800 border-b border-gray-50"
+                    onClick={() => link.children ? setActiveDropdown(activeDropdown === link.label ? null : link.label) : (navigate(link.path), closeMenu())}
+                  >
+                    <Link to={link.path} onClick={(e) => link.children && e.preventDefault()}>{link.label}</Link>
+                    {link.children && <ChevronDown size={18} className={`transition-transform ${activeDropdown === link.label ? 'rotate-180' : ''}`} />}
+                  </div>
+                  {link.children && activeDropdown === link.label && (
+                    <div className="bg-gray-50 pl-6 py-2">
+                      {link.children.map((child) => (
+                        <Link
+                          key={child.label}
+                          to={child.path}
+                          onClick={closeMenu}
+                          className="block py-3 text-sm text-gray-600 hover:text-blue-700 font-bold"
+                        >
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+              <div className="pt-6 px-3">
+                 {user ? (
+                   <>
+                    <Link to="/lms" onClick={closeMenu} className="block text-center bg-blue-700 text-white px-5 py-4 rounded-xl font-black mb-3">
+                      LMS Dashboard
+                    </Link>
+                    <button onClick={() => { logout(); closeMenu(); navigate('/'); }} className="w-full text-center bg-gray-100 text-red-600 px-5 py-4 rounded-xl font-black">
+                      Sign Out
+                    </button>
+                   </>
+                 ) : (
+                   <button onClick={() => { setIsAuthModalOpen(true); closeMenu(); }} className="w-full text-center bg-blue-700 text-white px-5 py-4 rounded-xl font-black mb-3">
+                     Sign In to Portal
+                   </button>
+                 )}
+              </div>
+            </div>
+          </div>
+        )}
+      </nav>
+
+      {/* Auth Modal */}
+      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
+    </>
   );
 };
 

@@ -5,15 +5,34 @@ export interface NavItem {
   children?: NavItem[];
 }
 
-export interface ServiceDetail {
-  title: string;
-  description: string;
-  items: string[];
+export interface User {
+  name: string;
+  email: string;
+  isLoggedIn: boolean;
 }
 
-export interface ImpactStat {
-  label: string;
-  value: string;
+export interface LMSResource {
+  id: string;
+  title: string;
+  type: 'video' | 'link' | 'pdf';
+  url: string;
+  thumbnail?: string;
+  category: string;
+  date: string;
+}
+
+export interface Course {
+  id: string;
+  title: string;
+  description: string;
+  duration?: string;
+  features?: string[];
+}
+
+export interface CourseCategory {
+  title: string;
+  icon: string;
+  courses: Course[];
 }
 
 export interface ContactFormData {
