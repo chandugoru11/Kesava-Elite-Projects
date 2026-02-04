@@ -73,14 +73,6 @@ export const MOCK_RESOURCES: LMSResource[] = [
     url: '#',
     category: 'Services',
     date: '2023-09-28'
-  },
-  {
-    id: '5',
-    title: 'Useful Links: GitHub Repo for Project-X',
-    type: 'link',
-    url: 'https://github.com',
-    category: 'IT Programs',
-    date: '2023-09-25'
   }
 ];
 
@@ -92,16 +84,37 @@ export const COURSE_DATA: CourseCategory[] = [
       {
         id: "full-stack",
         title: "Full Stack Web Development",
-        description: "Master the tools and technologies to build responsive, dynamic web applications from scratch. This course covers front-end development with HTML, CSS, JavaScript, and React, along with back-end programming using Node.js, Express, and MongoDB.",
+        description: "Master front-end (React) and back-end (Node/Java) development with modern database architectures.",
         duration: "6 Months",
-        features: ["HTML5/CSS3/JS", "React.js & Next.js", "Node.js & Express", "MongoDB & SQL", "Project-based Learning"]
+        features: ["React & Next.js", "Java Spring Boot", "PostgreSQL", "System Design", "Cloud Deployment"]
       },
       {
         id: "ai-ml",
         title: "Artificial Intelligence & ML",
-        description: "Explore the frontiers of modern computing. This program covers neural networks, deep learning, natural language processing (NLP), and computer vision. Gain hands-on experience with industry-standard frameworks and real-world datasets.",
+        description: "Comprehensive study of neural networks, computer vision, and predictive modeling.",
         duration: "5 Months",
-        features: ["Neural Networks", "Deep Learning", "NLP & Computer Vision", "TensorFlow/PyTorch", "AI Ethics"]
+        features: ["TensorFlow", "Deep Learning", "NLP", "Python for Data Science", "AI Ethics"]
+      },
+      {
+        id: "cyber-security",
+        title: "Cyber Security & Ethical Hacking",
+        description: "Protecting digital infrastructure through advanced penetration testing and security protocols.",
+        duration: "4 Months",
+        features: ["Pen-Testing", "Network Security", "Vulnerability Assessment", "SOC Operations", "Governance"]
+      },
+      {
+        id: "devops",
+        title: "DevOps & SRE Excellence",
+        description: "Learn to automate infrastructure and manage CI/CD pipelines at scale.",
+        duration: "4 Months",
+        features: ["Docker & K8s", "Jenkins/GitHub Actions", "Terraform", "Monitoring", "Cloud Architecture"]
+      },
+      {
+        id: "ui-ux",
+        title: "UI/UX & Product Design",
+        description: "User-centric design thinking for high-impact digital products and mobile apps.",
+        duration: "3 Months",
+        features: ["Figma Mastery", "User Research", "Wireframing", "Prototyping", "Design Systems"]
       }
     ]
   },
@@ -110,18 +123,32 @@ export const COURSE_DATA: CourseCategory[] = [
     icon: "briefcase",
     courses: [
       {
-        id: "digital-marketing",
-        title: "Digital Marketing & Strategy",
-        description: "Transform businesses in the digital age. Learn SEO, SEM, Social Media Marketing, and Content Strategy. Understand data-driven decision making and how to build high-converting marketing funnels for diverse industries.",
-        duration: "4 Months",
-        features: ["SEO & SEM Masterclass", "Social Media Strategy", "Email Marketing & Automation", "Performance Tracking", "Brand Identity Design"]
+        id: "product-management",
+        title: "Elite Product Management",
+        description: "The complete roadmap from ideation to successful product launch and lifecycle management.",
+        duration: "3 Months",
+        features: ["Agile/Scrum", "Market Analysis", "User Personas", "A/B Testing", "Go-To-Market"]
       },
       {
-        id: "business-analytics",
-        title: "Business Analytics & Data Science",
-        description: "Bridging the gap between raw data and business insights. This course teaches you how to use statistics, SQL, and visualization tools like Tableau to drive strategic organizational decisions.",
+        id: "digital-marketing",
+        title: "Digital Marketing & Strategy",
+        description: "Advanced performance marketing, SEO, and brand identity transformation.",
+        duration: "4 Months",
+        features: ["Advanced SEO", "PPC Management", "Content Strategy", "Social Media ROI", "Analytics"]
+      },
+      {
+        id: "fintech",
+        title: "Fintech & Blockchain Strategy",
+        description: "Navigating the intersection of finance and technology using decentralized ledgers.",
+        duration: "4 Months",
+        features: ["Blockchain Basics", "Smart Contracts", "Digital Wallets", "RegTech", "Defi Ecosystems"]
+      },
+      {
+        id: "supply-chain",
+        title: "Supply Chain 4.0 & Logistics",
+        description: "Modernizing global supply chains using AI, IoT, and automated logistics systems.",
         duration: "5 Months",
-        features: ["Statistical Modeling", "SQL & Database Management", "Tableau/PowerBI Visualization", "Market Trend Forecasting", "Case Study Analysis"]
+        features: ["Inventory Automation", "IoT in SCM", "Global Logistics", "Procurement", "Sustainability"]
       }
     ]
   },
@@ -132,16 +159,37 @@ export const COURSE_DATA: CourseCategory[] = [
       {
         id: "industrial-robotics",
         title: "Industrial Robotics & Automation",
-        description: "Comprehensive training on the design, programming, and maintenance of industrial robotic systems. Covers robot kinematics, PLC programming, and factory floor automation integration with Industry 4.0 standards.",
+        description: "Hands-on training with 6-DOF arms, PLC systems, and Industry 4.0 automation standards.",
         duration: "6 Months",
-        features: ["Robot Kinematics", "PLC & SCADA Programming", "Sensors & Actuators", "Factory Floor Integration", "Safety Standards (ISO)"]
+        features: ["Robot Programming", "PLC/SCADA", "Computer Vision", "Safety Protocols", "Factory Automation"]
+      },
+      {
+        id: "ev-tech",
+        title: "EV Technology & BMS",
+        description: "The future of automotive engineering: battery systems, motor control, and charging tech.",
+        duration: "6 Months",
+        features: ["BMS Engineering", "Electric Powertrain", "Vehicle Dynamics", "Charging Infrastructure", "CAN Bus"]
+      },
+      {
+        id: "drone-tech",
+        title: "Aerospace & Drone Technology",
+        description: "Design, assembly, and autonomous programming of UAVs for commercial and industrial use.",
+        duration: "4 Months",
+        features: ["Aerodynamics", "Flight Controllers", "Autonomous Navigation", "GIS Mapping", "DGCA Regulations"]
       },
       {
         id: "embedded-iot",
-        title: "Embedded Systems & IoT",
-        description: "Build the next generation of smart connected devices. This program covers microcontrollers (STM32/ESP32), RTOS, protocol communication (MQTT/HTTP), and cloud integration for scalable IoT ecosystems.",
+        title: "Embedded Systems & IoT Hub",
+        description: "Developing smart connected devices using advanced microcontrollers and cloud sync.",
         duration: "5 Months",
-        features: ["Microcontroller Architecture", "C/C++ for Embedded", "IoT Cloud Platforms", "Wireless Protocols (BLE/WiFi)", "Hardware Prototyping"]
+        features: ["ESP32/STM32", "RTOS", "MQTT Protocols", "Edge Computing", "Hardware Design"]
+      },
+      {
+        id: "vlsi",
+        title: "VLSI Design & Semiconductor",
+        description: "Mastering the design of complex integrated circuits and chip architecture.",
+        duration: "6 Months",
+        features: ["Verilog/VHDL", "FPGA Programming", "CMOS Design", "Physical Design", "Testing"]
       }
     ]
   }

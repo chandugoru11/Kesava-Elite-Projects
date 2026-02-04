@@ -1,7 +1,7 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Menu, X, ChevronDown, User, LogOut, Layout, ShieldCheck } from 'lucide-react';
+import { Menu, X, ChevronDown, User, LogOut, Layout, ShieldCheck, Wifi, WifiOff, Activity } from 'lucide-react';
 import { NAVIGATION_LINKS, COMPANY_INFO } from '../constants';
 import { useAuth } from '../App';
 import AuthModal from './AuthModal';
@@ -12,8 +12,25 @@ const Navbar: React.FC = () => {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const [apiStatus, setApiStatus] = useState<'online' | 'offline' | 'checking'>('checking');
+  
   const navigate = useNavigate();
   const { user, logout, token } = useAuth();
+
+  // API Heartbeat Monitor
+  useEffect(() => {
+    const checkApi = async () => {
+      try {
+        const res = await fetch('http://localhost:8080/api/health');
+        setApiStatus(res.ok ? 'online' : 'offline');
+      } catch (e) {
+        setApiStatus('offline');
+      }
+    };
+    checkApi();
+    const interval = setInterval(checkApi, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => {
@@ -37,6 +54,14 @@ const Navbar: React.FC = () => {
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex space-x-4 items-center">
+              {/* API Status Badge */}
+              <div className={`mr-4 flex items-center space-x-2 px-3 py-1.5 rounded-full border ${apiStatus === 'online' ? 'bg-green-50 border-green-100 text-green-700' : 'bg-red-50 border-red-100 text-red-700'} transition-all duration-500`}>
+                <div className={`w-2 h-2 rounded-full ${apiStatus === 'online' ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`}></div>
+                <span className="text-[10px] font-black uppercase tracking-widest">
+                  API {apiStatus.toUpperCase()}
+                </span>
+              </div>
+
               {NAVIGATION_LINKS.map((link) => (
                 <div
                   key={link.label}
@@ -126,6 +151,14 @@ const Navbar: React.FC = () => {
         {isOpen && (
           <div className="lg:hidden bg-white border-t border-gray-100 absolute top-20 w-full shadow-2xl animate-fade-in h-[calc(100vh-80px)] overflow-y-auto">
             <div className="px-4 pt-4 pb-12 space-y-2">
+              {/* Mobile API Status */}
+              <div className="flex items-center space-x-3 px-3 py-4 mb-2 border-b border-gray-50">
+                 <Activity size={18} className={apiStatus === 'online' ? 'text-green-500' : 'text-red-500'} />
+                 <span className="text-xs font-black uppercase tracking-widest text-gray-400">
+                   System {apiStatus.toUpperCase()}
+                 </span>
+              </div>
+              
               {NAVIGATION_LINKS.map((link) => (
                 <div key={link.label}>
                   <div 
