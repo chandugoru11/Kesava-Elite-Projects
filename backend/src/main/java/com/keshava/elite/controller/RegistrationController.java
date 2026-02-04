@@ -21,6 +21,7 @@ public class RegistrationController {
         System.out.println(">>> [SERVER HEARTBEAT] Handshake successful at: " + new Date());
         Map<String, Object> status = new HashMap<>();
         status.put("active", true);
+        status.put("origin", "Spring Boot (STS)");
         status.put("serverTime", new Date().toString());
         return ResponseEntity.ok(status);
     }
@@ -30,8 +31,8 @@ public class RegistrationController {
         String firstName = userData.get("firstName");
         String email = userData.get("email");
         
-        System.out.println("\n--- NEW REGISTRATION REQUEST ---");
-        System.out.println("User: " + firstName + " (" + email + ")");
+        System.out.println("\n--- PROCESSING ENROLLMENT ---");
+        System.out.println("Source: " + email);
         
         try {
             String lastName = userData.get("lastName");
@@ -40,29 +41,29 @@ public class RegistrationController {
             String approvalLink = userData.get("approvalLink");
 
             String adminEmail = "chandugoru927@gmail.com";
-            String subject = "ACTION REQUIRED: Elite Portal Enrollment - " + firstName;
+            String subject = "ACTION REQUIRED: New Elite Enrollment - " + firstName;
             
-            String body = "<html><body style='font-family: Arial, sans-serif; line-height: 1.6; color: #333;'>" +
-                "<div style='max-width: 600px; margin: 20px auto; border: 1px solid #ddd; border-radius: 10px; padding: 30px;'>" +
-                "<h2 style='color: #1d4ed8;'>Enrollment Notification</h2>" +
-                "<p>A new user has applied for access to the Elite Hub.</p>" +
-                "<div style='background: #f9f9f9; padding: 15px; border-radius: 5px;'>" +
+            String body = "<html><body style='font-family: sans-serif; padding: 20px; color: #1e293b;'>" +
+                "<div style='max-width: 600px; margin: auto; border: 1px solid #e2e8f0; border-radius: 20px; padding: 40px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);'>" +
+                "<h2 style='color: #2563eb; margin-bottom: 24px;'>Elite Portal Registration</h2>" +
+                "<div style='background: #f8fafc; padding: 20px; border-radius: 12px; margin-bottom: 30px;'>" +
                 "<p><strong>Name:</strong> " + firstName + " " + lastName + "</p>" +
                 "<p><strong>Email:</strong> " + email + "</p>" +
-                "<p><strong>Mobile:</strong> " + mobile + "</p>" +
                 "<p><strong>Role:</strong> " + role.toUpperCase() + "</p>" +
                 "</div>" +
-                "<p style='margin-top: 30px; text-align: center;'>" +
-                "<a href='" + approvalLink + "' style='background: #1d4ed8; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold;'>VERIFY AND APPROVE</a>" +
-                "</p>" +
+                "<div style='text-align: center;'>" +
+                "<a href='" + approvalLink + "' style='background: #2563eb; color: #ffffff; padding: 16px 32px; text-decoration: none; border-radius: 12px; font-weight: bold; display: inline-block;'>APPROVE STUDENT</a>" +
+                "</div>" +
                 "</div></body></html>";
 
             emailService.sendApprovalEmail(adminEmail, email, subject, body);
             
-            return ResponseEntity.ok(Map.of("status", "success", "message", "Admin notified."));
+            System.out.println(">>> [SUCCESS] Dispatch confirmed.");
+            return ResponseEntity.ok(Map.of("status", "success", "message", "Admin notified via email."));
+
         } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(500).body(Map.of("status", "error", "message", "Failed to send notification."));
+            System.err.println(">>> [FAILURE] " + e.getMessage());
+            return ResponseEntity.status(500).body(Map.of("status", "error", "message", "Email subsystem failure. Check STS logs."));
         }
     }
 }
