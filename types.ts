@@ -27,6 +27,8 @@ export interface Course {
   description: string;
   duration?: string;
   features?: string[];
+  fullPrice: number;
+  registrationFee: number;
 }
 
 export interface CourseCategory {
