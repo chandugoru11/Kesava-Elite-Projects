@@ -1,3 +1,4 @@
+
 package com.keshava.elite.service;
 
 import jakarta.mail.MessagingException;
@@ -13,17 +14,17 @@ public class EmailService {
     @Autowired
     private JavaMailSender mailSender;
 
-    public void sendApprovalEmail(String toAdmin, String replyTo, String subject, String htmlBody) throws MessagingException {
+    public void sendEliteEmail(String to, String replyTo, String subject, String htmlBody) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 
         helper.setFrom("chandugoru927@gmail.com");
-        helper.setTo(toAdmin);
+        helper.setTo(to);
         helper.setReplyTo(replyTo);
         helper.setSubject(subject);
         helper.setText(htmlBody, true);
 
         mailSender.send(message);
-        System.out.println(">>> [MAIL SUCCESS] Dispatch completed for: " + replyTo);
+        System.out.println(">>> [MAIL DISPATCHED] Subject: " + subject + " | Target: " + to);
     }
 }

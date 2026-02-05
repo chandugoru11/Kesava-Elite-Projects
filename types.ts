@@ -27,6 +27,9 @@ export interface Course {
   description: string;
   duration?: string;
   features?: string[];
+  modules?: string[];
+  outcomes?: string[];
+  syllabusUrl?: string;
   fullPrice: number;
   registrationFee: number;
 }

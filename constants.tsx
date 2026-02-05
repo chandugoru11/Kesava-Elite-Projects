@@ -18,9 +18,10 @@ export const NAVIGATION_LINKS: NavItem[] = [
     label: 'Courses', 
     path: '/courses',
     children: [
-      { label: 'IT Programs', path: '/courses#it' },
-      { label: 'Business & Management', path: '/courses#business' },
-      { label: 'Core Engineering', path: '/courses#core' }
+      { label: 'Information Technology', path: '/courses' },
+      { label: 'Core Engineering', path: '/courses' },
+      { label: 'Drone & Aviation', path: '/courses' },
+      { label: 'Business & Management', path: '/courses' }
     ]
   },
   { label: 'Impact', path: '/impact' },
@@ -45,7 +46,7 @@ export const MOCK_RESOURCES: LMSResource[] = [
     type: 'video',
     url: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
     thumbnail: 'https://picsum.photos/id/0/400/225',
-    category: 'IT Programs',
+    category: 'Information Technology',
     date: '2023-10-15'
   },
   {
@@ -67,47 +68,128 @@ export const COURSE_DATA: CourseCategory[] = [
       {
         id: "full-stack",
         title: "Full Stack Web Development",
-        description: "Master front-end (React) and back-end (Node/Java) development with modern database architectures.",
+        description: "Master modern front-end (React/Next.js) and robust back-end (Java/Node) ecosystems with industrial cloud deployment.",
         duration: "6 Months",
-        features: ["React & Next.js", "Java Spring Boot", "PostgreSQL", "System Design"],
+        features: ["React & Next.js", "Spring Boot", "AWS Deployment", "System Design"],
+        modules: ["Intro to Web Arch", "Advanced React Patterns", "Microservices Architecture", "DevOps & CI/CD Hub"],
+        outcomes: ["Senior Web Engineer", "Full Stack Consultant", "Cloud Solutions Architect"],
+        syllabusUrl: "#",
         fullPrice: 24999,
         registrationFee: 2999
       },
       {
-        id: "ai-ml",
-        title: "Artificial Intelligence & ML",
-        description: "Comprehensive study of neural networks, computer vision, and predictive modeling.",
+        id: "cyber-security",
+        title: "Ethical Hacking & Cyber Security",
+        description: "Comprehensive penetration testing, network security, and digital forensics training for elite security roles.",
         duration: "5 Months",
-        features: ["TensorFlow", "Deep Learning", "NLP", "Python for Data Science"],
-        fullPrice: 29999,
+        features: ["Penetration Testing", "Network Defense", "Cryptography", "Incident Response"],
+        modules: ["Reconnaissance & Mapping", "Exploit Development", "Web App Vulnerabilities", "Governance & Compliance"],
+        outcomes: ["Security Analyst", "Penetration Tester", "Cyber Forensics Expert"],
+        syllabusUrl: "#",
+        fullPrice: 32000,
         registrationFee: 4999
       },
       {
-        id: "cyber-security",
-        title: "Cyber Security & Ethical Hacking",
-        description: "Protecting digital infrastructure through advanced penetration testing and security protocols.",
+        id: "data-science",
+        title: "Data Science & Predictive AI",
+        description: "Transform raw data into strategic insights using advanced statistical models and neural networks.",
+        duration: "6 Months",
+        features: ["Python for Data", "TensorFlow", "Big Data (Hadoop)", "Visual Analytics"],
+        modules: ["Statistical Foundations", "Machine Learning Pipelines", "Deep Learning Models", "Big Data Engineering"],
+        outcomes: ["Data Scientist", "ML Engineer", "Business Intelligence Lead"],
+        syllabusUrl: "#",
+        fullPrice: 35000,
+        registrationFee: 5000
+      }
+    ]
+  },
+  {
+    title: "Drone & Aviation Tech",
+    icon: "rocket",
+    courses: [
+      {
+        id: "uav-design",
+        title: "UAV Design & Engineering",
+        description: "Specialized training on unmanned aerial vehicles, aerodynamics, and autonomous flight control systems.",
         duration: "4 Months",
-        features: ["Pen-Testing", "Network Security", "Vulnerability Assessment", "SOC Operations"],
-        fullPrice: 19999,
+        features: ["Aerodynamics", "Flight Controllers", "Autonomous Navigation", "Payload Integration"],
+        modules: ["Intro to UAV Mechanics", "Propulsion & Power Systems", "Autonomous Mission Planning", "DGCA Drone Regulations"],
+        outcomes: ["Drone Engineer", "Flight Operations Manager", "UAV Software Dev"],
+        syllabusUrl: "#",
+        fullPrice: 39999,
+        registrationFee: 6999
+      },
+      {
+        id: "precision-agri-drone",
+        title: "Drone in Precision Agriculture",
+        description: "Applying UAV technology to modern farming for crop monitoring, spraying, and mapping.",
+        duration: "3 Months",
+        features: ["Multispectral Imaging", "GIS Mapping", "Crop Analysis", "Spraying Systems"],
+        modules: ["Agri-Drone Fundamentals", "Imaging & Data Post-Processing", "Precision Spraying Logic", "Smart Farming Integration"],
+        outcomes: ["Agri-Tech Consultant", "GIS Mapping Specialist", "Agri-Drone Pilot"],
+        syllabusUrl: "#",
+        fullPrice: 28000,
+        registrationFee: 3500
+      }
+    ]
+  },
+  {
+    title: "IoT & Embedded Systems",
+    icon: "cpu",
+    courses: [
+      {
+        id: "embedded-iot",
+        title: "Embedded Systems & IoT Hub",
+        description: "Interfacing hardware with software using microcontrollers and cloud-based industrial IoT protocols.",
+        duration: "4 Months",
+        features: ["Arduino/ESP32", "Raspberry Pi", "MQTT Protocols", "Edge Computing"],
+        modules: ["Circuit Designing", "C/C++ for Embedded", "IoT Cloud Integration", "Industrial Sensor Networks"],
+        outcomes: ["Embedded Developer", "IoT Solutions Engineer", "Smart Systems Architect"],
+        syllabusUrl: "#",
+        fullPrice: 18999,
         registrationFee: 1999
       },
       {
-        id: "data-science",
-        title: "Data Science & Big Data",
-        description: "Analyze massive datasets and build predictive models using statistical computing and AI.",
+        id: "ev-tech",
+        title: "EV Technology & BMS Design",
+        description: "Engineering training for Electric Vehicles, focusing on Battery Management Systems and Motor Control.",
+        duration: "5 Months",
+        features: ["Battery Chemistry", "BMS Logic", "EV Powertrain", "Charging Infrastructure"],
+        modules: ["Electric Vehicle Basics", "Battery Pack Design", "Motor & Drive Controllers", "EV Standards & Safety"],
+        outcomes: ["EV Powertrain Engineer", "BMS Designer", "Charging Infrastructure Expert"],
+        syllabusUrl: "#",
+        fullPrice: 42000,
+        registrationFee: 8000
+      }
+    ]
+  },
+  {
+    title: "Core Engineering",
+    icon: "settings",
+    courses: [
+      {
+        id: "industrial-robotics",
+        title: "Industrial Robotics & Automation",
+        description: "Hands-on training with 6-DOF robotic arms, PLC systems, and Industry 4.0 automation standards.",
         duration: "6 Months",
-        features: ["Pandas & NumPy", "Scikit-Learn", "Big Data Tools", "Data Visualization"],
-        fullPrice: 27999,
-        registrationFee: 3999
+        features: ["Robot Programming", "PLC/SCADA", "Computer Vision", "Safety Protocols"],
+        modules: ["Kinematics & Dynamics", "PLC Advanced Logic", "Vision Guided Robotics", "Factory Automation Architecture"],
+        outcomes: ["Automation Engineer", "Robotics Technician", "Industry 4.0 Specialist"],
+        syllabusUrl: "#",
+        fullPrice: 34999,
+        registrationFee: 5999
       },
       {
-        id: "cloud-computing",
-        title: "Cloud Architecture (AWS/Azure)",
-        description: "Design and deploy scalable, reliable, and secure applications in the cloud.",
+        id: "cad-cam-adv",
+        title: "Advanced CAD/CAM Engineering",
+        description: "Master industrial design using SolidWorks and CATIA with focus on precision manufacturing.",
         duration: "4 Months",
-        features: ["AWS/Azure Services", "Serverless Computing", "Cloud Security", "Cost Optimization"],
-        fullPrice: 22999,
-        registrationFee: 2499
+        features: ["3D Modeling", "FEA Analysis", "CNC Programming", "Rapid Prototyping"],
+        modules: ["Mechanical Design Basics", "Surface Modeling", "Structural Simulation", "CAM Toolpath Planning"],
+        outcomes: ["Design Engineer", "Product Stylist", "CAM Specialist"],
+        syllabusUrl: "#",
+        fullPrice: 22000,
+        registrationFee: 2500
       }
     ]
   },
@@ -118,80 +200,26 @@ export const COURSE_DATA: CourseCategory[] = [
       {
         id: "product-management",
         title: "Elite Product Management",
-        description: "The complete roadmap from ideation to successful product launch and lifecycle management.",
+        description: "The complete roadmap from ideation to successful product launch and lifecycle management in tech.",
         duration: "3 Months",
         features: ["Agile/Scrum", "Market Analysis", "User Personas", "A/B Testing"],
+        modules: ["Idea Validation Hub", "Product Strategy", "Agile Execution", "Growth & Metrics Analytics"],
+        outcomes: ["Product Manager", "Business Analyst", "Tech Startup Founder"],
+        syllabusUrl: "#",
         fullPrice: 15999,
         registrationFee: 999
       },
       {
-        id: "digital-marketing",
-        title: "Digital Marketing & Strategy",
-        description: "Advanced performance marketing, SEO, and brand identity transformation.",
-        duration: "4 Months",
-        features: ["Advanced SEO", "PPC Management", "Content Strategy", "Social Media ROI"],
-        fullPrice: 12999,
-        registrationFee: 999
-      },
-      {
-        id: "financial-modeling",
-        title: "Financial Modeling & Valuation",
-        description: "Master Excel for complex financial forecasting and company valuation techniques.",
+        id: "digital-marketing-elite",
+        title: "Strategic Digital Marketing",
+        description: "Master the art of digital growth through SEO, SEM, and data-driven content strategies.",
         duration: "3 Months",
-        features: ["DCF Analysis", "Excel Mastery", "Equity Research", "M&A Basics"],
-        fullPrice: 14999,
-        registrationFee: 1499
-      },
-      {
-        id: "entrepreneurship",
-        title: "Startup & Entrepreneurship",
-        description: "From idea to scale: Business models, fundraising, and operational excellence for founders.",
-        duration: "4 Months",
-        features: ["Business Canvas", "Venture Capital", "Lean Startup", "Sales Strategy"],
-        fullPrice: 17999,
-        registrationFee: 1999
-      }
-    ]
-  },
-  {
-    title: "Core Engineering",
-    icon: "rocket",
-    courses: [
-      {
-        id: "industrial-robotics",
-        title: "Industrial Robotics & Automation",
-        description: "Hands-on training with 6-DOF arms, PLC systems, and Industry 4.0 automation standards.",
-        duration: "6 Months",
-        features: ["Robot Programming", "PLC/SCADA", "Computer Vision", "Safety Protocols"],
-        fullPrice: 34999,
-        registrationFee: 5999
-      },
-      {
-        id: "ev-tech",
-        title: "EV Technology & BMS",
-        description: "The future of automotive engineering: battery systems, motor control, and charging tech.",
-        duration: "6 Months",
-        features: ["BMS Engineering", "Electric Powertrain", "Vehicle Dynamics", "Charging Infrastructure"],
-        fullPrice: 32999,
-        registrationFee: 4999
-      },
-      {
-        id: "drone-tech",
-        title: "Drone Technology & UAV",
-        description: "Design, build, and fly autonomous drones with GIS and industrial mapping capabilities.",
-        duration: "4 Months",
-        features: ["Flight Controllers", "UAV Simulation", "DGCA Regulations", "Drone Hardware"],
-        fullPrice: 28999,
-        registrationFee: 3499
-      },
-      {
-        id: "vlsi-design",
-        title: "VLSI Design & Embedded Systems",
-        description: "Hardware description languages and chip design for the semiconductor industry.",
-        duration: "6 Months",
-        features: ["Verilog HDL", "FPGA Interfacing", "CMOS Circuits", "RTL Coding"],
-        fullPrice: 38999,
-        registrationFee: 6999
+        features: ["SEO / SEM", "Content Strategy", "Ad Analytics", "Social Engineering"],
+        modules: ["Brand Identity Design", "Performance Marketing", "Consumer Behavior Logic", "Elite Campaign Design"],
+        outcomes: ["Growth Manager", "Digital Strategist", "Marketing Analytics Lead"],
+        syllabusUrl: "#",
+        fullPrice: 12500,
+        registrationFee: 500
       }
     ]
   }

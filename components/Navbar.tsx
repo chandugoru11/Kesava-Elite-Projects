@@ -17,11 +17,11 @@ const Navbar: React.FC = () => {
   const navigate = useNavigate();
   const { user, logout, token } = useAuth();
 
-  // API Heartbeat Monitor
+  // API Heartbeat Monitor - Port 9090
   useEffect(() => {
     const checkApi = async () => {
       try {
-        const res = await fetch('http://localhost:8080/api/health');
+        const res = await fetch('http://localhost:9090/api/health');
         setApiStatus(res.ok ? 'online' : 'offline');
       } catch (e) {
         setApiStatus('offline');
@@ -43,7 +43,6 @@ const Navbar: React.FC = () => {
       <nav className="fixed w-full bg-white/95 backdrop-blur-md shadow-sm z-50 border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
-            {/* Logo Section */}
             <Link to="/" onClick={closeMenu} className="flex items-center space-x-2 group">
               <Logo className="h-14 w-auto transition-transform group-hover:scale-105" />
               <div className="hidden sm:flex flex-col border-l border-gray-100 pl-3">
@@ -52,9 +51,7 @@ const Navbar: React.FC = () => {
               </div>
             </Link>
 
-            {/* Desktop Navigation */}
             <div className="hidden lg:flex space-x-4 items-center">
-              {/* API Status Badge */}
               <div className={`mr-4 flex items-center space-x-2 px-3 py-1.5 rounded-full border ${apiStatus === 'online' ? 'bg-green-50 border-green-100 text-green-700' : 'bg-red-50 border-red-100 text-red-700'} transition-all duration-500`}>
                 <div className={`w-2 h-2 rounded-full ${apiStatus === 'online' ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`}></div>
                 <span className="text-[10px] font-black uppercase tracking-widest">
@@ -101,22 +98,12 @@ const Navbar: React.FC = () => {
                     onClick={() => setShowUserMenu(!showUserMenu)}
                     className="flex items-center space-x-3 bg-blue-50 px-5 py-2.5 rounded-full hover:bg-blue-100 transition-all group"
                   >
-                    <div className="relative">
-                      <User size={18} className="text-blue-700" />
-                      {token && <div className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-white animate-pulse" title="JWT Active"></div>}
-                    </div>
+                    <User size={18} className="text-blue-700" />
                     <span className="text-sm font-black text-gray-800 tracking-tight">{user.name}</span>
                     <ChevronDown size={14} className={`text-gray-400 transition-transform ${showUserMenu ? 'rotate-180' : ''}`} />
                   </button>
                   {showUserMenu && (
                     <div className="absolute right-0 mt-3 w-64 bg-white border border-gray-100 shadow-2xl rounded-[2rem] overflow-hidden py-3 animate-scale-up">
-                      <div className="px-5 py-3 mb-2 border-b border-gray-50">
-                        <div className="flex items-center space-x-2 mb-1">
-                          <ShieldCheck size={14} className="text-green-600" />
-                          <span className="text-[10px] font-black uppercase tracking-widest text-green-600">Secure Session</span>
-                        </div>
-                        <p className="text-[9px] font-mono text-gray-400 truncate">{token?.substring(0, 32)}...</p>
-                      </div>
                       <Link to="/lms" onClick={() => setShowUserMenu(false)} className="flex items-center px-5 py-3.5 text-sm text-gray-700 hover:bg-blue-50 transition-colors font-bold">
                         <Layout size={16} className="mr-3 text-blue-700" />
                         LMS Dashboard
@@ -138,7 +125,6 @@ const Navbar: React.FC = () => {
               )}
             </div>
 
-            {/* Mobile Toggle */}
             <div className="lg:hidden flex items-center">
               <button onClick={toggleMenu} className="text-gray-700 p-2 hover:bg-gray-50 rounded-lg transition-colors">
                 {isOpen ? <X size={28} /> : <Menu size={28} />}
@@ -147,11 +133,9 @@ const Navbar: React.FC = () => {
           </div>
         </div>
 
-        {/* Mobile Menu */}
         {isOpen && (
           <div className="lg:hidden bg-white border-t border-gray-100 absolute top-20 w-full shadow-2xl animate-fade-in h-[calc(100vh-80px)] overflow-y-auto">
             <div className="px-4 pt-4 pb-12 space-y-2">
-              {/* Mobile API Status */}
               <div className="flex items-center space-x-3 px-3 py-4 mb-2 border-b border-gray-50">
                  <Activity size={18} className={apiStatus === 'online' ? 'text-green-500' : 'text-red-500'} />
                  <span className="text-xs font-black uppercase tracking-widest text-gray-400">
@@ -205,7 +189,6 @@ const Navbar: React.FC = () => {
         )}
       </nav>
 
-      {/* Auth Modal */}
       <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
     </>
   );
