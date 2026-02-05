@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Box, Cpu, GraduationCap, Users, ShieldCheck, Zap, Play, Layout, Building2, Globe, Star } from 'lucide-react';
 import { COMPANY_INFO } from '../constants';
+import { ASSETS } from '../assets';
 
 const Reveal: React.FC<{ children: React.ReactNode; className?: string; type?: 'up' | 'left' | 'right'; delay?: string }> = ({ children, className = '', type = 'up', delay = '' }) => {
   const [isActive, setIsActive] = useState(false);
@@ -33,23 +34,6 @@ const Reveal: React.FC<{ children: React.ReactNode; className?: string; type?: '
 };
 
 const Home: React.FC = () => {
-  const clients = [
-    { name: "APSSDC Skill AP", logo: "https://i.postimg.cc/vm0w2Ps7/APSSDC.jpg" },
-    { name: "NSDC India", logo: "https://i.postimg.cc/sxqn0NwF/NSDC.jpg" },
-    { name: "MSME India", logo: "https://i.postimg.cc/4y6KrKQP/Micro_Small_and_Medium.jpg" },
-    { name: "Startup India", logo: "https://i.postimg.cc/Hxtz9KDZ/DPIIT.jpg" },
-    { name: "ISO 9001 Certified", logo: "https://i.postimg.cc/VNkjnFWC/ISO_9001.jpg" },
-    { name: "Great Learning", logo: "https://i.postimg.cc/QdL7VbvJ/Great_Learning.jpg" },
-    { name: "IIT Madras", logo: "https://upload.wikimedia.org/wikipedia/en/6/69/IIT_Madras_Logo.svg" },
-    { name: "Infosys", logo: "https://i.postimg.cc/HWVBfT5T/Infosys-Springboard.jpg" },
-    { name: "Cisco Networking", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Cisco_logo_blue_2016.svg/1200px-Cisco_logo_blue_2016.svg.png" },
-    { name: "MAM Colleges", logo: "https://i.postimg.cc/gkyR77Mc/MAM-Colleges.jpg" },
-    { name: "IDPS Narsaraopet", logo: "https://i.postimg.cc/zB3FZkLG/International-Delhi-Public-School.jpg" },
-    { name: "Ugyan Edutech", logo: "https://www.ugyan.in/assets/img/logo.png" },
-    { name: "Code Tree", logo: "https://i.postimg.cc/mgXG8XRD/Code-Tree.jpg" },
-    { name: "Flyhii", logo: "https://i.postimg.cc/vHCrfMxW/Flhi.jpg" }
-  ];
-
   return (
     <div className="overflow-x-hidden bg-white">
       {/* Hero Section */}
@@ -58,7 +42,7 @@ const Home: React.FC = () => {
           <div className="absolute inset-0 bg-grid opacity-30"></div>
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-blue-100/50 blur-[150px] rounded-full"></div>
           <img 
-            src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1920" 
+            src={ASSETS.HERO.ENGINEERING} 
             className="w-full h-full object-cover opacity-[0.03] grayscale" 
             alt="Robotics Engineering" 
           />
@@ -109,7 +93,7 @@ const Home: React.FC = () => {
                 <div className="relative z-10 animate-float-y">
                   <div className="absolute -inset-10 bg-blue-600/10 blur-[100px] rounded-full"></div>
                   <img 
-                    src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=1000" 
+                    src={ASSETS.HERO.INNOVATION_LAB} 
                     alt="Elite Innovation Lab" 
                     className="relative z-10 rounded-[5rem] border border-blue-50 shadow-2xl shadow-blue-900/10"
                   />
@@ -172,7 +156,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Trusted Clients Marquee Section - REFINED BOTTOM LOGO SCROLL */}
+      {/* Trusted Clients Marquee Section */}
       <section className="py-40 bg-white overflow-hidden relative">
         <div className="container mx-auto px-6 mb-24 relative z-10">
           <Reveal>
@@ -183,26 +167,23 @@ const Home: React.FC = () => {
               </div>
               <h2 className="text-5xl md:text-8xl font-black text-gray-900 mb-10 leading-none tracking-tighter">Powered by the <span className="text-blue-700">Best.</span></h2>
               <div className="w-40 h-2 bg-blue-700 rounded-full mb-12 shadow-xl shadow-blue-700/20"></div>
-              <p className="text-gray-500 text-xl md:text-2xl max-w-4xl leading-relaxed font-medium">
+              <p className="text-gray-500 text-xl md:text-2xl max-w-4xl mx-auto leading-relaxed font-medium">
                 We are integrated with the world's leading technology and educational entities to deliver industrial-grade excellence.
               </p>
             </div>
           </Reveal>
         </div>
 
-        {/* The Marquee Wrapper with Masking */}
         <div className="relative flex marquee-mask overflow-hidden group">
-          {/* Edge Fading Overlays */}
           <div className="absolute inset-y-0 left-0 w-32 md:w-64 bg-gradient-to-r from-white via-white/80 to-transparent z-20 pointer-events-none"></div>
           <div className="absolute inset-y-0 right-0 w-32 md:w-64 bg-gradient-to-l from-white via-white/80 to-transparent z-20 pointer-events-none"></div>
           
           <div className="animate-marquee flex items-center gap-12 md:gap-20 py-16 px-6 group-hover:[animation-play-state:paused] transition-all duration-1000">
-            {[...clients, ...clients, ...clients].map((client, i) => (
+            {[...ASSETS.CLIENTS, ...ASSETS.CLIENTS, ...ASSETS.CLIENTS].map((client, i) => (
               <div 
                 key={i} 
                 className="group/card relative flex flex-col items-center justify-center bg-white border border-gray-100 rounded-[3.5rem] p-12 min-w-[320px] md:min-w-[400px] h-64 shadow-sm hover:shadow-2xl hover:shadow-blue-600/15 hover:border-blue-600/40 transition-all duration-700 cursor-pointer overflow-hidden transform hover:-translate-y-4"
               >
-                {/* Background Accent */}
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-50/10 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity"></div>
                 
                 <div className="relative z-10 w-full h-full flex items-center justify-center p-6">
@@ -216,7 +197,6 @@ const Home: React.FC = () => {
                   />
                 </div>
                 
-                {/* Identity Overlay */}
                 <div className="absolute inset-x-0 bottom-8 text-center opacity-0 group-hover/card:opacity-100 transition-all duration-500 transform translate-y-4 group-hover/card:translate-y-0">
                   <span className="text-[10px] font-black text-blue-700 uppercase tracking-[0.5em] bg-blue-50 px-5 py-2 rounded-full border border-blue-100">
                     {client.name}
@@ -227,7 +207,6 @@ const Home: React.FC = () => {
           </div>
         </div>
 
-        {/* Final Anchor */}
         <div className="container mx-auto px-6 mt-32 text-center">
             <Reveal type="up">
                 <Link to="/impact" className="inline-flex items-center space-x-3 text-blue-700 font-black text-xs uppercase tracking-[0.4em] hover:opacity-70 transition-all group">

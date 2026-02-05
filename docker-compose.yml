@@ -1,0 +1,47 @@
+
+version: '3.8'
+
+services:
+  # MySQL Database for persistence
+  db:
+    image: mysql:8.0
+    container_name: keshava_db
+    restart: always
+    environment:
+      MYSQL_DATABASE: keshava_elite
+      MYSQL_ROOT_PASSWORD: elite_root_pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  # Spring Boot API
+  api:
+    build: ./backend
+    container_name: keshava_api
+    restart: always
+    ports:
+      - "9090:9090"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/keshava_elite?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: elite_root_pass
+      SPRING_MAIL_HOST: smtp.gmail.com
+      SPRING_MAIL_PORT: 587
+      SPRING_MAIL_USERNAME: chandugoru927@gmail.com
+      SPRING_MAIL_PASSWORD: wveh dgri ujzu ocik
+    depends_on:
+      - db
+
+  # React Frontend
+  web:
+    build: .
+    container_name: keshava_web
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+
+volumes:
+  mysql_data:

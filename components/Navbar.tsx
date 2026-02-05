@@ -15,7 +15,8 @@ const Navbar: React.FC = () => {
   const [apiStatus, setApiStatus] = useState<'online' | 'offline' | 'checking'>('checking');
   
   const navigate = useNavigate();
-  const { user, logout, token } = useAuth();
+  // Fix: Removed 'token' as it's not part of AuthContextType definition in App.tsx
+  const { user, logout } = useAuth();
 
   // API Heartbeat Monitor - Port 9090
   useEffect(() => {

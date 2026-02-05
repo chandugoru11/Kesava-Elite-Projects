@@ -9,24 +9,19 @@ import Services from './pages/Services';
 import Courses from './pages/Courses';
 import ForSchools from './pages/ForSchools';
 import Impact from './pages/Impact';
-import Partners from './pages/Partners';
-import Gallery from './pages/Gallery';
-import Careers from './pages/Careers';
 import Contact from './pages/Contact';
-import LMS from './pages/LMS';
-import AdminVerify from './pages/AdminVerify';
+import LMSDashboard from './pages/LMSDashboard';
+import HRDashboard from './pages/HRDashboard';
+import AttendanceSystem from './pages/AttendanceSystem';
 import { User } from './types';
 import { decodeJWT } from './utils/jwtUtils';
 
-// Mock Auth Context
 interface AuthContextType {
   user: User | null;
-  token: string | null;
   login: (token: string) => void;
   logout: () => void;
 }
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) throw new Error("useAuth must be used within an AuthProvider");
@@ -34,18 +29,26 @@ export const useAuth = () => {
 };
 
 const ScrollToTop = () => {
-  const { pathname, hash } = useLocation();
-  useEffect(() => {
-    if (hash) {
-      const element = document.getElementById(hash.substring(1));
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-        return;
-      }
-    }
-    window.scrollTo(0, 0);
-  }, [pathname, hash]);
+  const { pathname } = useLocation();
+  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
   return null;
+};
+
+const LayoutWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const location = useLocation();
+  const isDashboard = location.pathname.startsWith('/lms') || 
+                      location.pathname.startsWith('/hr') || 
+                      location.pathname.startsWith('/attendance');
+
+  return (
+    <div className="flex flex-col min-h-screen">
+      {!isDashboard && <Navbar />}
+      <main className={`flex-grow ${!isDashboard ? 'pt-20' : ''}`}>
+        {children}
+      </main>
+      {!isDashboard && <Footer />}
+    </div>
+  );
 };
 
 const App: React.FC = () => {
@@ -55,29 +58,14 @@ const App: React.FC = () => {
   useEffect(() => {
     if (token) {
       const decoded = decodeJWT(token);
-      if (decoded) {
-        setUser({ 
-          name: decoded.name || decoded.email.split('@')[0], 
-          email: decoded.email, 
-          isLoggedIn: true 
-        });
-      } else {
-        logout();
-      }
+      if (decoded) setUser({ name: decoded.name, email: decoded.email, isLoggedIn: true });
+      else logout();
     }
   }, [token]);
 
   const login = (jwtToken: string) => {
     localStorage.setItem('keshava_auth_token', jwtToken);
     setToken(jwtToken);
-    const decoded = decodeJWT(jwtToken);
-    if (decoded) {
-      setUser({ 
-        name: decoded.name || decoded.email.split('@')[0], 
-        email: decoded.email, 
-        isLoggedIn: true 
-      });
-    }
   };
 
   const logout = () => {
@@ -87,29 +75,44 @@ const App: React.FC = () => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout }}>
       <Router>
         <ScrollToTop />
-        <div className="flex flex-col min-h-screen">
-          <Navbar />
-          <main className="flex-grow pt-20">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/services" element={<Services />} />
-              <Route path="/for-schools" element={<ForSchools />} />
-              <Route path="/courses" element={<Courses />} />
-              <Route path="/impact" element={<Impact />} />
-              <Route path="/partners" element={<Partners />} />
-              <Route path="/gallery" element={<Gallery />} />
-              <Route path="/careers" element={<Careers />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/admin-verify" element={<AdminVerify />} />
-              <Route path="/lms" element={user ? <LMS /> : <Navigate to="/" />} />
-            </Routes>
-          </main>
-          <Footer />
-        </div>
+        <LayoutWrapper>
+          <Routes>
+            {/* Public Site */}
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/for-schools" element={<ForSchools />} />
+            <Route path="/courses" element={<Courses />} />
+            <Route path="/impact" element={<Impact />} />
+            <Route path="/contact" element={<Contact />} />
+
+            {/* System 1: LMS Portal */}
+            <Route path="/lms/dashboard" element={user ? <LMSDashboard /> : <Navigate to="/" />} />
+            <Route path="/lms/courses" element={user ? <LMSDashboard /> : <Navigate to="/" />} />
+            <Route path="/lms/assignments" element={user ? <LMSDashboard /> : <Navigate to="/" />} />
+            <Route path="/lms/projects" element={user ? <LMSDashboard /> : <Navigate to="/" />} />
+            <Route path="/lms/certificates" element={user ? <LMSDashboard /> : <Navigate to="/" />} />
+
+            {/* System 2: HR Portal */}
+            <Route path="/hr/dashboard" element={user ? <HRDashboard /> : <Navigate to="/" />} />
+            <Route path="/hr/employees" element={user ? <HRDashboard /> : <Navigate to="/" />} />
+            <Route path="/hr/attendance" element={user ? <HRDashboard /> : <Navigate to="/" />} />
+            <Route path="/hr/leaves" element={user ? <HRDashboard /> : <Navigate to="/" />} />
+            <Route path="/hr/payroll" element={user ? <HRDashboard /> : <Navigate to="/" />} />
+
+            {/* System 3: Attendance Portal */}
+            <Route path="/attendance/dashboard" element={user ? <AttendanceSystem /> : <Navigate to="/" />} />
+            <Route path="/attendance/mark" element={user ? <AttendanceSystem /> : <Navigate to="/" />} />
+            <Route path="/attendance/qr" element={user ? <AttendanceSystem /> : <Navigate to="/" />} />
+            <Route path="/attendance/reports" element={user ? <AttendanceSystem /> : <Navigate to="/" />} />
+            
+            {/* Default Catch-all */}
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+        </LayoutWrapper>
       </Router>
     </AuthContext.Provider>
   );
