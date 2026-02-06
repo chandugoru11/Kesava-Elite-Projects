@@ -1,41 +1,47 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ShieldCheck, Award, CheckCircle2, Building2, Landmark, GraduationCap } from 'lucide-react';
+import { ShieldCheck, Award, CheckCircle2, Building2, Landmark, GraduationCap, ExternalLink } from 'lucide-react';
 
 interface LogoItem {
   name: string;
   logo: string;
+  url?: string;
 }
 
 const Impact: React.FC = () => {
   const approvedBy: LogoItem[] = [
-    { name: "APSSDC Skill AP", logo: "https://i.postimg.cc/vm0w2Ps7/APSSDC.jpg" },
-    { name: "MSME India", logo: "https://i.postimg.cc/4y6KrKQP/Micro_Small_and_Medium.jpg" },
-    { name: "DPIIT Startup India", logo: "https://i.postimg.cc/Hxtz9KDZ/DPIIT.jpg" },
-    { name: "ISO 9001 Certified", logo: "https://i.postimg.cc/VNkjnFWC/ISO-9001.jpg" },
-    { name: "AICTE India", logo: "https://upload.wikimedia.org/wikipedia/en/e/eb/All_India_Council_for_Technical_Education_logo.png" },
-    { name: "MCA Govt of India", logo: "https://i.postimg.cc/J7ZP1P67/MCA-Govt-of-INDIA-jpg.jpg" }
+    { name: "APSSDC Skill AP", logo: "https://i.postimg.cc/vm0w2Ps7/APSSDC.jpg", url: "https://www.apssdc.in/" },
+    { name: "MSME India", logo: "https://i.postimg.cc/4y6KrKQP/Micro_Small_and_Medium.jpg", url: "https://msme.gov.in/" },
+    { name: "DPIIT Startup India", logo: "https://i.postimg.cc/Hxtz9KDZ/DPIIT.jpg", url: "https://www.startupindia.gov.in/" },
+    { name: "ISO 9001 Certified", logo: "https://i.postimg.cc/VNkjnFWC/ISO-9001.jpg", url: "https://www.iso.org/" },
+    { name: "AICTE India", logo: "https://upload.wikimedia.org/wikipedia/en/e/eb/All_India_Council_for_Technical_Education_logo.png", url: "https://www.aicte-india.org/" },
+    { name: "MCA Govt of India", logo: "https://i.postimg.cc/J7ZP1P67/MCA-Govt-of-INDIA-jpg.jpg", url: "https://www.mca.gov.in/" }
   ];
 
   const trustedBy: LogoItem[] = [
-    { name: "National Skill Development Corporation", logo: "https://i.postimg.cc/sxqn0NwF/NSDC.jpg" },
-    { name: "IIT Madras", logo: "https://upload.wikimedia.org/wikipedia/en/6/69/IIT_Madras_Logo.svg" },
-    { name: "Infosys Springboard", logo: "https://i.postimg.cc/HWVBfT5T/Infosys-Springboard.jpg" },
-    { name: "Great Learning", logo: "https://i.postimg.cc/QdL7VbvJ/Great-Learning.jpg" },
-    { name: "Cisco Networking", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Cisco_logo_blue_2016.svg/1200px-Cisco_logo_blue_2016.svg.png" }
+    { name: "National Skill Development Corporation", logo: "https://i.postimg.cc/sxqn0NwF/NSDC.jpg", url: "https://nsdcindia.org/" },
+    { name: "IIT Madras", logo: "https://upload.wikimedia.org/wikipedia/en/6/69/IIT_Madras_Logo.svg", url: "https://www.iitm.ac.in/" },
+    { name: "Infosys Springboard", logo: "https://i.postimg.cc/HWVBfT5T/Infosys-Springboard.jpg", url: "https://infosysspringboard.onwingspan.com/" },
+    { name: "Great Learning", logo: "https://i.postimg.cc/QdL7VbvJ/Great-Learning.jpg", url: "https://www.greatlearning.in/" },
+    { name: "Cisco Networking", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Cisco_logo_blue_2016.svg/1200px-Cisco_logo_blue_2016.svg.png", url: "https://www.netacad.com/" }
   ];
 
   const institutionalClients: LogoItem[] = [
-    { name: "MAM Group of Colleges", logo: "https://i.postimg.cc/gkyR77Mc/MAM-Colleges.jpg" },
-    { name: "IDPS Narsaraopet", logo: "https://i.postimg.cc/zB3FZkLG/International-Delhi-Public-School.jpg" },
-    { name: "Ugyan Edutech", logo: "https://i.postimg.cc/906pBqFb/Ugyan.jpg" },
-    { name: "Code Tree Solutions", logo: "https://i.postimg.cc/mgXG8XRD/Code-Tree.jpg" },
-    { name: "Flyhii Pvt Ltd", logo: "https://i.postimg.cc/vHCrfMxW/Flhi.jpg" }
+    { name: "MAM Group of Colleges", logo: "https://i.postimg.cc/gkyR77Mc/MAM-Colleges.jpg", url: "https://mamgroup.edu.in/" },
+    { name: "IDPS Narsaraopet", logo: "https://i.postimg.cc/zB3FZkLG/International-Delhi-Public-School.jpg", url: "https://idpsnarasaraopet.com/" },
+    { name: "Ugyan Edutech", logo: "https://i.postimg.cc/906pBqFb/Ugyan.jpg", url: "https://www.ugyan.in/" },
+    { name: "Code Tree Solutions", logo: "https://i.postimg.cc/mgXG8XRD/Code-Tree.jpg", url: "https://codetree.in/" },
+    { name: "Flyhii Pvt Ltd", logo: "https://i.postimg.cc/vHCrfMxW/Flhi.jpg", url: "https://flyhii.com/" }
   ];
 
   const LogoCard: React.FC<{ item: LogoItem }> = ({ item }) => (
-    <div className="group relative flex flex-col items-center justify-center bg-white border border-gray-100 rounded-[3rem] p-10 min-w-[340px] h-52 shadow-sm hover:shadow-2xl hover:shadow-blue-600/10 hover:border-blue-600/30 transition-all duration-500 cursor-default overflow-hidden">
+    <a 
+      href={item.url || "#"}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group relative flex flex-col items-center justify-center bg-white border border-gray-100 rounded-[3rem] p-10 min-w-[340px] h-52 shadow-sm hover:shadow-2xl hover:shadow-blue-600/10 hover:border-blue-600/30 transition-all duration-500 cursor-pointer overflow-hidden"
+    >
       {/* Background Glow */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-50/20 via-white to-blue-50/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
       
@@ -52,10 +58,12 @@ const Impact: React.FC = () => {
       </div>
 
       {/* Info Overlay */}
-      <div className="absolute inset-x-0 bottom-6 text-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-        <span className="text-[10px] font-black text-blue-700 uppercase tracking-[0.4em]">{item.name}</span>
+      <div className="absolute inset-x-0 bottom-6 text-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 flex flex-col items-center">
+        <span className="text-[10px] font-black text-blue-700 uppercase tracking-[0.4em] flex items-center">
+          {item.name} <ExternalLink size={10} className="ml-2" />
+        </span>
       </div>
-    </div>
+    </a>
   );
 
   const SectionHeader = ({ icon: Icon, title, subtitle }: { icon: any, title: string, subtitle: string }) => (

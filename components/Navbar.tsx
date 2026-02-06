@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Menu, X, ChevronDown, User, LogOut, Layout, ShieldCheck, Wifi, WifiOff, Activity } from 'lucide-react';
+import { Menu, X, ChevronDown, User, LogOut, Layout, ShieldCheck, Wifi, WifiOff, Activity, ShieldAlert } from 'lucide-react';
 import { NAVIGATION_LINKS, COMPANY_INFO } from '../constants';
 import { useAuth } from '../App';
 import AuthModal from './AuthModal';
@@ -15,8 +15,8 @@ const Navbar: React.FC = () => {
   const [apiStatus, setApiStatus] = useState<'online' | 'offline' | 'checking'>('checking');
   
   const navigate = useNavigate();
-  // Fix: Removed 'token' as it's not part of AuthContextType definition in App.tsx
   const { user, logout } = useAuth();
+  const isAdmin = user?.email === 'chandugoru927@gmail.com';
 
   // API Heartbeat Monitor - Port 9090
   useEffect(() => {
@@ -105,11 +105,17 @@ const Navbar: React.FC = () => {
                   </button>
                   {showUserMenu && (
                     <div className="absolute right-0 mt-3 w-64 bg-white border border-gray-100 shadow-2xl rounded-[2rem] overflow-hidden py-3 animate-scale-up">
-                      <Link to="/lms" onClick={() => setShowUserMenu(false)} className="flex items-center px-5 py-3.5 text-sm text-gray-700 hover:bg-blue-50 transition-colors font-bold">
+                      {isAdmin && (
+                        <Link to="/admin" onClick={() => setShowUserMenu(false)} className="flex items-center px-5 py-3.5 text-sm text-blue-700 bg-blue-50/30 hover:bg-blue-50 transition-colors font-black uppercase tracking-widest">
+                          <ShieldAlert size={16} className="mr-3 text-blue-700" />
+                          Admin Command
+                        </Link>
+                      )}
+                      <Link to="/lms/dashboard" onClick={() => setShowUserMenu(false)} className="flex items-center px-5 py-3.5 text-sm text-gray-700 hover:bg-blue-50 transition-colors font-bold">
                         <Layout size={16} className="mr-3 text-blue-700" />
                         LMS Dashboard
                       </Link>
-                      <button onClick={() => { logout(); setShowUserMenu(false); navigate('/'); }} className="w-full flex items-center px-5 py-3.5 text-sm text-red-600 hover:bg-red-50 transition-colors font-bold">
+                      <button onClick={() => { logout(); setShowUserMenu(false); navigate('/'); }} className="w-full flex items-center px-5 py-3.5 text-sm text-red-600 hover:bg-red-50 transition-colors font-bold border-t border-gray-50 mt-2">
                         <LogOut size={16} className="mr-3" />
                         Sign Out
                       </button>
@@ -172,7 +178,12 @@ const Navbar: React.FC = () => {
               <div className="pt-6 px-3">
                  {user ? (
                    <>
-                    <Link to="/lms" onClick={closeMenu} className="block text-center bg-blue-700 text-white px-5 py-4 rounded-xl font-black mb-3">
+                    {isAdmin && (
+                      <Link to="/admin" onClick={closeMenu} className="block text-center bg-gray-950 text-white px-5 py-4 rounded-xl font-black mb-3">
+                        Admin Command
+                      </Link>
+                    )}
+                    <Link to="/lms/dashboard" onClick={closeMenu} className="block text-center bg-blue-700 text-white px-5 py-4 rounded-xl font-black mb-3">
                       LMS Dashboard
                     </Link>
                     <button onClick={() => { logout(); closeMenu(); navigate('/'); }} className="w-full text-center bg-gray-100 text-red-600 px-5 py-4 rounded-xl font-black">

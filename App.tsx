@@ -13,6 +13,7 @@ import Contact from './pages/Contact';
 import LMSDashboard from './pages/LMSDashboard';
 import HRDashboard from './pages/HRDashboard';
 import AttendanceSystem from './pages/AttendanceSystem';
+import AdminDashboard from './pages/AdminDashboard';
 import { User } from './types';
 import { decodeJWT } from './utils/jwtUtils';
 
@@ -38,7 +39,8 @@ const LayoutWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =>
   const location = useLocation();
   const isDashboard = location.pathname.startsWith('/lms') || 
                       location.pathname.startsWith('/hr') || 
-                      location.pathname.startsWith('/attendance');
+                      location.pathname.startsWith('/attendance') ||
+                      location.pathname.startsWith('/admin');
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -74,6 +76,8 @@ const App: React.FC = () => {
     setUser(null);
   };
 
+  const isAdmin = user?.email === 'chandugoru927@gmail.com';
+
   return (
     <AuthContext.Provider value={{ user, login, logout }}>
       <Router>
@@ -88,6 +92,9 @@ const App: React.FC = () => {
             <Route path="/courses" element={<Courses />} />
             <Route path="/impact" element={<Impact />} />
             <Route path="/contact" element={<Contact />} />
+
+            {/* Admin Command Center */}
+            <Route path="/admin" element={isAdmin ? <AdminDashboard /> : <Navigate to="/" />} />
 
             {/* System 1: LMS Portal */}
             <Route path="/lms/dashboard" element={user ? <LMSDashboard /> : <Navigate to="/" />} />
