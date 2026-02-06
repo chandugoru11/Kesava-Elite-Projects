@@ -24,7 +24,7 @@ export const ASSETS = {
     STUDENT_COLLAB: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=1200",
   },
   CLIENTS: [
-    { name: "APSSDC Skill AP", logo: "https://i.postimg.cc/vm0w2Ps7/APSSDC.jpg", url: "https://www.apssdc.in/" },
+    { name: "APSSDC Skill AP", logo: "https://i.postimg.cc/vm0w2Ps7/APSSDC.jpg/" },
     { name: "NSDC India", logo: "https://i.postimg.cc/sxqn0NwF/NSDC.jpg", url: "https://nsdcindia.org/" },
     { name: "MSME India", logo: "https://i.postimg.cc/4y6KrKQP/Micro_Small_and_Medium.jpg", url: "https://msme.gov.in/" },
     { name: "Startup India", logo: "https://i.postimg.cc/Hxtz9KDZ/DPIIT.jpg", url: "https://www.startupindia.gov.in/" },
