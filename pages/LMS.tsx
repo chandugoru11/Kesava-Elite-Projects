@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { Play, Link as LinkIcon, FileText, Share2, Search, Clock, ChevronRight, Users, CheckCircle, Trash2, RefreshCw, Shield, Layout, Filter, User } from 'lucide-react';
 import { MOCK_RESOURCES } from '../constants';
-import { useAuth } from '../App';
+// Fixed: Imported useAuth from correct AuthContext location
+import { useAuth } from '../AuthContext.tsx';
 import { Navigate } from 'react-router-dom';
 
 const LMS: React.FC = () => {

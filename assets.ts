@@ -1,7 +1,6 @@
 
 /**
  * KESHAVA ELITE - CENTRAL ASSET REPOSITORY
- * All remote media assets and official links are organized here.
  */
 
 export const ASSETS = {
@@ -24,20 +23,14 @@ export const ASSETS = {
     STUDENT_COLLAB: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=1200",
   },
   CLIENTS: [
-    { name: "APSSDC Skill AP", logo: "https://i.postimg.cc/vm0w2Ps7/APSSDC.jpg/" },
-    { name: "NSDC India", logo: "https://i.postimg.cc/sxqn0NwF/NSDC.jpg", url: "https://nsdcindia.org/" },
-    { name: "MSME India", logo: "https://i.postimg.cc/4y6KrKQP/Micro_Small_and_Medium.jpg", url: "https://msme.gov.in/" },
-    { name: "Startup India", logo: "https://i.postimg.cc/Hxtz9KDZ/DPIIT.jpg", url: "https://www.startupindia.gov.in/" },
-    { name: "ISO 9001 Certified", logo: "https://i.postimg.cc/VNkjnFWC/ISO-9001.jpg", url: "https://www.iso.org/iso-9001-quality-management.html" },
-    { name: "Great Learning", logo: "https://i.postimg.cc/QdL7VbvJ/Great_Learning.jpg", url: "https://www.greatlearning.in/" },
-    { name: "IIT Madras", logo: "https://upload.wikimedia.org/wikipedia/en/6/69/IIT_Madras_Logo.svg", url: "https://www.iitm.ac.in/" },
-    { name: "Infosys", logo: "https://i.postimg.cc/HWVBfT5T/Infosys-Springboard.jpg", url: "https://infosysspringboard.onwingspan.com/" },
-    { name: "Cisco Networking", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Cisco_logo_blue_2016.svg/1200px-Cisco_logo_blue_2016.svg.png", url: "https://www.netacad.com/" },
-    { name: "MAM Colleges", logo: "https://i.postimg.cc/gkyR77Mc/MAM-Colleges.jpg", url: "https://mamgroup.edu.in/" },
-    { name: "IDPS Narsaraopet", logo: "https://i.postimg.cc/zB3FZkLG/International-Delhi-Public-School.jpg", url: "https://idpsnarasaraopet.com/" },
-    { name: "Ugyan Edutech", logo: "https://i.postimg.cc/906pBqFb/Ugyan.jpg", url: "https://www.ugyan.in/" },
-    { name: "Code Tree", logo: "https://i.postimg.cc/mgXG8XRD/Code-Tree.jpg", url: "https://codetree.in/" },
-    { name: "Flyhii", logo: "https://i.postimg.cc/vHCrfMxW/Flhi.jpg", url: "https://flyhii.com/" }
+    { name: "APSSDC Skill AP", logo: "https://i.postimg.cc/vm0w2Ps7/APSSDC.jpg", url: "https://www.apssdc.in" },
+    { name: "MAM Group of Colleges", logo: "https://i.postimg.cc/gkyR77Mc/MAM-Colleges.jpg", url: "https://mamgroup.edu.in" },
+    { name: "IDPS Narsaraopet", logo: "https://i.postimg.cc/zB3FZkLG/International-Delhi-Public-School.jpg", url: "https://idpsnarasaraopet.com" },
+    { name: "Ugyan Edutech", logo: "https://i.postimg.cc/906pBqFb/Ugyan.jpg", url: "https://www.ugyan.in" },
+    { name: "NSDC India", logo: "https://i.postimg.cc/sxqn0NwF/NSDC.jpg", url: "https://nsdcindia.org" },
+    { name: "MSME India", logo: "https://i.postimg.cc/4y6KrKQP/Micro_Small_and_Medium.jpg", url: "https://msme.gov.in" },
+    { name: "Startup India", logo: "https://i.postimg.cc/Hxtz9KDZ/DPIIT.jpg", url: "https://www.startupindia.gov.in" },
+    { name: "Infosys", logo: "https://i.postimg.cc/HWVBfT5T/Infosys-Springboard.jpg", url: "https://infosysspringboard.onwingspan.com" }
   ],
   GALLERY: {
     PLACEHOLDER_BASE: "https://picsum.photos/seed/",

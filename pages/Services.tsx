@@ -1,43 +1,67 @@
 
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Monitor, Cpu, BookOpen, Settings, Zap, Cloud } from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
+import { Monitor, Cpu, BookOpen, Settings, Zap, Cloud, ShieldCheck, Target, ArrowRight, Globe, Layers, BarChart, Layout } from 'lucide-react';
 
-const ServiceSection: React.FC<{ id: string; title: string; subtitle: string; description: string; items: string[]; outcome?: string; icon: React.ReactNode }> = ({ id, title, subtitle, description, items, outcome, icon }) => (
-  <section id={id} className="py-24 border-b border-gray-100 last:border-0 scroll-mt-20">
+const Reveal: React.FC<{ children: React.ReactNode; className?: string; delay?: string }> = ({ children, className = '', delay = '' }) => {
+  const [isActive, setIsActive] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setIsActive(true);
+        observer.unobserve(entry.target);
+      }
+    }, { threshold: 0.1 });
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref} className={`reveal reveal-up ${isActive ? 'active' : ''} ${delay} ${className}`}>
+      {children}
+    </div>
+  );
+};
+
+const ServiceSection: React.FC<{ id: string; title: string; subtitle: string; description: string; items: string[]; outcome?: string; icon: React.ReactNode; image: string; reverse?: boolean }> = ({ id, title, subtitle, description, items, outcome, icon, image, reverse }) => (
+  <section id={id} className="py-32 border-b border-gray-50 last:border-0 scroll-mt-20">
     <div className="container mx-auto px-6">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-        <div>
-          <div className="w-16 h-16 bg-red-50 rounded-2xl flex items-center justify-center mb-6 text-red-600">
+      <div className={`grid grid-cols-1 lg:grid-cols-2 gap-20 items-center ${reverse ? 'lg:flex-row-reverse' : ''}`}>
+        <Reveal className={reverse ? 'lg:order-2' : ''}>
+          <div className="w-20 h-20 bg-blue-50 rounded-3xl flex items-center justify-center mb-8 text-blue-700 shadow-sm">
             {icon}
           </div>
-          <h2 className="text-3xl font-bold mb-2">{title}</h2>
-          <h3 className="text-xl text-red-600 font-semibold mb-6">{subtitle}</h3>
-          <p className="text-gray-600 text-lg mb-8 leading-relaxed">
+          <h2 className="text-4xl font-black text-gray-900 mb-2 tracking-tight uppercase">{title}</h2>
+          <h3 className="text-xl text-blue-600 font-black mb-8 tracking-tighter uppercase">{subtitle}</h3>
+          <p className="text-gray-500 text-xl mb-10 leading-relaxed font-medium">
             {description}
           </p>
-          <div className="space-y-4">
-            <h4 className="font-bold text-gray-900">What We Provide:</h4>
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {items.map((item, idx) => (
-                <li key={idx} className="flex items-start space-x-2 text-gray-700">
-                  <div className="mt-1.5 w-1.5 h-1.5 bg-red-600 rounded-full shrink-0"></div>
-                  <span className="text-sm font-medium">{item}</span>
-                </li>
-              ))}
-            </ul>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
+            {items.map((item, idx) => (
+              <div key={idx} className="flex items-center space-x-3 p-4 bg-gray-50 rounded-2xl border border-gray-100 group hover:border-blue-200 transition-all">
+                <div className="w-2 h-2 bg-blue-600 rounded-full group-hover:scale-150 transition-transform"></div>
+                <span className="text-sm font-black text-gray-700 uppercase tracking-tight">{item}</span>
+              </div>
+            ))}
           </div>
           {outcome && (
-            <div className="mt-10 p-6 bg-gray-900 rounded-xl text-white">
-              <span className="text-red-500 font-bold text-xs uppercase tracking-widest block mb-2">Outcome</span>
-              <p className="text-sm italic">{outcome}</p>
+            <div className="p-8 bg-blue-950 rounded-[2.5rem] text-white shadow-2xl shadow-blue-900/20 relative overflow-hidden group">
+               <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600/10 rounded-full blur-2xl"></div>
+               <span className="text-blue-400 font-black text-[10px] uppercase tracking-[0.4em] block mb-3">Strategic Outcome</span>
+               <p className="text-lg font-medium leading-relaxed italic opacity-90">{outcome}</p>
             </div>
           )}
-        </div>
-        <div className="relative group">
-           <div className="absolute inset-0 bg-red-600 rounded-3xl rotate-3 group-hover:rotate-1 transition-transform opacity-10"></div>
-           <img src={`https://picsum.photos/seed/${title}/800/600`} alt={title} className="rounded-3xl shadow-2xl relative z-10 w-full" />
-        </div>
+        </Reveal>
+        <Reveal className={reverse ? 'lg:order-1' : ''}>
+          <div className="relative group">
+            <div className="absolute -inset-4 bg-blue-600/5 rounded-[4rem] rotate-2 group-hover:rotate-1 transition-transform"></div>
+            <div className="relative rounded-[4rem] overflow-hidden shadow-2xl border border-blue-50">
+              <img src={image} alt={title} className="w-full h-auto transform group-hover:scale-105 transition-transform duration-1000" />
+              <div className="absolute inset-0 bg-gradient-to-t from-blue-950/40 to-transparent"></div>
+            </div>
+          </div>
+        </Reveal>
       </div>
     </div>
   </section>
@@ -46,82 +70,73 @@ const ServiceSection: React.FC<{ id: string; title: string; subtitle: string; de
 const Services: React.FC = () => {
   return (
     <div className="bg-white">
-      <div className="bg-gray-900 py-24 text-center">
-        <div className="container mx-auto px-6">
-          <h1 className="text-5xl font-extrabold text-white mb-6">Our Services</h1>
-          <p className="text-gray-400 text-xl max-w-3xl mx-auto">Transforming education through state-of-the-art labs and industry-led programs.</p>
+      <div className="bg-blue-950 py-48 text-center relative overflow-hidden">
+        <div className="absolute inset-0 bg-grid opacity-10"></div>
+        <div className="container mx-auto px-6 relative z-10">
+          <Reveal>
+            <div className="inline-flex items-center space-x-3 bg-blue-600/10 border border-blue-600/20 px-8 py-3 rounded-full mb-10">
+              <Layers size={18} className="text-blue-400" />
+              <span className="text-blue-400 font-black tracking-[0.4em] uppercase text-[10px]">Technical Service Catalog</span>
+            </div>
+            <h1 className="text-6xl md:text-[8rem] font-black text-white mb-8 leading-none tracking-tighter">
+              Industrial <br/><span className="shimmer-text">Solutions.</span>
+            </h1>
+          </Reveal>
         </div>
       </div>
 
       <ServiceSection 
         id="stem-labs"
-        icon={<Settings size={32} />}
+        icon={<Settings size={36} />}
         title="STEM Labs"
-        subtitle="Transforming Classrooms into Innovation Labs"
-        description="We design and establish STEM & Robotics Laboratories that enable hands-on, curiosity-driven learning for the next generation of problem solvers."
-        items={[
-          "Complete STEM & Robotics Lab Setup",
-          "Age-wise Curriculum (K1–K12)",
-          "Robotics Kits & AI Learning Tools",
-          "Teacher Training & Lab Management",
-          "Student Innovation Events",
-          "Continuous Mentorship Support"
-        ]}
-        outcome="Students learn by building — developing problem-solving, creativity, and technical thinking early."
+        subtitle="Innovation Frameworks for Schools"
+        image="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=1200"
+        description="We design and deploy high-performance STEM & Robotics Laboratories that turn theoretical concepts into tangible technical products."
+        items={["End-to-End Lab Architecture", "K12 Aligned Curriculum", "Advanced Robotics Toolsets", "Faculty Technical Training"]}
+        outcome="Students evolve from users to creators."
       />
 
       <ServiceSection 
         id="coe"
-        icon={<Cpu size={32} />}
-        title="Center of Excellence (CoE)"
-        subtitle="Advanced Innovation Hubs for Colleges & Universities"
-        description="We establish high-end technology labs where students work on industry projects, research, and product development, bridging the gap between academia and industry."
-        items={[
-          "Autonomous & Industrial Robotics",
-          "SLAM & Navigation Systems",
-          "Vision-Based Systems",
-          "Drone Technologies",
-          "AI & Machine Learning Hub",
-          "IoT & IoRT Ecosystems",
-          "Digital Twin & Edge Computing",
-          "Industry 4.0 Solutions"
-        ]}
-        outcome="Graduates equipped with practical experience in cutting-edge industrial technologies."
+        icon={<Cpu size={36} />}
+        title="CoE Hubs"
+        subtitle="Advanced University Centers of Excellence"
+        image="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?auto=format&fit=crop&q=80&w=1200"
+        reverse
+        description="Establishing specialized research environments where higher education meets real-world industrial demand and innovation."
+        items={["Autonomous Navigation Units", "AI & Computer Vision Nodes", "Drone Swarm Technology", "Digital Twin Workstations"]}
+        outcome="Bridging the gap between engineering theory and industrial reality."
       />
 
-      <ServiceSection 
-        id="k12"
-        icon={<Monitor size={32} />}
-        title="STEM & AI Robotics"
-        subtitle="Structured Education for K1–K12"
-        description="A comprehensive program designed for students from early-grade to higher secondary, focusing on the fundamentals of the future."
-        items={[
-          "Block Coding to Python Transition",
-          "Advanced Robotics Construction",
-          "AI & Computer Vision Basics",
-          "IoT Mini Projects for Schools",
-          "National-Level Competition Prep",
-          "Logic & Algorithm Design"
-        ]}
-      />
-
-      <section className="py-24 bg-gray-50">
+      {/* SaaS Section */}
+      <section id="saas" className="py-40 bg-gray-50">
         <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-8">SaaS Products</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {[
-                { icon: <BookOpen className="mx-auto mb-4 text-red-600" />, title: 'Learning Management', desc: 'Personalized digital learning platforms.' },
-                { icon: <Zap className="mx-auto mb-4 text-red-600" />, title: 'Smart Campus', desc: 'IoT-driven institutional management.' },
-                { icon: <Cloud className="mx-auto mb-4 text-red-600" />, title: 'AI Analytics', desc: 'Data-driven performance dashboards.' }
-              ].map((item, idx) => (
-                <div key={idx} className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                  {item.icon}
-                  <h4 className="font-bold mb-2">{item.title}</h4>
-                  <p className="text-sm text-gray-500">{item.desc}</p>
+          <div className="max-w-4xl mx-auto text-center mb-20">
+            <Reveal>
+              <div className="w-16 h-16 bg-blue-700 text-white rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-xl">
+                 <Layout size={32} />
+              </div>
+              <h2 className="text-5xl font-black text-gray-900 mb-6 tracking-tight uppercase">SaaS Products</h2>
+              <div className="w-20 h-2 bg-blue-700 mx-auto rounded-full mb-10"></div>
+              <p className="text-gray-500 text-xl font-medium">Enterprise-grade digital ecosystems for modern institutional intelligence.</p>
+            </Reveal>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+            {[
+              { icon: <BookOpen size={32} />, title: 'Elite LMS', desc: 'Secure Learning Management Platforms with AI tracking and integrated assessments.' },
+              { icon: <Zap size={32} />, title: 'Smart Campus', desc: 'IoT solutions for automated attendance, energy monitoring, and campus resource sync.' },
+              { icon: <BarChart size={32} />, title: 'Insight BI', desc: 'Advanced Analytics Dashboards providing real-time student performance and operations metrics.' }
+            ].map((item, idx) => (
+              <Reveal key={idx} delay={`delay-${idx * 100}`}>
+                <div className="bg-white p-12 rounded-[3.5rem] shadow-xl border border-gray-100 hover:border-blue-700/20 hover:-translate-y-2 transition-all group h-full">
+                  <div className="w-16 h-16 bg-blue-50 text-blue-700 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-blue-700 group-hover:text-white transition-all">
+                    {item.icon}
+                  </div>
+                  <h4 className="text-2xl font-black mb-4 text-gray-900 tracking-tight">{item.title}</h4>
+                  <p className="text-gray-500 font-medium leading-relaxed">{item.desc}</p>
                 </div>
-              ))}
-            </div>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>

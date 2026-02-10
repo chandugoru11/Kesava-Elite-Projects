@@ -1,9 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { X, Mail, Lock, User, ArrowRight, Eye, EyeOff, Check, Smartphone, ShieldCheck, AlertCircle, Wifi, Server, Shield, UserCircle, Briefcase, Database, Inbox, RefreshCcw, Activity, Globe, WifiOff, Terminal } from 'lucide-react';
-import { useAuth } from '../App';
-import { simulateJWT } from '../utils/jwtUtils';
+import { X, Mail, Lock, User, Eye, EyeOff, Smartphone, ShieldCheck, AlertCircle, Shield, UserCircle, Briefcase, Inbox, Terminal } from 'lucide-react';
+import { useAuth } from '../AuthContext.tsx';
+import { simulateJWT } from '../utils/jwtUtils.ts';
 
 type AuthView = 'login' | 'signup' | 'connecting' | 'success';
 type UserRole = 'student' | 'admin';
@@ -59,7 +59,6 @@ const AuthModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen,
   const [confirmPassword, setConfirmPassword] = useState('');
   const [mobile, setMobile] = useState('');
   const [error, setError] = useState<string | null>(null);
-  const [apiBase] = useState('http://localhost:9090');
   const [isServerOnline, setIsServerOnline] = useState<boolean | null>(null);
 
   const { login } = useAuth();
@@ -70,7 +69,7 @@ const AuthModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen,
     if (isOpen) {
       const checkStatus = async () => {
         try {
-          const res = await fetch(`${apiBase}/api/health`);
+          const res = await fetch('http://localhost:9090/api/health');
           setIsServerOnline(res.ok);
         } catch (e) {
           setIsServerOnline(false);
@@ -80,7 +79,7 @@ const AuthModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen,
       interval = setInterval(checkStatus, 4000);
     }
     return () => clearInterval(interval);
-  }, [isOpen, apiBase]);
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -89,28 +88,23 @@ const AuthModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen,
     setError(null);
 
     try {
-      const response = await fetch(`${apiBase}/api/login`, {
+      const response = await fetch('http://localhost:9090/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
       });
 
       const data = await response.json();
-
       if (response.ok && data.status === 'success') {
-        const jwtToken = simulateJWT({ 
-          email, 
-          name: data.firstName || email.split('@')[0], 
-          role: data.role || role
-        });
+        const jwtToken = simulateJWT({ email, name: data.firstName || email.split('@')[0], role: data.role || role });
         login(jwtToken);
         onClose();
-        navigate('/lms');
+        navigate('/lms/dashboard');
       } else {
-        setError(data.message || "Invalid credentials or account pending approval.");
+        setError(data.message || "Invalid credentials.");
       }
     } catch (err) {
-      setError("SERVER OFFLINE: Spring Boot hub at Port 9090 is unreachable.");
+      setError("SERVER OFFLINE: Local hub unreachable.");
     }
   };
 
@@ -120,39 +114,26 @@ const AuthModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen,
       setError("Passwords do not match.");
       return;
     }
-    
     setView('connecting');
     setError(null);
 
     try {
-      const response = await fetch(`${apiBase}/api/register`, {
+      const response = await fetch('http://localhost:9090/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ firstName, lastName, email, mobile, role })
       });
-
-      if (!response.ok) throw new Error("Registration failed.");
-
+      if (!response.ok) throw new Error();
       setView('success');
     } catch (err) {
-      setError("CONNECTION FAILED: Spring Boot system at Port 9090 is unreachable.");
+      setError("Registration failed. Server unreachable.");
       setView('signup');
     }
   };
 
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-blue-950/90 backdrop-blur-2xl animate-fade-in">
-      <div className="bg-white rounded-[4rem] w-full max-w-lg overflow-hidden shadow-2xl relative animate-scale-up border border-white/20">
-        
-        <div className="absolute top-8 left-10 flex flex-col items-start space-y-1">
-          <div className="flex items-center space-x-2">
-            <div className={`w-2.5 h-2.5 rounded-full ${isServerOnline === true ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`}></div>
-            <span className="text-[9px] font-black uppercase tracking-widest text-gray-400">
-              {isServerOnline === true ? 'Spring Port 9090 Online' : 'Spring Port 9090 Offline'}
-            </span>
-          </div>
-        </div>
-
+      <div className="bg-white rounded-[4rem] w-full max-w-lg overflow-hidden shadow-2xl relative animate-scale-up">
         <button onClick={onClose} className="absolute top-8 right-8 p-3 bg-gray-50 rounded-full hover:bg-red-50 hover:text-red-600 transition-all z-10">
           <X size={20} />
         </button>
@@ -161,63 +142,19 @@ const AuthModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen,
           {view === 'login' && (
             <div className="animate-fade-in">
               <div className="text-center mb-8">
-                <div className="w-20 h-20 bg-blue-50 text-blue-700 rounded-3xl flex items-center justify-center mx-auto mb-6">
-                  <Shield size={36} />
-                </div>
+                <div className="w-20 h-20 bg-blue-50 text-blue-700 rounded-3xl flex items-center justify-center mx-auto mb-6"><Shield size={36} /></div>
                 <h2 className="text-4xl font-black text-gray-900 mb-2 tracking-tight">Access Portal</h2>
-                <p className="text-gray-500 font-medium text-sm">Industrial Authentication Hub</p>
+                <RoleSelector role={role} setRole={setRole} />
+                {error && <div className="mb-6 p-4 bg-red-50 text-red-600 rounded-2xl text-[10px] font-black uppercase tracking-widest">{error}</div>}
               </div>
-
-              <RoleSelector role={role} setRole={setRole} />
-
-              {error && (
-                <div className="mb-6 p-5 bg-red-50 border border-red-100 rounded-3xl flex items-center space-x-3 text-red-600 animate-fade-in text-[10px] font-black uppercase">
-                  <AlertCircle size={14} className="shrink-0" />
-                  <p>{error}</p>
-                </div>
-              )}
-
               <form onSubmit={handleLoginSubmit} className="space-y-6">
-                <InputField icon={Mail} type="email" placeholder="Email Address" required value={email} onChange={(e: any) => setEmail(e.target.value)} />
-                <InputField icon={Lock} type={showPassword ? "text" : "password"} placeholder="Access Key" required value={password} onChange={(e: any) => setPassword(e.target.value)} rightIcon={showPassword ? EyeOff : Eye} onRightIconClick={() => setShowPassword(!showPassword)} />
-                <button type="submit" className={`w-full ${role === 'admin' ? 'bg-gray-900' : 'bg-blue-700'} text-white font-black py-5 rounded-3xl hover:opacity-95 transition-all shadow-xl active:scale-95 uppercase tracking-widest text-sm`}>
-                  Login to Hub
-                </button>
+                <InputField icon={Mail} type="email" placeholder="Email" required value={email} onChange={(e: any) => setEmail(e.target.value)} />
+                <InputField icon={Lock} type={showPassword ? "text" : "password"} placeholder="Password" required value={password} onChange={(e: any) => setPassword(e.target.value)} rightIcon={showPassword ? EyeOff : Eye} onRightIconClick={() => setShowPassword(!showPassword)} />
+                <button type="submit" className="w-full bg-blue-700 text-white font-black py-5 rounded-3xl uppercase tracking-widest text-sm shadow-xl">Login to Hub</button>
               </form>
               <div className="mt-12 pt-8 border-t border-gray-100 text-center">
-                <p className="text-sm text-gray-500 font-medium">New student? <button onClick={() => setView('signup')} className="ml-1 font-black text-blue-700 hover:underline">Register Account</button></p>
+                <p className="text-sm text-gray-500 font-medium">New student? <button onClick={() => setView('signup')} className="font-black text-blue-700">Register</button></p>
               </div>
-            </div>
-          )}
-
-          {view === 'signup' && (
-            <div className="animate-fade-in flex flex-col">
-              <div className="text-center mb-10">
-                <h2 className="text-3xl font-black text-gray-900 mb-2 tracking-tight uppercase">Registration</h2>
-                <RoleSelector role={role} setRole={setRole} variant="dark" />
-              </div>
-              
-              {error && (
-                <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-2xl flex items-center space-x-3 text-red-700 text-[10px] font-black uppercase">
-                  <WifiOff size={16} />
-                  <p>{error}</p>
-                </div>
-              )}
-
-              <form onSubmit={handleSignupSubmit} className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <InputField icon={User} type="text" placeholder="First Name" required value={firstName} onChange={(e: any) => setFirstName(e.target.value)} />
-                  <InputField type="text" placeholder="Last Name" required value={lastName} onChange={(e: any) => setLastName(e.target.value)} />
-                </div>
-                <InputField icon={Mail} type="email" placeholder="Email" required value={email} onChange={(e: any) => setEmail(e.target.value)} />
-                <InputField icon={Lock} type={showPassword ? "text" : "password"} placeholder="Initial Password" required value={password} onChange={(e: any) => setPassword(e.target.value)} rightIcon={showPassword ? EyeOff : Eye} onRightIconClick={() => setShowPassword(!showPassword)} />
-                <InputField icon={ShieldCheck} type="password" placeholder="Confirm Password" required value={confirmPassword} onChange={(e: any) => setConfirmPassword(e.target.value)} />
-                <InputField icon={Smartphone} type="tel" placeholder="Mobile Number" required value={mobile} onChange={(e: any) => setMobile(e.target.value)} />
-                <button type="submit" className={`w-full ${role === 'admin' ? 'bg-gray-900' : 'bg-blue-700'} text-white font-black py-5 rounded-3xl mt-6 uppercase tracking-widest text-sm shadow-xl active:scale-95 transition-all`}>
-                  Submit to Admin
-                </button>
-                <button onClick={() => setView('login')} className="w-full text-center text-xs font-black uppercase tracking-widest text-gray-300 mt-6 hover:text-gray-400">Cancel</button>
-              </form>
             </div>
           )}
 
@@ -226,30 +163,38 @@ const AuthModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen,
               <div className="relative w-40 h-40 mb-12">
                 <div className="absolute inset-0 border-[6px] border-blue-50 rounded-full"></div>
                 <div className="absolute inset-0 border-[6px] border-blue-700 border-t-transparent rounded-full animate-spin"></div>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <Terminal size={44} className="text-blue-700 animate-pulse" />
-                </div>
+                <div className="absolute inset-0 flex items-center justify-center"><Terminal size={44} className="text-blue-700 animate-pulse" /></div>
               </div>
               <h2 className="text-2xl font-black text-gray-900 mb-2 uppercase tracking-tighter">Syncing...</h2>
-              <p className="text-gray-400 font-bold text-xs uppercase tracking-widest">Handshaking with Port 9090</p>
             </div>
           )}
 
           {view === 'success' && (
             <div className="text-center py-10 animate-scale-up flex flex-col items-center">
-              <div className="w-24 h-24 bg-green-50 text-green-600 rounded-[2.5rem] flex items-center justify-center mb-10 border border-green-100 shadow-sm">
-                <Inbox size={48} />
-              </div>
+              <div className="w-24 h-24 bg-green-50 text-green-600 rounded-[2.5rem] flex items-center justify-center mb-10 border border-green-100"><Inbox size={48} /></div>
               <h2 className="text-3xl font-black text-gray-900 mb-4 tracking-tight uppercase">Applied</h2>
-              <div className="bg-blue-50 p-8 rounded-[2rem] border border-blue-100 mb-8 w-full text-center">
-                <p className="text-blue-900 text-[10px] font-black uppercase tracking-widest leading-loose">
-                  Admin Notification Sent To:<br/>
-                  <span className="text-blue-700 text-sm font-black">chandugoru927@gmail.com</span>
-                </p>
+              <button onClick={() => setView('login')} className="w-full bg-blue-900 text-white font-black py-5 rounded-3xl uppercase tracking-widest text-sm shadow-2xl">Back to Portal</button>
+            </div>
+          )}
+
+          {view === 'signup' && (
+            <div className="animate-fade-in">
+               <div className="text-center mb-10">
+                <h2 className="text-3xl font-black text-gray-900 mb-2 tracking-tight uppercase">Registration</h2>
+                <RoleSelector role={role} setRole={setRole} variant="dark" />
               </div>
-              <button onClick={() => setView('login')} className="w-full bg-blue-900 text-white font-black py-5 rounded-3xl hover:bg-black transition-all uppercase tracking-widest text-sm shadow-2xl">
-                Back to Portal
-              </button>
+              <form onSubmit={handleSignupSubmit} className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <InputField icon={User} type="text" placeholder="First Name" required value={firstName} onChange={(e: any) => setFirstName(e.target.value)} />
+                  <InputField type="text" placeholder="Last Name" required value={lastName} onChange={(e: any) => setLastName(e.target.value)} />
+                </div>
+                <InputField icon={Mail} type="email" placeholder="Email" required value={email} onChange={(e: any) => setEmail(e.target.value)} />
+                <InputField icon={Lock} type="password" placeholder="Password" required value={password} onChange={(e: any) => setPassword(e.target.value)} />
+                <InputField icon={ShieldCheck} type="password" placeholder="Confirm" required value={confirmPassword} onChange={(e: any) => setConfirmPassword(e.target.value)} />
+                <InputField icon={Smartphone} type="tel" placeholder="Mobile" required value={mobile} onChange={(e: any) => setMobile(e.target.value)} />
+                <button type="submit" className="w-full bg-blue-700 text-white font-black py-5 rounded-3xl mt-6 uppercase tracking-widest text-sm shadow-xl">Submit Registration</button>
+                <button onClick={() => setView('login')} className="w-full text-center text-xs font-black uppercase tracking-widest text-gray-300 mt-6">Cancel</button>
+              </form>
             </div>
           )}
         </div>

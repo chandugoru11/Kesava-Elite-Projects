@@ -1,69 +1,69 @@
 
 import React from 'react';
 import DashboardLayout from '../components/DashboardLayout';
-// Added Award to the lucide-react imports
-import { Play, Clock, FileText, CheckCircle2, ChevronRight, TrendingUp, Calendar, Award } from 'lucide-react';
-import { ASSETS } from '../assets';
+import { Play, FileText, Award, Calendar, ChevronRight, TrendingUp, Sparkles, BookOpen } from 'lucide-react';
 
 const LMSDashboard: React.FC = () => {
   return (
     <DashboardLayout portal="lms">
-      <div className="animate-fade-in">
-        <div className="mb-10">
-          <h1 className="text-3xl font-black text-gray-900 tracking-tight">Welcome Back, Innovator!</h1>
-          <p className="text-gray-500 font-medium mt-1">Here is your learning progress for this week.</p>
+      <div className="animate-fade-in max-w-6xl">
+        <div className="mb-12 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+          <div>
+            <h1 className="text-4xl font-black text-gray-900 tracking-tighter uppercase">Elite Dashboard</h1>
+            <p className="text-gray-500 font-medium text-lg mt-2 italic">Optimizing your technical evolution path.</p>
+          </div>
+          <div className="flex items-center space-x-3 bg-blue-50 px-6 py-3 rounded-full border border-blue-100">
+             <Sparkles size={16} className="text-blue-700 animate-pulse" />
+             <span className="text-[10px] font-black text-blue-700 uppercase tracking-[0.2em]">Tier 01 Student Access</span>
+          </div>
         </div>
 
-        {/* Quick Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
+        {/* High-Performance Metrics */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-16">
           {[
-            { label: 'Attendance', value: '92%', icon: Calendar, color: 'text-blue-600', bg: 'bg-blue-50' },
-            { label: 'Courses', value: '03', icon: Play, color: 'text-orange-600', bg: 'bg-orange-50' },
-            { label: 'Assignments', value: '12/15', icon: FileText, color: 'text-green-600', bg: 'bg-green-50' },
-            { label: 'Certificates', value: '01', icon: Award, color: 'text-purple-600', bg: 'bg-purple-50' },
+            { label: 'Network Attendance', value: '94%', icon: Calendar, color: 'text-blue-700', bg: 'bg-blue-50' },
+            { label: 'Active Tracks', value: '02', icon: Play, color: 'text-orange-600', bg: 'bg-orange-50' },
+            { label: 'Milestones Hit', value: '14/18', icon: FileText, color: 'text-green-600', bg: 'bg-green-50' },
+            { label: 'Certifications', value: '01', icon: Award, color: 'text-purple-600', bg: 'bg-purple-50' },
           ].map((stat, i) => (
-            <div key={i} className="bg-white p-6 rounded-[2.5rem] border border-gray-100 shadow-sm flex items-center space-x-4">
-              <div className={`${stat.bg} ${stat.color} p-4 rounded-2xl`}>
-                <stat.icon size={24} />
+            <div key={i} className="bg-white p-8 rounded-[3rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all group">
+              <div className={`${stat.bg} ${stat.color} w-16 h-16 rounded-[1.5rem] flex items-center justify-center mb-8 group-hover:scale-110 transition-transform`}>
+                <stat.icon size={28} />
               </div>
-              <div>
-                <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">{stat.label}</p>
-                <p className="text-2xl font-black text-gray-900">{stat.value}</p>
-              </div>
+              <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.3em] mb-2">{stat.label}</p>
+              <p className="text-3xl font-black text-gray-900">{stat.value}</p>
             </div>
           ))}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Main Courses Area */}
-          <div className="lg:col-span-2 space-y-8">
-            <h2 className="text-xl font-black text-gray-900 flex items-center">
-              Ongoing Projects
-              <span className="ml-3 bg-blue-100 text-blue-700 text-[10px] px-3 py-1 rounded-full">ACTIVE</span>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+          <div className="lg:col-span-2 space-y-10">
+            <h2 className="text-2xl font-black text-gray-900 tracking-tight flex items-center uppercase">
+              Current Engineering Tracks
+              <div className="ml-4 h-px flex-grow bg-gray-100"></div>
             </h2>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {[
-                { title: 'Full Stack Web Dev', progress: 75, instructor: 'Dr. Anand', deadline: '2 Days left' },
-                { title: 'Industrial Robotics', progress: 40, instructor: 'Er. Rakesh', deadline: '8 Days left' }
+                { title: 'Full Stack Architecture', progress: 68, deadline: 'Session 12' },
+                { title: 'Robotics Kinematics', progress: 32, deadline: 'Session 04' }
               ].map((course, i) => (
-                <div key={i} className="bg-white p-8 rounded-[3rem] border border-gray-100 shadow-sm hover:shadow-xl hover:border-blue-100 transition-all group">
-                   <div className="flex justify-between items-start mb-6">
-                      <div className="w-12 h-12 bg-gray-50 rounded-2xl flex items-center justify-center text-blue-700 group-hover:bg-blue-700 group-hover:text-white transition-all">
-                        <Play size={20} />
+                <div key={i} className="bg-white p-10 rounded-[3.5rem] border border-gray-100 shadow-sm hover:border-blue-700/20 transition-all group">
+                   <div className="flex justify-between items-start mb-10">
+                      <div className="w-14 h-14 bg-gray-950 text-white rounded-2xl flex items-center justify-center group-hover:bg-blue-700 transition-all">
+                        <BookOpen size={24} />
                       </div>
-                      <span className="text-[10px] font-black text-orange-600 bg-orange-50 px-3 py-1 rounded-full">{course.deadline}</span>
+                      <span className="text-[9px] font-black text-blue-700 bg-blue-50 px-4 py-1.5 rounded-full tracking-widest">{course.deadline}</span>
                    </div>
-                   <h3 className="text-lg font-black text-gray-900 mb-2">{course.title}</h3>
-                   <p className="text-xs text-gray-400 font-bold mb-6 italic">Mentor: {course.instructor}</p>
+                   <h3 className="text-xl font-black text-gray-900 mb-8 leading-tight">{course.title}</h3>
                    
-                   <div className="space-y-2">
+                   <div className="space-y-4">
                      <div className="flex justify-between text-[10px] font-black uppercase tracking-widest text-gray-400">
-                        <span>Progress</span>
+                        <span>Completion Node</span>
                         <span className="text-blue-700">{course.progress}%</span>
                      </div>
-                     <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
-                        <div className="h-full bg-blue-700 rounded-full transition-all duration-1000" style={{ width: `${course.progress}%` }}></div>
+                     <div className="h-2.5 bg-gray-50 rounded-full overflow-hidden border border-gray-100">
+                        <div className="h-full bg-blue-700 rounded-full transition-all duration-1000 shadow-sm" style={{ width: `${course.progress}%` }}></div>
                      </div>
                    </div>
                 </div>
@@ -71,36 +71,33 @@ const LMSDashboard: React.FC = () => {
             </div>
           </div>
 
-          {/* Schedule / Sidebar */}
-          <div className="space-y-8">
-            <h2 className="text-xl font-black text-gray-900">Today's Sessions</h2>
+          <div className="space-y-10">
+            <h2 className="text-2xl font-black text-gray-900 tracking-tight uppercase">Session Log</h2>
             <div className="space-y-4">
                {[
-                 { time: '10:00 AM', subject: 'Robotics Control Systems', room: 'Lab A-1' },
-                 { time: '02:30 PM', subject: 'Cloud Infrastructure', room: 'Online Meet' }
+                 { time: '09:00', subject: 'Embedded C Fundamentals', node: 'Lab 2' },
+                 { time: '14:30', subject: 'NodeJS Secure Hubs', node: 'Virtual' }
                ].map((session, i) => (
-                 <div key={i} className="bg-white p-6 rounded-[2rem] border-l-4 border-l-blue-700 border border-gray-100 shadow-sm flex items-center justify-between group cursor-pointer hover:bg-blue-50 transition-all">
-                    <div className="flex items-center space-x-4">
-                      <div className="bg-gray-50 p-3 rounded-xl text-blue-700 font-black text-[10px] uppercase">
-                        {session.time.split(' ')[0]}<br/>{session.time.split(' ')[1]}
-                      </div>
+                 <div key={i} className="bg-white p-6 rounded-[2.5rem] border border-gray-100 shadow-sm flex items-center justify-between hover:bg-blue-700 hover:text-white transition-all group cursor-pointer border-l-8 border-l-blue-700">
+                    <div className="flex items-center space-x-6">
+                      <div className="text-[10px] font-black uppercase text-gray-400 group-hover:text-blue-200">{session.time}</div>
                       <div>
-                        <h4 className="font-black text-sm text-gray-900">{session.subject}</h4>
-                        <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{session.room}</p>
+                        <h4 className="font-black text-sm">{session.subject}</h4>
+                        <p className="text-[9px] font-black uppercase tracking-widest opacity-60">{session.node}</p>
                       </div>
                     </div>
-                    <ChevronRight size={18} className="text-gray-300 group-hover:text-blue-700 transition-all" />
+                    <ChevronRight size={18} className="opacity-0 group-hover:opacity-100 transition-all" />
                  </div>
                ))}
             </div>
 
-            <div className="bg-gray-950 p-8 rounded-[3rem] text-white relative overflow-hidden shadow-2xl">
-               <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600/20 rounded-full blur-2xl"></div>
-               <TrendingUp className="text-blue-500 mb-4" />
-               <h4 className="text-xl font-black mb-2">Weekly Goal</h4>
-               <p className="text-xs text-gray-500 font-medium leading-relaxed mb-6">Complete the "React Hooks" module to stay on track for certification.</p>
-               <button className="w-full py-4 bg-white/10 hover:bg-white/20 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all">
-                 View Curriculum
+            <div className="bg-blue-950 p-10 rounded-[3.5rem] text-white relative overflow-hidden shadow-2xl">
+               <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600/10 rounded-full blur-2xl"></div>
+               <TrendingUp className="text-blue-500 mb-6" />
+               <h4 className="text-xl font-black mb-4 tracking-tight">Performance Boost</h4>
+               <p className="text-xs text-blue-300 font-medium leading-relaxed mb-8">Maintain current velocity to achieve Senior Certification 12 days ahead of schedule.</p>
+               <button className="w-full py-4 bg-white text-blue-900 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] hover:scale-105 transition-all">
+                 System Analysis
                </button>
             </div>
           </div>

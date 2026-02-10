@@ -5,36 +5,120 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Keshava Elite Projects - Robotics & Technology</title>
+    <meta name="description" content="India's leading provider of STEM Robotics Labs and Industrial Technology Education.">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
     <style>
-        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
-        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        .animate-marquee { display: flex; width: max-content; animation: marquee 30s linear infinite; }
-        .marquee-mask { mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); }
-        @keyframes float-y { 0%, 100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-30px) rotate(3deg); } }
-        .animate-float-y { animation: float-y 6s ease-in-out infinite; }
-        .shimmer-text { background: linear-gradient(90deg, #1e3a8a 0%, #3b82f6 50%, #1e3a8a 100%); background-size: 200% auto; color: transparent; -webkit-background-clip: text; animation: shimmer 3s linear infinite; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            scroll-behavior: smooth; 
+            margin: 0; 
+            padding: 0; 
+            background-color: #ffffff;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Infinity Marquee Animations */
+        @keyframes marquee-l { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        @keyframes marquee-r { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
+        
+        .animate-marquee-l { animation: marquee-l 30s linear infinite; }
+        .animate-marquee-r { animation: marquee-r 30s linear infinite; }
+        
+        .marquee-container:hover .animate-marquee-l,
+        .marquee-container:hover .animate-marquee-r {
+            animation-play-state: paused;
+        }
+
+        /* Moving Lines Background Effect */
+        .bg-animated-grid {
+            background-image: linear-gradient(to right, rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
+            background-size: 60px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .grid-line-h {
+            position: absolute;
+            height: 1px;
+            width: 100%;
+            background: linear-gradient(to right, transparent, #3b82f6, transparent);
+            left: 0;
+            animation: line-h 8s linear infinite;
+            opacity: 0.3;
+        }
+
+        .grid-line-v {
+            position: absolute;
+            width: 1px;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, #3b82f6, transparent);
+            top: 0;
+            animation: line-v 12s linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes line-h { 0% { top: -10%; } 100% { top: 110%; } }
+        @keyframes line-v { 0% { left: -10%; } 100% { left: 110%; } }
+
+        /* Scanner Animation */
+        .scanner-container { position: relative; display: inline-block; }
+        .scanner-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: #3b82f6;
+            box-shadow: 0 0 20px 5px rgba(59, 130, 246, 0.7);
+            z-index: 20;
+            animation: scan 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+        @keyframes scan {
+            0% { transform: translateX(-10%); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateX(1100%); opacity: 0; }
+        }
+
+        .shimmer-text { 
+            background: linear-gradient(90deg, #1e3a8a 0%, #3b82f6 50%, #1e3a8a 100%); 
+            background-size: 200% auto; 
+            color: transparent; 
+            -webkit-background-clip: text; 
+            animation: shimmer 3s linear infinite; 
+        }
         @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
-        @keyframes scale-up { from { opacity: 0; transform: scale(0.95) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
-        .animate-scale-up { animation: scale-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        .bg-grid { background-image: radial-gradient(rgba(37, 99, 235, 0.08) 1px, transparent 1px); background-size: 30px 30px; }
+
+        .reveal { opacity: 0; transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translate(0, 0); }
+        .reveal-up { transform: translateY(50px); }
+
+        .marquee-mask {
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
     </style>
+
     <script type="importmap">
-{
-  "imports": {
-    "react-router-dom": "https://esm.sh/react-router-dom@^7.13.0",
-    "react": "https://esm.sh/react@^19.2.4",
-    "react-dom": "https://esm.sh/react-dom@^19.2.4",
-    "react/": "https://esm.sh/react@^19.2.4/",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
-    "lucide-react": "https://esm.sh/lucide-react@^0.475.0",
-    "@google/genai": "https://esm.sh/@google/genai@^1.40.0"
-  }
-}
-</script>
+    {
+      "imports": {
+        "react-router-dom": "https://esm.sh/react-router-dom@^7.13.0",
+        "react": "https://esm.sh/react@^19.2.4",
+        "react-dom": "https://esm.sh/react-dom@^19.2.4",
+        "react/": "https://esm.sh/react@^19.2.4/",
+        "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+        "lucide-react": "https://esm.sh/lucide-react@^0.475.0",
+        "@google/genai": "https://esm.sh/@google/genai@^1.40.0"
+      }
+    }
+    </script>
 </head>
-<body class="bg-white text-gray-900">
+<body class="bg-white">
     <div id="root"></div>
+    <script type="module" src="index.tsx"></script>
 </body>
 </html>

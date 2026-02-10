@@ -1,9 +1,16 @@
 
 /**
- * Simulated JWT Utility for Frontend Authentication
- * Follows the standard: Header.Payload.Signature
+ * KESHAVA ELITE - JWT UTILITIES
+ * ---------------------------------------------------------
+ * Simulated JWT logic for frontend session state.
+ * Standard format: [Header].[Payload].[Signature]
  */
 
+/**
+ * Generates a mock JWT token from a payload object.
+ * @param payload - The user data to be encoded in the token.
+ * @returns A base64-encoded string representing the JWT.
+ */
 export const simulateJWT = (payload: any): string => {
   const header = {
     alg: "HS256",
@@ -11,33 +18,49 @@ export const simulateJWT = (payload: any): string => {
   };
 
   const encodedHeader = btoa(JSON.stringify(header));
-  const encodedPayload = btoa(JSON.stringify({
+  
+  const payloadWithMeta = {
     ...payload,
     iat: Math.floor(Date.now() / 1000),
-    exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24) // 24h expiry
-  }));
+    exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24) // 24-hour expiry
+  };
   
-  // Simulated signature using a mock secret
-  const signature = btoa("keshava-elite-secure-secret-2024");
+  const encodedPayload = btoa(JSON.stringify(payloadWithMeta));
+  
+  // Simulated signature using a static secret key
+  const signature = btoa("keshava-elite-secure-auth-2024");
   
   return `${encodedHeader}.${encodedPayload}.${signature}`;
 };
 
+/**
+ * Decodes a mock JWT token and validates its structure and expiration.
+ * @param token - The JWT string to decode.
+ * @returns The decoded payload object or null if invalid/expired.
+ */
 export const decodeJWT = (token: string): any | null => {
+  if (!token) return null;
+  
   try {
     const parts = token.split('.');
-    if (parts.length !== 3) return null;
-    
-    const payload = JSON.parse(atob(parts[1]));
-    
-    // Check expiry
-    if (payload.exp && Date.now() >= payload.exp * 1000) {
+    if (parts.length !== 3) {
+      console.warn("Keshava Security Hub: Invalid JWT structure detected.");
       return null;
     }
     
-    return payload;
-  } catch (e) {
-    console.error("JWT Decode Failed", e);
+    const payloadPart = parts[1];
+    const decodedPayload = JSON.parse(atob(payloadPart));
+    
+    // Validate expiration (exp is in seconds)
+    const currentTime = Math.floor(Date.now() / 1000);
+    if (decodedPayload.exp && decodedPayload.exp < currentTime) {
+      console.warn("Keshava Security Hub: JWT session has expired.");
+      return null;
+    }
+    
+    return decodedPayload;
+  } catch (error) {
+    console.error("Keshava Security Hub: JWT Decode Failure:", error);
     return null;
   }
 };

@@ -26,35 +26,25 @@ const Logo: React.FC<LogoProps> = ({ className = "h-12", variant = 'default' }) 
         </linearGradient>
       </defs>
 
-      {/* Stylized K with Circuitry */}
       <g id="LogoIcon">
-        {/* The Vertical Stem of K */}
         <path d="M157 50V130H182V50H157Z" fill={goldGradient} />
-        
-        {/* The Diagonal Arms */}
         <path d="M182 90L235 50H262L200 95L263 130H235L182 100" fill={goldGradient} />
 
-        {/* Circuit Traces on the Left */}
         <g stroke={goldGradient} strokeWidth="2.5" strokeLinecap="round">
-          {/* Top Trace */}
           <circle cx="138" cy="65" r="3.5" fill={goldGradient} stroke="none" />
           <path d="M141.5 65H148L165 82" />
           
-          {/* Middle Top Trace */}
           <circle cx="135" cy="82" r="3.5" fill={goldGradient} stroke="none" />
           <path d="M138.5 82H145L165 102" />
 
-          {/* Middle Bottom Trace */}
           <circle cx="135" cy="99" r="3.5" fill={goldGradient} stroke="none" />
           <path d="M138.5 99H145L158 112" />
 
-          {/* Bottom Trace */}
           <circle cx="138" cy="116" r="3.5" fill={goldGradient} stroke="none" />
           <path d="M141.5 116H148L158 126" />
         </g>
       </g>
 
-      {/* Main Brand Text */}
       <text 
         x="200" 
         y="155" 
@@ -71,7 +61,6 @@ const Logo: React.FC<LogoProps> = ({ className = "h-12", variant = 'default' }) 
         KESHAVA ELITE PROJECTS
       </text>
       
-      {/* Subtitle Text */}
       <text 
         x="200" 
         y="175" 

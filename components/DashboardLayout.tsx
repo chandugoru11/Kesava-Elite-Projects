@@ -7,7 +7,8 @@ import {
   BarChart3, Settings, LogOut, Bell, UserCircle, Menu, X, ChevronRight,
   ShieldCheck, Briefcase
 } from 'lucide-react';
-import { useAuth } from '../App';
+// Fixed: Imported useAuth from correct AuthContext location
+import { useAuth } from '../AuthContext.tsx';
 import Logo from './Logo';
 
 interface NavItem {

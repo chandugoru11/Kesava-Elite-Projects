@@ -7,7 +7,8 @@ import {
   LayoutDashboard, Server, MessageSquare, Terminal, ChevronRight
 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../App';
+// Fixed: Imported useAuth from correct AuthContext location
+import { useAuth } from '../AuthContext.tsx';
 
 const AdminDashboard: React.FC = () => {
   const [users, setUsers] = useState<any[]>([]);
