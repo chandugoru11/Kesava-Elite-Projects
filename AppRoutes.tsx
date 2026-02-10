@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Home from './pages/Home.tsx';
@@ -16,6 +15,8 @@ import { useAuth } from './AuthContext.tsx';
 
 const AppRoutes: React.FC = () => {
   const { user } = useAuth();
+  
+  // Specific Administrative Privilege Check
   const isAdmin = user?.email === 'chandugoru927@gmail.com';
 
   return (
@@ -29,19 +30,15 @@ const AppRoutes: React.FC = () => {
       <Route path="/impact" element={<Impact />} />
       <Route path="/contact" element={<Contact />} />
       
-      {/* Admin Command Port */}
+      {/* Admin Command Port - Restrict to specific admin email */}
       <Route path="/admin" element={isAdmin ? <AdminDashboard /> : <Navigate to="/" />} />
       
-      {/* Protected LMS Hub */}
+      {/* Protected Institutional Portals */}
       <Route path="/lms/*" element={user ? <LMSDashboard /> : <Navigate to="/" />} />
-      
-      {/* Protected HR Administration */}
       <Route path="/hr/*" element={user ? <HRDashboard /> : <Navigate to="/" />} />
-      
-      {/* Protected Attendance Tracking */}
       <Route path="/attendance/*" element={user ? <AttendanceSystem /> : <Navigate to="/" />} />
       
-      {/* Fallback */}
+      {/* Fallback to root node */}
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );

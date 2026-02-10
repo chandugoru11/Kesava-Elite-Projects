@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { HashRouter as Router, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar.tsx';
@@ -6,12 +5,19 @@ import Footer from './components/Footer.tsx';
 import { AuthProvider } from './AuthContext.tsx';
 import AppRoutes from './AppRoutes.tsx';
 
+/**
+ * Utility component to ensure page transitions start at the top.
+ */
 const ScrollToTop = () => {
   const { pathname } = useLocation();
   useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
   return null;
 };
 
+/**
+ * Handles the conditional rendering of institutional navigation elements.
+ * Dashboards (LMS, HR, Admin, etc.) use their own internal navigation layouts.
+ */
 const LayoutWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const location = useLocation();
   const isDashboard = location.pathname.startsWith('/lms') || 

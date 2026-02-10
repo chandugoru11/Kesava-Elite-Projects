@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import DashboardLayout from '../components/DashboardLayout';
 import { CheckCircle2, XCircle, ChevronRight, QrCode, FileText, Calendar, Users, Target } from 'lucide-react';
@@ -36,7 +35,6 @@ const AttendanceSystem: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-10 items-start">
-          {/* Batch Matrix */}
           <div className="space-y-8 sticky top-32">
              <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-[0.4em] flex items-center px-4">
                <Target size={14} className="mr-3 text-blue-700" /> Active Registry
@@ -48,7 +46,6 @@ const AttendanceSystem: React.FC = () => {
                   onClick={() => setSelectedBatch(batch)}
                   className={`w-full text-left p-8 rounded-[3rem] border transition-all ${selectedBatch === batch ? 'bg-blue-700 border-blue-700 text-white shadow-2xl shadow-blue-700/20' : 'bg-white border-gray-100 text-gray-500 hover:border-blue-700 hover:-translate-y-1'}`}
                  >
-                    <p className="text-[10px] font-black opacity-60 uppercase tracking-widest mb-3">Segment: {batch.split(' ')[0]}</p>
                     <p className="font-black text-lg leading-tight">{batch.split(' (')[1].replace(')', '')}</p>
                  </button>
                ))}
@@ -64,10 +61,6 @@ const AttendanceSystem: React.FC = () => {
                     </div>
                     <div>
                       <h3 className="text-2xl font-black text-gray-900 tracking-tight uppercase">{selectedBatch}</h3>
-                      <div className="flex items-center space-x-4 mt-2">
-                        <Calendar size={14} className="text-gray-400" />
-                        <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">{new Date().toLocaleDateString('en-IN', { dateStyle: 'long' })}</p>
-                      </div>
                     </div>
                   </div>
                   <div className="bg-white px-6 py-3 rounded-2xl border border-gray-100 shadow-sm">
@@ -91,34 +84,11 @@ const AttendanceSystem: React.FC = () => {
                             <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">{student.roll}</p>
                          </div>
                        </div>
-                       
-                       <div className="flex items-center space-x-10">
-                         <span className={`text-[10px] font-black uppercase tracking-[0.4em] ${student.present ? 'text-green-600' : 'text-red-400'}`}>
-                           {student.present ? 'Verified' : 'Unsynced'}
-                         </span>
-                         <div className={`w-10 h-10 rounded-2xl border-2 flex items-center justify-center ${student.present ? 'border-green-600 bg-green-600 shadow-lg shadow-green-600/20' : 'border-gray-200'}`}>
-                           {student.present && <CheckCircle2 size={20} className="text-white" />}
-                         </div>
-                       </div>
+                       <span className={`text-[10px] font-black uppercase tracking-[0.4em] ${student.present ? 'text-green-600' : 'text-red-400'}`}>
+                         {student.present ? 'Verified' : 'Unsynced'}
+                       </span>
                      </div>
                    ))}
-               </div>
-
-               <div className="p-12 bg-gray-950 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-10">
-                  <div className="flex items-center space-x-16 text-white">
-                     <div className="text-center">
-                       <p className="text-[9px] font-black text-gray-500 uppercase tracking-[0.3em] mb-2">Cluster Size</p>
-                       <p className="text-4xl font-black">{attendanceList.length}</p>
-                     </div>
-                     <div className="w-px h-12 bg-white/5"></div>
-                     <div className="text-center">
-                       <p className="text-[9px] font-black text-blue-500 uppercase tracking-[0.3em] mb-2">Sync Count</p>
-                       <p className="text-4xl font-black text-blue-500">{attendanceList.filter(s => s.present).length}</p>
-                     </div>
-                  </div>
-                  <button className="bg-blue-700 text-white px-16 py-7 rounded-[2.5rem] font-black text-xl shadow-[0_25px_50px_-15px_rgba(29,78,216,0.3)] hover:bg-blue-600 hover:-translate-y-1 transition-all flex items-center">
-                    Transmit Session Log <ChevronRight size={24} className="ml-4" />
-                  </button>
                </div>
             </div>
           </div>

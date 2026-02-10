@@ -1,12 +1,11 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   CheckCircle2, Quote, Globe, Target, Rocket, 
   ShieldCheck, Cpu, Users, Award, ExternalLink 
 } from 'lucide-react';
-import { COMPANY_INFO } from '../constants';
-import { ASSETS } from '../assets';
+import { COMPANY_INFO } from '../constants.tsx';
+import { ASSETS } from '../assets.ts';
 
 const Reveal: React.FC<{ children: React.ReactNode; className?: string; type?: 'up' | 'left' | 'right'; delay?: string }> = ({ children, className = '', type = 'up', delay = '' }) => {
   const [isActive, setIsActive] = useState(false);
@@ -37,14 +36,6 @@ const Reveal: React.FC<{ children: React.ReactNode; className?: string; type?: '
 };
 
 const About: React.FC = () => {
-  const philosophies = [
-    { title: "Learning by Building", icon: <Cpu size={20} /> },
-    { title: "Innovation over Memorization", icon: <Rocket size={20} /> },
-    { title: "Project-First Pedagogy", icon: <Target size={20} /> },
-    { title: "Industrial Standard Access", icon: <ShieldCheck size={20} /> },
-    { title: "Scale with Quality", icon: <Award size={20} /> }
-  ];
-
   return (
     <div className="bg-white overflow-hidden">
       {/* Page Header */}

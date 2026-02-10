@@ -1,12 +1,11 @@
-
 import React, { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { 
   ShieldCheck, Award, Landmark, GraduationCap, 
   ExternalLink, Globe, Star, CheckCircle, 
-  Users, Building2, Trophy, ArrowRight
+  Users, Building2, Trophy, ArrowRight, CheckCircle2,
+  Cpu, Zap, Shield
 } from 'lucide-react';
-import { ASSETS } from '../assets';
+import { ASSETS } from '../assets.ts';
 
 const Reveal: React.FC<{ children: React.ReactNode; className?: string; type?: 'up' | 'left' | 'right'; delay?: string }> = ({ children, className = '', type = 'up', delay = '' }) => {
   const [isActive, setIsActive] = useState(false);
@@ -33,98 +32,79 @@ const Reveal: React.FC<{ children: React.ReactNode; className?: string; type?: '
 };
 
 const Impact: React.FC = () => {
-  const approvedBy = [
-    { name: "APSSDC Skill AP", logo: "https://i.postimg.cc/vm0w2Ps7/APSSDC.jpg" },
-    { name: "MSME India", logo: "https://i.postimg.cc/4y6KrKQP/Micro_Small_and_Medium.jpg" },
-    { name: "DPIIT Startup India", logo: "https://i.postimg.cc/Hxtz9KDZ/DPIIT.jpg" },
-    { name: "ISO 9001 Certified", logo: "https://i.postimg.cc/VNkjnFWC/ISO-9001.jpg" },
-    { name: "AICTE India", logo: "https://upload.wikimedia.org/wikipedia/en/e/eb/All_India_Council_for_Technical_Education_logo.png" },
-    { name: "MCA Govt of India", logo: "https://i.postimg.cc/J7ZP1P67/MCA-Govt-of-INDIA-jpg.jpg" }
+  const accreditations = [
+    { name: "APSSDC Skill AP", logo: ASSETS.LOGOS.APSSDC },
+    { name: "MSME India", logo: ASSETS.LOGOS.MSME },
+    { name: "Startup India", logo: ASSETS.LOGOS.STARTUP_INDIA },
+    { name: "ISO 9001", logo: ASSETS.LOGOS.ISO },
+    { name: "AICTE India", logo: ASSETS.LOGOS.AICTE },
+    { name: "MCA", logo: ASSETS.LOGOS.MCA },
+    { name: "NSDC India", logo: ASSETS.LOGOS.NSDC }
   ];
 
-  const trustedBy = ASSETS.CLIENTS;
-
-  const LogoCard = ({ name, logo }: any) => (
-    <div className="bg-white border border-gray-100 rounded-[3.5rem] p-16 min-w-[480px] h-72 shadow-sm flex items-center justify-center group hover:border-blue-700/20 transition-all duration-500">
-      <img 
-        src={logo} 
-        alt={name} 
-        className="max-h-40 w-auto object-contain filter grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110" 
-        onError={(e) => { (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=eff6ff&color=1d4ed8&bold=true&length=4&size=256`; }}
-      />
-    </div>
-  );
+  const partners = ASSETS.CLIENTS;
 
   return (
-    <div className="bg-white">
-      {/* Page Header */}
-      <div className="relative py-48 bg-blue-950 overflow-hidden text-center">
-        <div className="absolute inset-0 opacity-10 bg-grid"></div>
+    <div className="bg-white overflow-x-hidden">
+      {/* Hero Tier */}
+      <div className="relative py-48 bg-blue-950 text-center overflow-hidden">
+        <div className="absolute inset-0 bg-animated-grid opacity-20"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-950/50 to-blue-950"></div>
+        
         <div className="container mx-auto px-6 relative z-10">
           <Reveal>
-            <div className="inline-flex items-center space-x-4 bg-blue-600/10 border border-blue-600/20 px-10 py-4 rounded-full mb-12">
-              <ShieldCheck size={20} className="text-blue-400" />
-              <span className="text-blue-400 font-black tracking-[0.5em] uppercase text-[10px]">Verification Protocol Active</span>
+            <div className="inline-flex items-center space-x-3 bg-blue-600/20 border border-blue-500/30 px-8 py-3 rounded-full mb-10 backdrop-blur-md">
+              <ShieldCheck size={18} className="text-blue-400" />
+              <span className="text-blue-400 font-black tracking-[0.4em] uppercase text-[10px]">Institutional Track Record</span>
             </div>
             <h1 className="text-7xl md:text-[10rem] font-black text-white mb-10 tracking-tighter leading-[0.85]">
               Verified <br/><span className="shimmer-text">Impact.</span>
             </h1>
-            <p className="text-gray-400 text-2xl max-w-4xl mx-auto leading-relaxed font-medium italic">
-              Empowering 15,000+ students through industry-certified technical education.
+            <p className="text-gray-400 text-2xl font-medium max-w-4xl mx-auto italic leading-relaxed">
+              Standardizing technical excellence across India's premier educational landscape. 
+              Over <span className="text-white">15,000+</span> credentials issued.
             </p>
           </Reveal>
         </div>
       </div>
 
-      {/* Synchronized Dual Marquee Section */}
-      <section className="py-48 bg-white overflow-hidden relative">
-        <div className="container mx-auto px-6 mb-24">
-            <Reveal type="left">
-               <h2 className="text-4xl font-black text-gray-900 tracking-tighter uppercase flex items-center mb-4">
-                  <Landmark className="mr-6 text-blue-700" size={40} /> Accreditation Matrix
-               </h2>
-               <div className="h-2 w-20 bg-blue-700 rounded-full"></div>
-            </Reveal>
+      {/* Approved By - FAST Marquee scrolling Left to Right */}
+      <section className="py-24 bg-white border-b border-gray-100">
+        <div className="container mx-auto px-6 mb-16 text-center">
+          <Reveal>
+            <h2 className="text-[12px] font-black text-blue-700 uppercase tracking-[0.5em] mb-4">Approved & Accredited By</h2>
+            <div className="w-16 h-1.5 bg-blue-700 mx-auto rounded-full"></div>
+          </Reveal>
         </div>
-
-        <div className="marquee-container space-y-16">
-          {/* Row 1: Approved By (Moves Left) */}
-          <div className="relative">
-             <div className="absolute top-0 left-0 z-20 bg-white/10 px-6 py-2 rounded-br-2xl border-r border-b border-gray-100 font-black text-[10px] uppercase tracking-widest text-blue-700">Approved By Node</div>
-             <div className="flex relative marquee-mask overflow-hidden">
-               <div className="animate-marquee-l flex items-center gap-16 py-12 px-8">
-                 {[...approvedBy, ...approvedBy, ...approvedBy].map((item, i) => <LogoCard key={i} {...item} />)}
-               </div>
-             </div>
-          </div>
-
-          {/* Row 2: Trusted By (Moves Right) */}
-          <div className="relative">
-             <div className="absolute top-0 right-0 z-20 bg-white/10 px-6 py-2 rounded-bl-2xl border-l border-b border-gray-100 font-black text-[10px] uppercase tracking-widest text-blue-700">Institutional Network Node</div>
-             <div className="flex relative marquee-mask overflow-hidden">
-               <div className="animate-marquee-r flex items-center gap-16 py-12 px-8">
-                 {[...trustedBy, ...trustedBy, ...trustedBy].map((item, i) => <LogoCard key={i} {...item} />)}
-               </div>
-             </div>
+        
+        <div className="marquee-container relative marquee-mask overflow-hidden">
+          <div className="animate-marquee-r flex items-center gap-12 py-8 px-6">
+            {[...accreditations, ...accreditations, ...accreditations].map((item, i) => (
+              <div key={i} className="bg-white border border-gray-100 rounded-[2.5rem] p-10 min-w-[300px] h-44 shadow-sm flex items-center justify-center group hover:border-blue-700 transition-all duration-500">
+                <img src={item.logo} alt={item.name} className="max-h-24 object-contain grayscale group-hover:grayscale-0 transition-all duration-700" />
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Statistics Reveal */}
-      <section className="py-32 bg-gray-950 text-white">
+      {/* Numerical Impact Matrix */}
+      <section className="py-48 bg-gray-950 text-white relative">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
             {[
-              { label: 'Network Reach', value: '15,000+', icon: Users, desc: 'Student credentials synced with industrial portals.' },
-              { label: 'Authorized Hubs', value: '50+', icon: Building2, desc: 'Operational centers of excellence nationwide.' },
-              { label: 'Awarded Nodes', value: '200+', icon: Trophy, desc: 'Technical projects deployed for global industries.' }
+              { label: 'Network Reach', value: '15,000+', icon: Users, desc: 'Student credentials synced with industrial portals globally.' },
+              { label: 'Authorized Hubs', value: '50+', icon: Building2, desc: 'Fully operational centers of excellence in Tier 1 institutions.' },
+              { label: 'Industrial Projects', value: '200+', icon: Zap, desc: 'Technical solutions deployed for global industrial partners.' }
             ].map((stat, i) => (
-              <Reveal key={i} delay={`delay-${i * 100}`} type="up">
-                <div className="p-16 rounded-[4rem] bg-white/5 border border-white/10 hover:bg-blue-700 transition-all group shadow-2xl">
-                   <stat.icon size={48} className="text-blue-500 group-hover:text-white mb-10 transition-colors" />
+              <Reveal key={i} type="up" delay={`delay-${i * 100}`}>
+                <div className="p-16 rounded-[4rem] bg-white/5 border border-white/10 hover:bg-blue-700 hover:-translate-y-4 transition-all group h-full">
+                   <div className="bg-white/10 w-20 h-20 rounded-2xl flex items-center justify-center mb-10 group-hover:bg-white/20 transition-colors">
+                      <stat.icon size={36} className="text-blue-500 group-hover:text-white" />
+                   </div>
                    <h4 className="text-7xl font-black mb-6 tracking-tighter">{stat.value}</h4>
-                   <p className="text-blue-500 font-black uppercase text-xs tracking-widest mb-6 group-hover:text-blue-200 transition-colors">{stat.label}</p>
-                   <p className="text-gray-400 font-medium leading-relaxed group-hover:text-white/90 transition-colors">{stat.desc}</p>
+                   <p className="text-blue-500 font-black uppercase text-xs tracking-widest mb-6 group-hover:text-blue-200">{stat.label}</p>
+                   <p className="text-gray-400 font-medium group-hover:text-white/90 leading-relaxed">{stat.desc}</p>
                 </div>
               </Reveal>
             ))}
@@ -132,21 +112,59 @@ const Impact: React.FC = () => {
         </div>
       </section>
 
-      {/* CTA Layer */}
-      <section className="py-48 bg-white">
-        <div className="container mx-auto px-6">
-           <Reveal>
-              <div className="bg-blue-700 rounded-[6rem] p-24 text-center text-white relative overflow-hidden group shadow-[0_50px_100px_-20px_rgba(29,78,216,0.3)]">
-                 <div className="absolute inset-0 bg-grid opacity-10"></div>
-                 <div className="relative z-10">
-                    <h2 className="text-6xl md:text-8xl font-black mb-12 tracking-tighter leading-none">Industrial <br/><span className="italic">Validation.</span></h2>
-                    <p className="text-2xl text-blue-50 mb-20 max-w-3xl mx-auto font-medium leading-relaxed italic">Join the network of institutions redefining technical education standards across India.</p>
-                    <Link to="/contact" className="bg-white text-blue-700 px-20 py-8 rounded-[2.5rem] font-black text-2xl hover:scale-105 transition-all shadow-2xl flex items-center justify-center w-fit mx-auto group">
-                       Contact Protocol <ArrowRight size={32} className="ml-6 group-hover:translate-x-2 transition-transform" />
-                    </Link>
-                 </div>
+      {/* Trusted By - FAST Marquee scrolling Right to Left */}
+      <section className="py-24 bg-white">
+        <div className="container mx-auto px-6 mb-16 text-center">
+          <Reveal>
+            <h2 className="text-[12px] font-black text-blue-700 uppercase tracking-[0.5em] mb-4">Trusted By Institutional Partners</h2>
+            <div className="w-16 h-1.5 bg-blue-700 mx-auto rounded-full"></div>
+          </Reveal>
+        </div>
+        
+        <div className="marquee-container relative marquee-mask overflow-hidden">
+          <div className="animate-marquee-l flex items-center gap-12 py-8 px-6">
+            {[...partners, ...partners, ...partners].map((item, i) => (
+              <div key={i} className="bg-white border border-gray-100 rounded-[2.5rem] p-10 min-w-[300px] h-44 shadow-sm flex items-center justify-center group hover:border-blue-700 transition-all duration-500">
+                <img src={item.logo} alt={item.name} className="max-h-24 object-contain grayscale group-hover:grayscale-0 transition-all duration-700" />
               </div>
-           </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Certification Standard Banner */}
+      <section className="pb-48 bg-white">
+        <div className="container mx-auto px-6">
+          <Reveal>
+            <div className="bg-blue-700 rounded-[5rem] p-24 text-center text-white relative overflow-hidden group shadow-3xl">
+              <div className="absolute inset-0 bg-animated-grid opacity-10"></div>
+              <div className="relative z-10">
+                <div className="flex justify-center mb-10">
+                  <div className="bg-white/20 p-6 rounded-[2.5rem] backdrop-blur-md">
+                    <Award size={64} className="text-white" />
+                  </div>
+                </div>
+                <h2 className="text-5xl md:text-7xl font-black mb-12 tracking-tighter">Global Certification <br/><span className="italic">Ready.</span></h2>
+                <p className="text-2xl text-blue-50 mb-16 max-w-3xl mx-auto font-medium leading-relaxed">
+                  Our curriculum is aligned with ISO 9001:2015 standards and recognized by major technical governing bodies across India.
+                </p>
+                <div className="flex flex-wrap justify-center gap-12">
+                  <div className="flex items-center space-x-3">
+                    <CheckCircle2 className="text-blue-300" />
+                    <span className="font-black uppercase tracking-widest text-sm">Industrial Grade</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <CheckCircle2 className="text-blue-300" />
+                    <span className="font-black uppercase tracking-widest text-sm">Skill AP Certified</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <CheckCircle2 className="text-blue-300" />
+                    <span className="font-black uppercase tracking-widest text-sm">MSME Registered</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
     </div>

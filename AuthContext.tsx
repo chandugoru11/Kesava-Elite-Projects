@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { User } from './types.ts';
 import { decodeJWT } from './utils/jwtUtils.ts';
@@ -15,11 +14,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(localStorage.getItem('keshava_auth_token'));
 
+  // Sync state with local storage on initialization or token change
   useEffect(() => {
     if (token) {
       const decoded = decodeJWT(token);
-      if (decoded) setUser({ name: decoded.name, email: decoded.email, isLoggedIn: true });
-      else logout();
+      if (decoded) {
+        setUser({ 
+          name: decoded.name, 
+          email: decoded.email, 
+          isLoggedIn: true 
+        });
+      } else {
+        // Token invalid or expired
+        logout();
+      }
     }
   }, [token]);
 
@@ -43,6 +51,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  if (!context) throw new Error("useAuth must be used within an AuthProvider");
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
   return context;
 };

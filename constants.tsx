@@ -1,4 +1,3 @@
-
 import { NavItem, CourseCategory, LMSResource } from './types.ts';
 import { ASSETS } from './assets.ts';
 

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { 
@@ -7,7 +6,6 @@ import {
   BarChart3, Settings, LogOut, Bell, UserCircle, Menu, X, ChevronRight,
   ShieldCheck, Briefcase
 } from 'lucide-react';
-// Fixed: Imported useAuth from correct AuthContext location
 import { useAuth } from '../AuthContext.tsx';
 import Logo from './Logo';
 
