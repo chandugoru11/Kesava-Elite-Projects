@@ -64,13 +64,13 @@ const CourseModal: React.FC<{ course: Course | null; onClose: () => void }> = ({
         className="bg-white rounded-[4rem] w-full max-w-6xl max-h-[92vh] overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] relative animate-scale-up flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Navigation Header */}
+        {/* Elite Navigation Header */}
         <div className="px-10 py-8 border-b border-gray-50 flex items-center justify-between bg-white/50 backdrop-blur-md sticky top-0 z-30">
           <button 
             onClick={onClose}
-            className="group flex items-center space-x-3 bg-gray-50 hover:bg-blue-700 hover:text-white px-6 py-3 rounded-2xl transition-all font-black text-[10px] uppercase tracking-widest text-gray-500 shadow-sm"
+            className="group flex items-center space-x-3 bg-gray-50 hover:bg-blue-700 hover:text-white px-8 py-4 rounded-2xl transition-all font-black text-[11px] uppercase tracking-widest text-gray-950 shadow-sm border border-gray-100"
           >
-            <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
+            <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
             <span>Back to Main Menu</span>
           </button>
           
@@ -78,7 +78,7 @@ const CourseModal: React.FC<{ course: Course | null; onClose: () => void }> = ({
             onClick={onClose}
             className="p-3 bg-gray-50 rounded-full hover:bg-red-50 hover:text-red-600 transition-all shadow-sm"
           >
-            <X size={20} />
+            <X size={24} />
           </button>
         </div>
 
@@ -93,7 +93,7 @@ const CourseModal: React.FC<{ course: Course | null; onClose: () => void }> = ({
                 </div>
                 <h2 className="text-5xl md:text-7xl font-black text-gray-900 leading-none tracking-tighter mb-8">{course.title}</h2>
                 <p className="text-gray-500 text-2xl font-medium leading-relaxed">
-                   Master the industrial standard of {course.title} with our elite curriculum.
+                   {course.description}
                 </p>
               </div>
               <button 
@@ -173,7 +173,7 @@ const CourseModal: React.FC<{ course: Course | null; onClose: () => void }> = ({
           </div>
         )}
 
-        {/* Other Steps (Selection, Processing, Success) */}
+        {/* Other Steps (Selection, Processing, Success, Error) */}
         {step === 'selection' && (
           <div className="p-10 md:p-14 overflow-y-auto flex flex-col h-full animate-fade-in">
             <button onClick={() => setStep('details')} className="flex items-center text-blue-700 font-black text-xs uppercase tracking-widest mb-10 hover:underline">
@@ -249,7 +249,6 @@ const CourseModal: React.FC<{ course: Course | null; onClose: () => void }> = ({
           </div>
         )}
 
-        {/* Error/Success/Processing */}
         {step === 'processing' && (
           <div className="flex flex-col items-center justify-center py-60 animate-fade-in text-center h-full">
              <div className="relative w-56 h-56 mb-16">
@@ -302,7 +301,7 @@ const CourseCard: React.FC<{ category: string; courses: Course[]; icon: string; 
   };
 
   return (
-    <div className="bg-white rounded-[4rem] shadow-xl overflow-hidden border border-gray-100 flex flex-col h-full group hover:shadow-[0_50px_100px_-20px_rgba(29,78,216,0.1)] transition-all duration-700">
+    <div className="bg-white rounded-[4rem] shadow-xl overflow-hidden border border-gray-100 flex flex-col h-full group hover:shadow-[0_50px_100px_-20px_rgba(29,78,216,0.15)] transition-all duration-700">
       <div className="p-12 bg-gray-950 text-white flex items-center space-x-8">
         <div className="p-5 bg-blue-700 rounded-2xl group-hover:rotate-6 transition-transform shadow-xl shadow-blue-900/40">{getIcon()}</div>
         <h3 className="text-3xl font-black tracking-tighter uppercase">{category}</h3>

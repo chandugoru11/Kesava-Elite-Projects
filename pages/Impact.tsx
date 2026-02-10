@@ -45,11 +45,11 @@ const Impact: React.FC = () => {
   const trustedBy = ASSETS.CLIENTS;
 
   const LogoCard = ({ name, logo }: any) => (
-    <div className="bg-white border border-gray-100 rounded-[3.5rem] p-12 min-w-[420px] h-64 shadow-sm flex items-center justify-center group hover:border-blue-700/20 transition-all duration-500">
+    <div className="bg-white border border-gray-100 rounded-[3.5rem] p-16 min-w-[480px] h-72 shadow-sm flex items-center justify-center group hover:border-blue-700/20 transition-all duration-500">
       <img 
         src={logo} 
         alt={name} 
-        className="max-h-32 w-auto object-contain filter grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" 
+        className="max-h-40 w-auto object-contain filter grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110" 
         onError={(e) => { (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=eff6ff&color=1d4ed8&bold=true&length=4&size=256`; }}
       />
     </div>
@@ -98,7 +98,7 @@ const Impact: React.FC = () => {
              </div>
           </div>
 
-          {/* Row 2: Trusted By (Moves Right - SAME SPEED) */}
+          {/* Row 2: Trusted By (Moves Right) */}
           <div className="relative">
              <div className="absolute top-0 right-0 z-20 bg-white/10 px-6 py-2 rounded-bl-2xl border-l border-b border-gray-100 font-black text-[10px] uppercase tracking-widest text-blue-700">Institutional Network Node</div>
              <div className="flex relative marquee-mask overflow-hidden">

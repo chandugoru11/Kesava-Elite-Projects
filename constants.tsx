@@ -41,223 +41,167 @@ export const COURSE_DATA: CourseCategory[] = [
       {
         id: "full-stack",
         title: "Full-Stack Development",
-        description: "End-to-end web architecture training. Master modern frontend and robust backend ecosystems.",
+        description: "Master modern web ecosystems from React UI to Spring Microservices.",
         duration: "6 Months",
-        features: ["React 19", "Spring Boot", "Docker", "AWS", "CI/CD"],
-        modules: ["Responsive UI with Tailwind", "State Management (Redux/Context)", "Microservices Architecture", "Cloud Deployment", "Database Performance Tuning"],
-        outcomes: ["Senior Web Developer", "Full Stack Engineer"],
-        fullPrice: 24999,
-        registrationFee: 2999
+        features: ["React 19", "Spring Boot", "Docker", "AWS"],
+        modules: ["Frontend Architecture", "Backend Engineering", "DevOps basics", "API Security", "Database Scaling"],
+        fullPrice: 24999, registrationFee: 2999
       },
       {
         id: "data-science",
         title: "Data Science",
-        description: "Transform raw data into strategic intelligence using statistical modeling and predictive analysis.",
+        description: "Industrial data intelligence using predictive modeling.",
         duration: "6 Months",
-        features: ["Python Pro", "Pandas", "Matplotlib", "Statistics", "Deep Learning"],
-        modules: ["Statistical Inference", "Data Wrangling", "Exploratory Data Analysis", "Big Data Handling", "Model Deployment"],
-        outcomes: ["Data Scientist", "Insight Analyst"],
-        fullPrice: 29999,
-        registrationFee: 3999
+        features: ["Python", "Pandas", "Scikit-Learn"],
+        modules: ["Data Wrangling", "Statistical Analysis", "ML Models", "Data Visualization", "Big Data Processing"],
+        fullPrice: 29999, registrationFee: 3999
       },
       {
         id: "ai",
         title: "Artificial Intelligence",
-        description: "Study the frontier of computing. Neural networks, NLP, and intelligent agent design.",
+        description: "Frontier of computing: Neural nets and NLP.",
         duration: "5 Months",
-        features: ["TensorFlow", "PyTorch", "NLP", "Neural Nets"],
-        modules: ["Supervised Learning", "Deep Neural Networks", "Natural Language Processing", "Reinforcement Learning", "Computer Vision Basics"],
-        outcomes: ["AI Researcher", "Machine Learning Engineer"],
-        fullPrice: 34999,
-        registrationFee: 4999
+        features: ["TensorFlow", "NLP", "Neural Nets"],
+        modules: ["Deep Learning", "Generative AI", "Computer Vision", "Reinforcement Learning", "AI Ethics"],
+        fullPrice: 34999, registrationFee: 4999
       },
       {
         id: "ml",
         title: "Machine Learning",
-        description: "Implementing algorithms that enable software to automatically learn from and predict patterns.",
+        description: "Building software that learns from industrial patterns.",
         duration: "4 Months",
-        features: ["Scikit-Learn", "Regression", "Clustering", "XGBoost"],
-        modules: ["Linear Regression", "Decision Trees", "SVM & Kernels", "Ensemble Methods", "Model Evaluation"],
-        outcomes: ["ML Engineer", "Data Analyst"],
-        fullPrice: 27999,
-        registrationFee: 3999
-      },
-      {
-        id: "power-bi",
-        title: "Power BI",
-        description: "Master business intelligence visualization to drive corporate decision-making processes.",
-        duration: "2 Months",
-        features: ["DAX", "Data Modeling", "Dashboarding"],
-        modules: ["Data Connectivity", "Advanced DAX Formulas", "Visual Storytelling", "Power BI Service Admin", "Integration with Excel"],
-        outcomes: ["BI Developer", "Business Analyst"],
-        fullPrice: 14999,
-        registrationFee: 1999
-      },
-      {
-        id: "app-dev",
-        title: "App Development",
-        description: "Build high-performance native and cross-platform mobile applications.",
-        duration: "4 Months",
-        features: ["Flutter", "React Native", "Firebase"],
-        modules: ["UI/UX Mobile Patterns", "Native API Integration", "State Management", "App Store Optimization", "Backend Integration"],
-        outcomes: ["Mobile App Developer"],
-        fullPrice: 22999,
-        registrationFee: 2999
+        features: ["Supervised Learning", "Regression", "Clustering"],
+        modules: ["Algorithmic Design", "Pattern Recognition", "Model Optimization", "Feature Engineering", "Neural Architecture"],
+        fullPrice: 27999, registrationFee: 3999
       },
       {
         id: "cybersecurity",
         title: "Cybersecurity",
-        description: "Protect digital assets and master the art of ethical hacking and perimeter defense.",
+        description: "Protecting Industry 4.0 perimeters and data assets.",
         duration: "4 Months",
-        features: ["Kali Linux", "Pen-Testing", "Network Security"],
-        modules: ["Footprinting & Reconnaissance", "Network Vulnerabilities", "Web Application Attacks", "Cryptography", "SOC Operations"],
-        outcomes: ["Security Analyst", "Ethical Hacker"],
-        fullPrice: 32999,
-        registrationFee: 4599
+        features: ["Kali Linux", "Ethical Hacking", "SOC"],
+        modules: ["Network Security", "Pen-Testing", "Incident Response", "Cloud Security", "Cryptography"],
+        fullPrice: 32999, registrationFee: 4599
       },
       {
-        id: "cloud-computing",
+        id: "cloud",
         title: "Cloud Computing",
-        description: "Architect and manage scalable infrastructure on the world's leading cloud platforms.",
+        description: "Scalable infrastructure management for enterprise tech.",
         duration: "4 Months",
         features: ["AWS", "Azure", "Serverless"],
-        modules: ["Cloud Infrastructure Setup", "Storage & Database Services", "Identity & Access Management", "Cloud Cost Optimization", "Hybrid Cloud Design"],
-        outcomes: ["Cloud Architect", "DevOps Engineer"],
-        fullPrice: 26999,
-        registrationFee: 3499
+        modules: ["Cloud Architecture", "Containerization", "Scaling Strategies", "Infrastructure as Code", "VPC & Networking"],
+        fullPrice: 26999, registrationFee: 3499
       },
       {
-        id: "quantum-ai",
-        title: "Quantum AI Computing",
-        description: "The next evolution of AI. Fusion of quantum mechanics and neural architectures.",
-        duration: "6 Months",
-        features: ["Qiskit", "Quantum Circuits", "Hybrid Models"],
-        modules: ["Quantum Mechanics Basics", "Qubit Manipulation", "Quantum Algorithms", "Hybrid Quantum-Classical AI", "Future Tech Roadmap"],
-        outcomes: ["Quantum Researcher", "Advanced AI Specialist"],
-        fullPrice: 45999,
-        registrationFee: 7999
-      },
-      {
-        id: "software-testing",
-        title: "Software Testing",
-        description: "Ensuring elite standards in software quality through manual and automated testing.",
+        id: "power-bi",
+        title: "Power BI",
+        description: "Advanced business intelligence and data visualization.",
         duration: "3 Months",
-        features: ["Selenium", "JUnit", "Performance Testing"],
-        modules: ["Test Planning", "Automation Scripting", "API Testing (Postman)", "Load & Stress Testing", "Bug Lifecycle Management"],
-        outcomes: ["QA Engineer", "Automation Tester"],
-        fullPrice: 15999,
-        registrationFee: 1999
+        features: ["DAX", "SQL", "Dashboarding"],
+        modules: ["Data Connectivity", "Advanced DAX", "Visual Storytelling", "Power BI Service", "Enterprise Reporting"],
+        fullPrice: 15999, registrationFee: 1999
       },
       {
-        id: "python-dev",
-        title: "Python Developer",
-        description: "Master the most versatile language for automation, web development, and scripting.",
-        duration: "3 Months",
-        features: ["Django", "Flask", "Automation Scripts"],
-        modules: ["Core Python Syntax", "Advanced OOP in Python", "Web Frameworks", "Scripting for Automation", "Third-party Integrations"],
-        outcomes: ["Python Developer", "Backend Engineer"],
-        fullPrice: 16999,
-        registrationFee: 1999
-      },
-      {
-        id: "data-analyst",
-        title: "Data Analyst",
-        description: "Bridge the gap between business questions and data-driven answers.",
+        id: "app-dev",
+        title: "App Development",
+        description: "Cross-platform mobile engineering with Flutter and React Native.",
         duration: "4 Months",
-        features: ["SQL Pro", "Excel Advanced", "Tableau"],
-        modules: ["SQL Queries & Joins", "Excel Modeling", "Data Presentation", "Business Reporting", "Cleaning Large Datasets"],
-        outcomes: ["Data Analyst", "Operations Manager"],
-        fullPrice: 19999,
-        registrationFee: 2499
+        features: ["Flutter", "React Native", "Firebase"],
+        modules: ["Native Integration", "State Management", "App Store Protocol", "UI/UX Mobile", "Backend Connectivity"],
+        fullPrice: 22999, registrationFee: 2999
       }
     ]
   },
   {
-    title: "Business & Management",
-    icon: "briefcase",
-    courses: [
-      {
-        id: "business-growth",
-        title: "Business Growth Specialist",
-        description: "Learn to scale technical organizations and SaaS products using modern growth hacking.",
-        duration: "3 Months",
-        features: ["Strategy", "Growth Hacking", "Sales Ops"],
-        modules: ["Market Entry Strategy", "Sales Funnel Optimization", "Customer Acquisition Cost", "Branding for Tech", "Operational Scaling"],
-        outcomes: ["Growth Manager", "Strategic Consultant"],
-        fullPrice: 18999,
-        registrationFee: 2499
-      },
-      {
-        id: "stock-market",
-        title: "Stock Market & Investment Training",
-        description: "Financial literacy and advanced technical analysis for global capital markets.",
-        duration: "2 Months",
-        features: ["Technical Analysis", "Derivatives", "Risk Management"],
-        modules: ["Introduction to Equity", "Candlestick Patterns", "Options Strategies", "Portfolio Management", "Psychology of Trading"],
-        outcomes: ["Financial Advisor", "Technical Trader"],
-        fullPrice: 12999,
-        registrationFee: 1499
-      }
-    ]
-  },
-  {
-    title: "Core Courses",
+    title: "Core Engineering",
     icon: "cpu",
     courses: [
       {
-        id: "ai-robotics",
-        title: "AI Robotics",
-        description: "Designing intelligent machines that can sense and act within complex physical environments.",
+        id: "vlsi",
+        title: "VLSI Design",
+        description: "Very Large Scale Integration and Chip Design Protocol.",
         duration: "6 Months",
-        features: ["ROS2", "Computer Vision", "Control Systems"],
-        modules: ["Robotic Kinematics", "Sensor Fusion", "Path Planning", "Mobile Robotics", "Industrial Robot Arms"],
-        outcomes: ["Robotics Engineer", "Control Systems Architect"],
-        fullPrice: 38999,
-        registrationFee: 5999
+        features: ["Verilog", "Cadence", "FPGA"],
+        modules: ["Digital Logic", "CMOS Fabrication", "System Verilog", "Physical Design", "Testing & Verification"],
+        fullPrice: 38999, registrationFee: 5999
       },
       {
-        id: "iot",
-        title: "Internet of Things (IoT)",
-        description: "Building the connected world through smart sensors, actuators, and cloud connectivity.",
-        duration: "4 Months",
-        features: ["ESP32", "MQTT", "Node-RED"],
-        modules: ["Microcontroller Prototyping", "Wireless Protocols", "Cloud Monitoring", "IoT Security", "Edge Computing"],
-        outcomes: ["IoT Developer", "Hardware Architect"],
-        fullPrice: 19999,
-        registrationFee: 2499
-      },
-      {
-        id: "iort",
-        title: "IoRT (Internet of Robotics Things)",
-        description: "The synthesis of IoT and Robotics. Distributed intelligence in robotic systems.",
+        id: "industrial-automation",
+        title: "Industrial Automation",
+        description: "Master PLC, SCADA, and Industrial IoT for Industry 4.0.",
         duration: "5 Months",
-        features: ["Swarm Intelligence", "Cloud Robotics", "Real-time Telemetry"],
-        modules: ["Distributed Robotic Control", "Multi-Agent Systems", "Networked Robots", "Remote Teleoperation", "Collaborative Robots (Cobots)"],
-        outcomes: ["IoRT Specialist", "Automation Engineer"],
-        fullPrice: 28999,
-        registrationFee: 4599
+        features: ["PLC", "SCADA", "HMI"],
+        modules: ["Ladder Logic", "Field Instrumentation", "Distributed Control", "Motion Control", "System Integration"],
+        fullPrice: 34999, registrationFee: 4999
       },
       {
-        id: "embedded-systems",
+        id: "ev-tech",
+        title: "Electric Vehicle Tech",
+        description: "Design and engineering of Electric Vehicle systems.",
+        duration: "5 Months",
+        features: ["MATLAB", "BMS", "Powertrain"],
+        modules: ["Battery Management", "Motor Controllers", "Charging Infra", "Vehicle Dynamics", "Thermal Management"],
+        fullPrice: 35999, registrationFee: 5499
+      },
+      {
+        id: "embedded",
         title: "Embedded Systems",
-        description: "Designing the brains of modern electronic devices using hardware-level programming.",
+        description: "Firmware and Hardware-level engineering.",
         duration: "4 Months",
-        features: ["C/C++", "RTOS", "Device Drivers"],
-        modules: ["Architecture Basics", "Memory Management", "Peripheral Interfacing (I2C/SPI)", "RTOS Kernels", "Low-power Design"],
-        outcomes: ["Embedded Developer", "Firmware Engineer"],
-        fullPrice: 21999,
-        registrationFee: 2999
+        features: ["ARM Cortex", "RTOS", "C++"],
+        modules: ["Microcontroller Pro", "Device Drivers", "Kernel Programming", "IoT Protocols", "PCB Design"],
+        fullPrice: 24999, registrationFee: 3499
       },
       {
         id: "drone-robotics",
         title: "Drone & Aerial Robotics",
-        description: "Aero-dynamic principles and autonomous flight mission design for industrial UAVs.",
+        description: "UAV Design, flight dynamics, and autonomous missions.",
+        duration: "4 Months",
+        features: ["PX4", "ArduPilot", "ROS"],
+        modules: ["Flight Control", "Telemetry Systems", "Drone Assembly", "Payload Integration", "Aerial Imaging"],
+        fullPrice: 32999, registrationFee: 4999
+      },
+      {
+        id: "solidworks",
+        title: "SolidWorks Design",
+        description: "Advanced 3D Modeling and Industrial Simulation.",
         duration: "3 Months",
-        features: ["ArduPilot", "Mission Planner", "UAV Build"],
-        modules: ["Flight Dynamics", "UAV Assembly & Calibrations", "Autonomous Waypoint Missions", "Aerial Photogrammetry", "Regulations & Safety"],
-        outcomes: ["UAV Pilot", "Aerial Systems Engineer"],
-        fullPrice: 31999,
-        registrationFee: 4999
+        features: ["3D Modeling", "FEA", "Simulation"],
+        modules: ["Sketching & Part Design", "Assembly Modeling", "Technical Drawing", "Stress Analysis", "Sheet Metal Design"],
+        fullPrice: 18999, registrationFee: 2499
+      },
+      {
+        id: "autocad",
+        title: "AutoCAD (2D & 3D)",
+        description: "Professional drafting and structural documentation.",
+        duration: "3 Months",
+        features: ["Drafting", "Rendering", "Blueprinting"],
+        modules: ["Geometric Design", "Architectural Drawing", "3D Rendering", "Structural Annotation", "Plotting Protocols"],
+        fullPrice: 14999, registrationFee: 1999
+      }
+    ]
+  },
+  {
+    title: "Finance & Management",
+    icon: "briefcase",
+    courses: [
+      {
+        id: "stock-market",
+        title: "Stock Market & Trading",
+        description: "Technical analysis and capital market protocols.",
+        duration: "2 Months",
+        features: ["Technical Analysis", "Options", "Forex"],
+        modules: ["Price Action", "Derivative Strategies", "Risk Management", "Portfolio Balancing", "Market Psychology"],
+        fullPrice: 12999, registrationFee: 1499
+      },
+      {
+        id: "business-growth",
+        title: "Business Growth Expert",
+        description: "Strategies for scaling startups and technical entities.",
+        duration: "3 Months",
+        features: ["Marketing", "Sales", "Strategy"],
+        modules: ["Customer Acquisition", "Growth Hacking", "Operational Scaling", "Venture Capital", "Branding"],
+        fullPrice: 19999, registrationFee: 2499
       }
     ]
   }

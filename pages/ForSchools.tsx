@@ -81,8 +81,8 @@ const ForSchools: React.FC = () => {
           <div className="flex relative marquee-mask overflow-hidden">
             <div className="animate-marquee-l flex items-center gap-12 py-12 px-6">
               {[...schoolPartners, ...schoolPartners].map((client, i) => (
-                <div key={i} className="bg-white border border-gray-100 rounded-[3.5rem] p-12 min-w-[400px] h-64 shadow-sm flex items-center justify-center group">
-                   <img src={client.logo} alt={client.name} className="max-h-32 object-contain filter grayscale group-hover:grayscale-0 transition-all duration-500" 
+                <div key={i} className="bg-white border border-gray-100 rounded-[4rem] p-14 min-w-[450px] h-72 shadow-sm flex items-center justify-center group">
+                   <img src={client.logo} alt={client.name} className="max-h-36 object-contain filter grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105" 
                     onError={(e) => { (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(client.name)}&background=eff6ff&color=1d4ed8&bold=true&length=4&size=256`; }}
                    />
                 </div>
@@ -93,8 +93,8 @@ const ForSchools: React.FC = () => {
           <div className="flex relative marquee-mask overflow-hidden">
             <div className="animate-marquee-r flex items-center gap-12 py-12 px-6">
               {[...schoolPartners, ...schoolPartners].reverse().map((client, i) => (
-                <div key={i} className="bg-white border border-gray-100 rounded-[3.5rem] p-12 min-w-[400px] h-64 shadow-sm flex items-center justify-center group">
-                   <img src={client.logo} alt={client.name} className="max-h-32 object-contain filter grayscale group-hover:grayscale-0 transition-all duration-500" 
+                <div key={i} className="bg-white border border-gray-100 rounded-[4rem] p-14 min-w-[450px] h-72 shadow-sm flex items-center justify-center group">
+                   <img src={client.logo} alt={client.name} className="max-h-36 object-contain filter grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105" 
                     onError={(e) => { (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(client.name)}&background=eff6ff&color=1d4ed8&bold=true&length=4&size=256`; }}
                    />
                 </div>
