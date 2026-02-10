@@ -1,14 +1,17 @@
+
 import React, { useState, useEffect, useMemo } from 'react';
-import { Terminal, Briefcase, Rocket, Star, Info, X, Clock, CheckCircle, ArrowLeft, ArrowRight, CreditCard, ShieldCheck, Zap, Wallet, Smartphone, ChevronRight, Receipt, Loader2, AlertTriangle, FileText, Download, Target, ListChecks, Cpu, Settings, Search, Shield, Database, Globe, Layers } from 'lucide-react';
+import { Terminal, Briefcase, Rocket, Star, Info, X, Clock, CheckCircle, ArrowLeft, ArrowRight, CreditCard, ShieldCheck, Zap, Wallet, Smartphone, ChevronRight, Receipt, Loader2, AlertTriangle, FileText, Download, Target, ListChecks, Cpu, Settings, Search, Shield, Database, Globe, Layers, HandCoins } from 'lucide-react';
 import { COURSE_DATA } from '../constants.tsx';
 import { Course } from '../types.ts';
 import { useAuth } from '../AuthContext.tsx';
 
-type ModalStep = 'details' | 'selection' | 'processing' | 'success' | 'error';
+type ModalStep = 'details' | 'selection' | 'payment' | 'processing' | 'success' | 'error';
+type PaymentOption = 'pre' | 'post';
 
 const CourseModal: React.FC<{ course: Course | null; onClose: () => void }> = ({ course, onClose }) => {
   const { user } = useAuth();
   const [step, setStep] = useState<ModalStep>('details');
+  const [paymentOption, setPaymentOption] = useState<PaymentOption>('pre');
 
   if (!course) return null;
 
@@ -17,17 +20,31 @@ const CourseModal: React.FC<{ course: Course | null; onClose: () => void }> = ({
     setTimeout(() => setStep('success'), 2000);
   };
 
+  const handleBack = () => {
+    if (step === 'details') {
+      onClose();
+    } else if (step === 'selection') {
+      setStep('details');
+    } else if (step === 'payment') {
+      setStep('selection');
+    } else {
+      setStep('details');
+    }
+  };
+
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-blue-950/60 backdrop-blur-xl animate-fade-in">
       <div className="bg-white rounded-[4rem] w-full max-w-6xl max-h-[92vh] overflow-hidden shadow-2xl relative animate-scale-up flex flex-col">
         {/* Modal Header */}
         <div className="px-10 py-8 border-b border-gray-50 flex items-center justify-between sticky top-0 bg-white z-30">
           <div className="flex items-center space-x-4">
-             {step !== 'details' && (
-               <button onClick={() => setStep('details')} className="p-3 bg-gray-50 rounded-full hover:bg-blue-50 text-gray-400 hover:text-blue-700 transition-all">
-                 <ArrowLeft size={24} />
-               </button>
-             )}
+             <button 
+               onClick={handleBack} 
+               className="p-3 bg-gray-50 rounded-full hover:bg-blue-50 text-gray-400 hover:text-blue-700 transition-all flex items-center justify-center group"
+               title="One Step Backward"
+             >
+               <ArrowLeft size={24} className="group-hover:-translate-x-1 transition-transform" />
+             </button>
              <div>
                 <h3 className="text-xl font-black text-gray-900 tracking-tight">{course.title}</h3>
                 <p className="text-[10px] font-black text-blue-600 uppercase tracking-widest">Industrial Protocol Access</p>
@@ -89,7 +106,7 @@ const CourseModal: React.FC<{ course: Course | null; onClose: () => void }> = ({
                  </div>
 
                  <div className="bg-gray-50 p-10 rounded-[3rem] border border-gray-100">
-                    <h4 className="font-black uppercase tracking-widest text-[10px] mb-6 text-gray-400">Enrollment Node</h4>
+                    <h4 className="font-black uppercase tracking-widest text-[10px] mb-6 text-gray-400">Standard Access Fee</h4>
                     <div className="mb-10">
                        <p className="text-5xl font-black text-gray-900 tracking-tighter">₹{course.fullPrice.toLocaleString()}</p>
                        <p className="text-xs font-bold text-gray-400 mt-2 italic">Excluding GST as applicable</p>
@@ -107,21 +124,70 @@ const CourseModal: React.FC<{ course: Course | null; onClose: () => void }> = ({
                 <div className="w-24 h-24 bg-blue-50 text-blue-700 rounded-3xl flex items-center justify-center mx-auto mb-10">
                   <ShieldCheck size={48} />
                 </div>
-                <h3 className="text-4xl font-black mb-6 uppercase tracking-tighter">Checkout Protocol</h3>
-                <p className="text-xl text-gray-500 mb-12 font-medium">Verify your student identity before initializing the secure payment gateway.</p>
+                <h3 className="text-4xl font-black mb-6 uppercase tracking-tighter">Verification Phase</h3>
+                <p className="text-xl text-gray-500 mb-12 font-medium leading-relaxed">Confirm your technical profile identity before moving to the financial handshake.</p>
                 <div className="grid grid-cols-1 gap-4 mb-16 text-left">
-                  <div className="p-8 bg-blue-50 border border-blue-100 rounded-3xl flex items-center justify-between">
+                  <div className="p-10 bg-blue-50 border border-blue-100 rounded-[2.5rem] flex items-center justify-between">
                     <div>
-                      <p className="text-[10px] font-black uppercase tracking-widest text-blue-400 mb-1">Authenticated Node</p>
-                      <p className="font-black text-blue-900">{user?.name || 'Guest Student'}</p>
+                      <p className="text-[10px] font-black uppercase tracking-widest text-blue-400 mb-2">Authenticated Node</p>
+                      <p className="text-2xl font-black text-blue-900">{user?.name || 'Guest Student'}</p>
+                      <p className="text-sm text-blue-600/70 font-bold mt-1">{user?.email || 'Unauthorized Email'}</p>
                     </div>
-                    <Receipt className="text-blue-300" />
+                    <Receipt className="text-blue-300" size={32} />
                   </div>
                 </div>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <button onClick={() => setStep('details')} className="flex-1 border-2 border-gray-100 py-6 rounded-3xl font-black uppercase text-xs tracking-widest text-gray-400 hover:bg-gray-50 transition-all">Back to Overview</button>
+                <div className="flex flex-col sm:flex-row gap-6">
+                  <button onClick={() => setStep('details')} className="flex-1 bg-gray-50 border border-gray-100 py-6 rounded-3xl font-black uppercase text-xs tracking-widest text-gray-400 hover:bg-gray-100 transition-all">One Step Backward</button>
+                  <button onClick={() => setStep('payment')} className="flex-1 bg-blue-700 text-white py-6 rounded-3xl font-black text-xl shadow-xl flex items-center justify-center group">
+                    Next Protocol <ArrowRight className="ml-3 group-hover:translate-x-1 transition-transform" />
+                  </button>
+                </div>
+             </div>
+           )}
+
+           {step === 'payment' && (
+             <div className="animate-fade-in py-16 max-w-4xl mx-auto">
+                <div className="text-center mb-16">
+                   <h3 className="text-4xl font-black mb-4 uppercase tracking-tighter">Settlement Protocol</h3>
+                   <p className="text-gray-500 font-medium">Select your preferred industrial funding model.</p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+                   <button 
+                     onClick={() => setPaymentOption('pre')}
+                     className={`p-10 rounded-[3.5rem] border-4 text-left transition-all group ${paymentOption === 'pre' ? 'border-blue-700 bg-blue-50/50' : 'border-gray-50 bg-white hover:border-blue-100'}`}
+                   >
+                      <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-8 ${paymentOption === 'pre' ? 'bg-blue-700 text-white shadow-xl shadow-blue-700/20' : 'bg-gray-100 text-gray-400'}`}>
+                         <Zap size={28} />
+                      </div>
+                      <h4 className="text-2xl font-black text-gray-900 mb-2">Pre-payment</h4>
+                      <p className="text-sm text-gray-500 font-bold mb-8 italic">Full course settlement upfront.</p>
+                      <div className="pt-8 border-t border-gray-100 flex items-center justify-between">
+                         <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">Total Due Now</span>
+                         <span className="text-3xl font-black text-blue-700">₹{course.fullPrice.toLocaleString()}</span>
+                      </div>
+                   </button>
+
+                   <button 
+                     onClick={() => setPaymentOption('post')}
+                     className={`p-10 rounded-[3.5rem] border-4 text-left transition-all group ${paymentOption === 'post' ? 'border-blue-700 bg-blue-50/50' : 'border-gray-50 bg-white hover:border-blue-100'}`}
+                   >
+                      <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-8 ${paymentOption === 'post' ? 'bg-blue-700 text-white shadow-xl shadow-blue-700/20' : 'bg-gray-100 text-gray-400'}`}>
+                         <HandCoins size={28} />
+                      </div>
+                      <h4 className="text-2xl font-black text-gray-900 mb-2">Post-payment</h4>
+                      <p className="text-sm text-gray-500 font-bold mb-8 italic">Pay registration now, balance later.</p>
+                      <div className="pt-8 border-t border-gray-100 flex items-center justify-between">
+                         <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">Token Fee Due</span>
+                         <span className="text-3xl font-black text-blue-700">₹{course.registrationFee.toLocaleString()}</span>
+                      </div>
+                   </button>
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-6">
+                  <button onClick={() => setStep('selection')} className="flex-1 bg-gray-50 border border-gray-100 py-6 rounded-3xl font-black uppercase text-xs tracking-widest text-gray-400 hover:bg-gray-100 transition-all">One Step Backward</button>
                   <button onClick={handlePayment} className="flex-1 bg-blue-700 text-white py-6 rounded-3xl font-black text-xl shadow-xl flex items-center justify-center group">
-                    Complete Handshake <Zap size={20} className="ml-3 fill-current" />
+                    Execute Handshake <ShieldCheck size={20} className="ml-3" />
                   </button>
                 </div>
              </div>
@@ -133,8 +199,8 @@ const CourseModal: React.FC<{ course: Course | null; onClose: () => void }> = ({
                    <div className="absolute inset-0 border-4 border-blue-100 rounded-full"></div>
                    <div className="absolute inset-0 border-4 border-blue-700 border-t-transparent rounded-full animate-spin"></div>
                 </div>
-                <h3 className="text-3xl font-black uppercase tracking-tighter mb-4">Synchronizing...</h3>
-                <p className="text-gray-400 font-medium">Authorizing credentials with central Hub node.</p>
+                <h3 className="text-3xl font-black uppercase tracking-tighter mb-4">Authorizing Transaction...</h3>
+                <p className="text-gray-400 font-medium">Communicating with centralized financial nodes.</p>
              </div>
            )}
 
@@ -143,8 +209,8 @@ const CourseModal: React.FC<{ course: Course | null; onClose: () => void }> = ({
                 <div className="w-28 h-28 bg-green-50 text-green-500 mx-auto mb-10 rounded-[3rem] flex items-center justify-center shadow-xl border border-green-100">
                    <CheckCircle size={64} />
                 </div>
-                <h3 className="text-5xl font-black mb-6 uppercase tracking-tighter">Access Granted</h3>
-                <p className="text-xl text-gray-500 mb-16 font-medium leading-relaxed">Your industrial track is now active. Log in to the Elite LMS to begin your engineering journey.</p>
+                <h3 className="text-5xl font-black mb-6 uppercase tracking-tighter">Access Secured</h3>
+                <p className="text-xl text-gray-500 mb-16 font-medium leading-relaxed">Enrollment protocol complete. Your unique student signature is now logged on our industrial registry.</p>
                 <button onClick={onClose} className="w-full bg-blue-700 text-white px-12 py-7 rounded-[2.5rem] font-black text-xl shadow-2xl">Enter Learning Hub</button>
              </div>
            )}
@@ -161,7 +227,8 @@ const Courses: React.FC = () => {
   return (
     <div className="bg-white pb-48">
       <div className="bg-blue-950 py-48 text-center relative">
-        <div className="container mx-auto px-6">
+        <div className="absolute inset-0 bg-animated-grid opacity-10"></div>
+        <div className="container mx-auto px-6 relative z-10">
           <h1 className="text-6xl md:text-[10rem] font-black text-white mb-12 tracking-tighter leading-none">
             Acquire Elite <br/><span className="shimmer-text">Credentials.</span>
           </h1>
@@ -177,7 +244,7 @@ const Courses: React.FC = () => {
           {COURSE_DATA.filter(c => activeFilter === 'All' || c.title === activeFilter).map((cat, i) => (
             <div key={i} className="bg-white rounded-[4rem] border border-gray-100 shadow-xl overflow-hidden hover:shadow-2xl transition-all">
                <div className="p-10 bg-gray-950 text-white flex items-center space-x-6">
-                 <Terminal size={32} className="text-blue-500" />
+                 <Terminal size={32} className="text-blue-50" />
                  <h3 className="text-2xl font-black uppercase tracking-tight">{cat.title}</h3>
                </div>
                <div className="p-10 space-y-4">
