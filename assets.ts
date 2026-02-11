@@ -1,3 +1,4 @@
+
 /**
  * KESHAVA ELITE - CENTRAL ASSET REPOSITORY
  */
@@ -15,6 +16,11 @@ export const ASSETS = {
     CISCO: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Cisco_logo_blue_2016.svg/1200px-Cisco_logo_blue_2016.svg.png",
     AICTE: "https://upload.wikimedia.org/wikipedia/en/e/eb/All_India_Council_for_Technical_Education_logo.png",
     MCA: "https://i.postimg.cc/J7ZP1P67/MCA-Govt-of-INDIA-jpg.jpg",
+    GREAT_LEARNING: "https://i.postimg.cc/QdL7VbvJ/Great_Learning.jpg",
+    IDPS_NARA: "https://i.postimg.cc/zB3FZkLG/International-Delhi-Public-School.jpg",
+    UGYAN: "https://i.postimg.cc/906pBqFb/Ugyan.jpg",
+    CODE_TREE: "https://i.postimg.cc/mgXG8XRD/Code_Tree.jpg",
+    FLYHII: "https://i.postimg.cc/vHCrfMxW/Flhi.jpg",
   },
   HERO: {
     ENGINEERING: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1920",

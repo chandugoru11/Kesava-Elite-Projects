@@ -222,6 +222,9 @@ const Courses: React.FC = () => {
           <h1 className="text-6xl md:text-[10rem] font-black text-white mb-12 tracking-tighter leading-none">
             Elite <br/><span className="shimmer-text">Credentials.</span>
           </h1>
+          <p className="text-xl text-gray-400 font-medium max-w-3xl mx-auto leading-relaxed">
+            Industry-Aligned Professional Certification Programs. Master high-demand technologies with our hands-on curriculum, expert mentorship, and startup-ready training features.
+          </p>
         </div>
       </div>
 

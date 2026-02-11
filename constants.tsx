@@ -1,3 +1,4 @@
+
 import { NavItem, CourseCategory, LMSResource } from './types.ts';
 import { ASSETS } from './assets.ts';
 
@@ -6,12 +7,27 @@ export const COMPANY_INFO = {
   brandName: "KESHAVA ELITE PROJECTS",
   logo: ASSETS.LOGOS.PRIMARY,
   cin: "U62099AP2023PTC110407",
-  tagline: "ROBOTICS & TECHNOLOGY",
-  email: "info@keshavaeliteprojects.in",
+  tagline: "Empowering Future Innovators Through Robotics & STEM Excellence",
+  email: "info@keshavaeliteprojects.com",
   phone: "+91 7659867411",
   address: "Andhra Pradesh, India",
-  mission: "To create India’s most impactful Robotics & STEM innovation ecosystem — empowering every student to become a creator of technology.",
-  vision: "Building the foundation of technology education in India through industrial-grade excellence and accessible innovation.",
+  mission: "To deliver accessible, industry-aligned, and project-based technology education through modern labs, expert mentorship, and innovation-driven learning.",
+  vision: "To create India’s most impactful Robotics & STEM innovation ecosystem — empowering every student to become a creator of technology, not just a consumer.",
+  philosophy: [
+    "Learning by Building",
+    "Innovation over Memorization",
+    "Projects over Theory",
+    "Industry over Outdated Curriculum",
+    "Access for Every Student"
+  ],
+  trainingFeatures: [
+    "Hands-on Projects",
+    "Industry Case Studies",
+    "Certification",
+    "Internship Support",
+    "Placement Assistance",
+    "Startup Mentorship"
+  ]
 };
 
 export const NAVIGATION_LINKS: NavItem[] = [
@@ -23,7 +39,8 @@ export const NAVIGATION_LINKS: NavItem[] = [
     children: [
       { label: 'STEM Labs', path: '/services#stem-labs' },
       { label: 'CoE Hubs', path: '/services#coe' },
-      { label: 'SaaS Products', path: '/services#saas' }
+      { label: 'SaaS Products', path: '/services#saas' },
+      { label: 'STEM & AI Robotics (K1-K12)', path: '/services#k12' }
     ]
   },
   { label: 'For Schools', path: '/for-schools' },
@@ -92,22 +109,64 @@ export const COURSE_DATA: CourseCategory[] = [
         fullPrice: 26999, registrationFee: 3499
       },
       {
-        id: "power-bi",
-        title: "Power BI",
-        description: "Advanced business intelligence and data visualization.",
+        id: "quantum-ai",
+        title: "Quantum AI Computing",
+        description: "Next-gen computing paradigms combining Quantum theory and AI.",
+        duration: "6 Months",
+        features: ["Qubits", "Quantum Gates", "AI Hybrid"],
+        modules: ["Quantum Circuits", "Hybrid Algorithms", "Quantum ML", "Physics of Computing", "Cryptography"],
+        fullPrice: 45999, registrationFee: 6999
+      },
+      {
+        id: "sw-testing",
+        title: "Software Testing",
+        description: "Comprehensive QA and Automation engineering.",
         duration: "3 Months",
-        features: ["DAX", "SQL", "Dashboarding"],
-        modules: ["Data Connectivity", "Advanced DAX", "Visual Storytelling", "Power BI Service", "Enterprise Reporting"],
+        features: ["Selenium", "JMeter", "Unit Testing"],
+        modules: ["Manual Testing", "Automation Frameworks", "Load Testing", "Security Testing", "CI/CD Integration"],
         fullPrice: 15999, registrationFee: 1999
       },
       {
-        id: "app-dev",
-        title: "App Development",
-        description: "Cross-platform mobile engineering with Flutter and React Native.",
+        id: "python-dev",
+        title: "Python Developer",
+        description: "Complete backend mastery using Python and Django.",
         duration: "4 Months",
-        features: ["Flutter", "React Native", "Firebase"],
-        modules: ["Native Integration", "State Management", "App Store Protocol", "UI/UX Mobile", "Backend Connectivity"],
-        fullPrice: 22999, registrationFee: 2999
+        features: ["Django", "FastAPI", "Automation"],
+        modules: ["Advanced Python", "Asynchronous Programming", "Database Integration", "Scripting", "Web Frameworks"],
+        fullPrice: 18999, registrationFee: 2499
+      },
+      {
+        id: "data-analyst",
+        title: "Data Analyst",
+        description: "Interpreting complex data to drive business decisions.",
+        duration: "4 Months",
+        features: ["Excel", "SQL", "Tableau"],
+        modules: ["Data Cleaning", "Statistical Modeling", "Business Intelligence", "Query Optimization", "Reporting"],
+        fullPrice: 19999, registrationFee: 2499
+      }
+    ]
+  },
+  {
+    title: "Business & Management",
+    icon: "briefcase",
+    courses: [
+      {
+        id: "business-growth",
+        title: "Business Growth Specialist",
+        description: "Strategies for scaling startups and technical entities.",
+        duration: "3 Months",
+        features: ["Marketing", "Sales", "Strategy"],
+        modules: ["Customer Acquisition", "Growth Hacking", "Operational Scaling", "Venture Capital", "Branding"],
+        fullPrice: 19999, registrationFee: 2499
+      },
+      {
+        id: "stock-market",
+        title: "Stock Market & Investment Training",
+        description: "Technical analysis and capital market protocols.",
+        duration: "2 Months",
+        features: ["Technical Analysis", "Options", "Forex"],
+        modules: ["Price Action", "Derivative Strategies", "Risk Management", "Portfolio Balancing", "Market Psychology"],
+        fullPrice: 12999, registrationFee: 1499
       }
     ]
   },
@@ -116,36 +175,36 @@ export const COURSE_DATA: CourseCategory[] = [
     icon: "cpu",
     courses: [
       {
-        id: "vlsi",
-        title: "VLSI Design",
-        description: "Very Large Scale Integration and Chip Design Protocol.",
+        id: "ai-robotics",
+        title: "AI Robotics",
+        description: "Combining Artificial Intelligence with mechanical robotics.",
         duration: "6 Months",
-        features: ["Verilog", "Cadence", "FPGA"],
-        modules: ["Digital Logic", "CMOS Fabrication", "System Verilog", "Physical Design", "Testing & Verification"],
+        features: ["Computer Vision", "ROS", "Kinematics"],
+        modules: ["Sensing", "Actuation", "Robot Vision", "Navigation", "Path Planning"],
         fullPrice: 38999, registrationFee: 5999
       },
       {
-        id: "industrial-automation",
-        title: "Industrial Automation",
-        description: "Master PLC, SCADA, and Industrial IoT for Industry 4.0.",
-        duration: "5 Months",
-        features: ["PLC", "SCADA", "HMI"],
-        modules: ["Ladder Logic", "Field Instrumentation", "Distributed Control", "Motion Control", "System Integration"],
-        fullPrice: 34999, registrationFee: 4999
+        id: "iot",
+        title: "Internet of Things (IoT)",
+        description: "Master the ecosystem of connected industrial devices.",
+        duration: "4 Months",
+        features: ["MQTT", "Sensors", "Arduino"],
+        modules: ["Sensor Interfacing", "Networking", "Cloud IoT", "Embedded C", "Security"],
+        fullPrice: 24999, registrationFee: 3499
       },
       {
-        id: "ev-tech",
-        title: "Electric Vehicle Tech",
-        description: "Design and engineering of Electric Vehicle systems.",
+        id: "iort",
+        title: "IoRT (Internet of Robotics Things)",
+        description: "The intersection of IoT and Robotics for advanced automation.",
         duration: "5 Months",
-        features: ["MATLAB", "BMS", "Powertrain"],
-        modules: ["Battery Management", "Motor Controllers", "Charging Infra", "Vehicle Dynamics", "Thermal Management"],
-        fullPrice: 35999, registrationFee: 5499
+        features: ["Swarm Intel", "Edge Computing", "IoRT Arch"],
+        modules: ["Cloud Robotics", "Real-time Processing", "Communication Protocols", "Distributed Control", "Edge AI"],
+        fullPrice: 36999, registrationFee: 5499
       },
       {
         id: "embedded",
         title: "Embedded Systems",
-        description: "Firmware and Hardware-level engineering.",
+        description: "Firmware and Hardware-level engineering masters.",
         duration: "4 Months",
         features: ["ARM Cortex", "RTOS", "C++"],
         modules: ["Microcontroller Pro", "Device Drivers", "Kernel Programming", "IoT Protocols", "PCB Design"],
@@ -159,48 +218,6 @@ export const COURSE_DATA: CourseCategory[] = [
         features: ["PX4", "ArduPilot", "ROS"],
         modules: ["Flight Control", "Telemetry Systems", "Drone Assembly", "Payload Integration", "Aerial Imaging"],
         fullPrice: 32999, registrationFee: 4999
-      },
-      {
-        id: "solidworks",
-        title: "SolidWorks Design",
-        description: "Advanced 3D Modeling and Industrial Simulation.",
-        duration: "3 Months",
-        features: ["3D Modeling", "FEA", "Simulation"],
-        modules: ["Sketching & Part Design", "Assembly Modeling", "Technical Drawing", "Stress Analysis", "Sheet Metal Design"],
-        fullPrice: 18999, registrationFee: 2499
-      },
-      {
-        id: "autocad",
-        title: "AutoCAD (2D & 3D)",
-        description: "Professional drafting and structural documentation.",
-        duration: "3 Months",
-        features: ["Drafting", "Rendering", "Blueprinting"],
-        modules: ["Geometric Design", "Architectural Drawing", "3D Rendering", "Structural Annotation", "Plotting Protocols"],
-        fullPrice: 14999, registrationFee: 1999
-      }
-    ]
-  },
-  {
-    title: "Finance & Management",
-    icon: "briefcase",
-    courses: [
-      {
-        id: "stock-market",
-        title: "Stock Market & Trading",
-        description: "Technical analysis and capital market protocols.",
-        duration: "2 Months",
-        features: ["Technical Analysis", "Options", "Forex"],
-        modules: ["Price Action", "Derivative Strategies", "Risk Management", "Portfolio Balancing", "Market Psychology"],
-        fullPrice: 12999, registrationFee: 1499
-      },
-      {
-        id: "business-growth",
-        title: "Business Growth Expert",
-        description: "Strategies for scaling startups and technical entities.",
-        duration: "3 Months",
-        features: ["Marketing", "Sales", "Strategy"],
-        modules: ["Customer Acquisition", "Growth Hacking", "Operational Scaling", "Venture Capital", "Branding"],
-        fullPrice: 19999, registrationFee: 2499
       }
     ]
   }
