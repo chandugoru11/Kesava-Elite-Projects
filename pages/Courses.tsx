@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { 
   Terminal, Briefcase, Info, X, Clock, CheckCircle, 
   ArrowLeft, ArrowRight, ShieldCheck, Zap, 
-  ChevronRight, Receipt, HandCoins, Cpu, LayoutGrid 
+  ChevronRight, Receipt, HandCoins, Cpu, LayoutGrid, BookOpen 
 } from 'lucide-react';
 import { COURSE_DATA } from '../constants.tsx';
 import { Course } from '../types.ts';
@@ -230,13 +230,13 @@ const Courses: React.FC = () => {
 
       <div className="container mx-auto px-6 -mt-32 relative z-20">
         {/* Navigation / Filter Control */}
-        <div className="flex items-center space-x-6 mb-24 overflow-x-auto pb-4 custom-scrollbar">
+        <div className="flex items-center space-x-6 mb-16 overflow-x-auto pb-4 custom-scrollbar">
            {activeFilter !== 'All' && (
              <button 
                onClick={() => setActiveFilter('All')} 
                className="bg-gray-950 text-white px-8 py-4 rounded-full text-[10px] font-black uppercase tracking-widest flex items-center shadow-xl hover:bg-blue-700 transition-all flex-shrink-0"
              >
-               <ArrowLeft size={14} className="mr-3" /> Back to Categories
+               <ArrowLeft size={14} className="mr-3" /> All Categories
              </button>
            )}
            <div className="flex bg-white p-3 rounded-full shadow-2xl border border-gray-100 flex-shrink-0">
@@ -252,33 +252,48 @@ const Courses: React.FC = () => {
            </div>
         </div>
 
-        {/* Drill-down View */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16">
+        {/* Categories / Courses View */}
+        <div className={`grid grid-cols-1 ${activeFilter === 'All' ? 'md:grid-cols-2 lg:grid-cols-3' : 'lg:grid-cols-2'} gap-12`}>
           {filteredCategories.map((cat, i) => (
-            <div key={i} className="bg-white rounded-[4rem] border border-gray-100 shadow-xl overflow-hidden hover:shadow-2xl transition-all">
+            <div key={i} className={`bg-white rounded-[4rem] border border-gray-100 shadow-xl overflow-hidden transition-all h-fit ${activeFilter !== 'All' ? 'lg:col-span-2' : ''}`}>
+               {/* Header */}
                <div className="p-10 bg-gray-950 text-white flex items-center justify-between">
                  <div className="flex items-center space-x-6">
-                    <div className="w-12 h-12 bg-blue-700 rounded-2xl flex items-center justify-center">
-                       {cat.title.includes('IT') ? <Terminal size={24}/> : cat.title.includes('Core') ? <Cpu size={24}/> : <Briefcase size={24}/>}
+                    <div className="w-14 h-14 bg-blue-700 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-700/20">
+                       {cat.title.includes('IT') ? <Terminal size={28}/> : cat.title.includes('Core') ? <Cpu size={28}/> : <Briefcase size={28}/>}
                     </div>
-                    <h3 className="text-2xl font-black uppercase tracking-tight">{cat.title}</h3>
+                    <div>
+                      <h3 className="text-2xl font-black uppercase tracking-tight leading-none mb-2">{cat.title}</h3>
+                      <p className="text-[10px] font-black text-blue-400 uppercase tracking-widest">{cat.courses.length} Certified Tracks</p>
+                    </div>
                  </div>
                  {activeFilter === 'All' && (
-                   <button onClick={() => setActiveFilter(cat.title)} className="p-2 text-gray-500 hover:text-blue-500 transition-colors">
-                     <LayoutGrid size={20} />
+                   <button onClick={() => setActiveFilter(cat.title)} className="p-3 bg-white/5 rounded-xl text-gray-500 hover:text-blue-500 hover:bg-white/10 transition-all">
+                     <ChevronRight size={20} />
                    </button>
                  )}
                </div>
-               <div className="p-10 space-y-4">
+
+               {/* Course List Grid */}
+               <div className={`p-10 ${activeFilter === 'All' ? 'space-y-4' : 'grid grid-cols-1 md:grid-cols-2 gap-6'}`}>
                  {cat.courses.map(course => (
                    <button 
                      key={course.id} 
                      onClick={() => setSelectedCourse(course)} 
-                     className="w-full text-left p-6 bg-gray-50 hover:bg-blue-50 rounded-3xl transition-all flex justify-between items-center group"
+                     className="w-full text-left p-8 bg-gray-50 hover:bg-blue-50 border border-gray-100 hover:border-blue-200 rounded-[2.5rem] transition-all flex flex-col justify-between group h-full"
                    >
-                     <span className="font-black text-gray-900 group-hover:text-blue-700">{course.title}</span>
-                     <div className="bg-white p-2 rounded-xl border border-gray-100 group-hover:border-blue-200 shadow-sm">
-                        <Info size={16} className="text-gray-300 group-hover:text-blue-400" />
+                     <div className="flex justify-between items-start mb-6 w-full">
+                       <h4 className="font-black text-lg text-gray-900 group-hover:text-blue-700 leading-tight pr-4">{course.title}</h4>
+                       <div className="bg-white p-2.5 rounded-xl border border-gray-200 group-hover:border-blue-300 shadow-sm flex-shrink-0 transition-all">
+                          <Info size={16} className="text-gray-300 group-hover:text-blue-500" />
+                       </div>
+                     </div>
+                     <div className="flex items-center space-x-4">
+                        <div className="flex items-center space-x-2 bg-white px-4 py-1.5 rounded-full border border-gray-100 text-[9px] font-black text-gray-400 uppercase tracking-widest group-hover:border-blue-200 group-hover:text-blue-600 transition-all">
+                           <Clock size={12} />
+                           <span>{course.duration}</span>
+                        </div>
+                        <span className="text-sm font-black text-gray-900">₹{course.fullPrice.toLocaleString()}</span>
                      </div>
                    </button>
                  ))}

@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   CheckCircle2, Quote, Globe, Target, Rocket, 
-  ShieldCheck, Cpu, Users, Award, ExternalLink 
+  ShieldCheck, Cpu, Users, Award, ExternalLink, ArrowRight 
 } from 'lucide-react';
 import { COMPANY_INFO } from '../constants.tsx';
 import { ASSETS } from '../assets.ts';
@@ -40,16 +40,16 @@ const About: React.FC = () => {
   return (
     <div className="bg-white overflow-hidden">
       {/* Page Header */}
-      <div className="bg-blue-950 py-48 relative overflow-hidden text-center">
-        <div className="absolute inset-0 bg-grid opacity-10"></div>
+      <div className="bg-elite-blue py-48 relative overflow-hidden text-center">
+        <div className="absolute inset-0 bg-animated-grid opacity-10"></div>
         <div className="container mx-auto px-6 relative z-10">
           <Reveal>
-            <div className="inline-flex items-center space-x-3 bg-blue-600/10 border border-blue-600/20 px-8 py-3 rounded-full mb-10">
-              <Globe size={18} className="text-blue-400" />
-              <span className="text-blue-400 font-black tracking-[0.4em] uppercase text-[10px]">The Elite Narrative</span>
+            <div className="inline-flex items-center space-x-3 bg-white/10 border border-white/20 px-8 py-3 rounded-full mb-10">
+              <Globe size={18} className="text-white" />
+              <span className="text-white font-black tracking-[0.4em] uppercase text-[10px]">The Elite Narrative</span>
             </div>
-            <h1 className="text-7xl md:text-[9rem] font-black text-white mb-10 leading-[0.85] tracking-tighter">
-              Legacy of <br/><span className="shimmer-text">Innovation.</span>
+            <h1 className="text-6xl md:text-9xl font-black text-white mb-10 leading-[0.85] tracking-tighter">
+              Who <br/><span className="text-innovation-orange italic">We Are.</span>
             </h1>
           </Reveal>
         </div>
@@ -60,25 +60,28 @@ const About: React.FC = () => {
           <div className="max-w-5xl mx-auto">
             <Reveal type="up">
               <div className="flex items-center space-x-6 mb-12">
-                <div className="w-16 h-1 px-0 bg-blue-700 rounded-full"></div>
-                <h2 className="text-4xl font-black text-gray-900 tracking-tight">Who We Are</h2>
+                <div className="w-16 h-1.5 bg-innovation-orange rounded-full"></div>
+                <h2 className="text-4xl font-black text-tech-dark tracking-tight uppercase">About Snapshot</h2>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-16 text-gray-600 leading-relaxed text-xl font-medium">
-                <p>Keshava Elite Projects is an educational technology and innovation organization specializing in STEM Robotics Labs for Schools and Center of Excellence (CoE) Programs for Colleges. We design future-ready learning ecosystems where students gain hands-on experience in Robotics, Artificial Intelligence, IoT, and Emerging Technologies — bridging the gap between classroom education and industry expectations.</p>
-                <p>Started by young innovators from Andhra Pradesh, our team consists of engineers, researchers, and educators passionate about transforming education through experiential and project-based learning. We believe talent exists everywhere — opportunity should too.</p>
+                <p>{COMPANY_INFO.aboutSnapshot}</p>
+                <div className="bg-tech-light p-10 rounded-[2rem] border-l-[8px] border-innovation-orange">
+                   <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-elite-blue mb-4">Core Vision</h4>
+                   <p className="text-tech-dark font-black tracking-tight">{COMPANY_INFO.vision}</p>
+                </div>
               </div>
             </Reveal>
 
             {/* Philosophy Section */}
             <Reveal type="up" className="mt-32">
-               <h3 className="text-2xl font-black text-gray-900 mb-12 uppercase tracking-widest text-center">Our Philosophy</h3>
-               <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
+               <h3 className="text-2xl font-black text-tech-dark mb-12 uppercase tracking-[0.4em] text-center">Our Philosophy</h3>
+               <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
                  {COMPANY_INFO.philosophy.map((p, i) => (
-                   <div key={i} className="p-8 bg-gray-50 rounded-[2.5rem] border border-gray-100 flex flex-col items-center text-center group hover:bg-blue-700 transition-all">
-                      <div className="w-10 h-10 bg-white rounded-xl shadow-sm flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                        <CheckCircle2 size={20} className="text-blue-700" />
+                   <div key={i} className="p-8 bg-white rounded-3xl border border-gray-100 flex flex-col items-center text-center group hover:border-innovation-orange transition-all shadow-sm">
+                      <div className="w-10 h-10 bg-elite-blue/5 rounded-xl flex items-center justify-center mb-6 group-hover:bg-innovation-orange group-hover:text-white transition-all">
+                        <CheckCircle2 size={20} className="text-elite-blue group-hover:text-white" />
                       </div>
-                      <span className="text-xs font-black uppercase tracking-widest text-gray-900 group-hover:text-white">{p}</span>
+                      <span className="text-xs font-black uppercase tracking-widest text-tech-dark group-hover:text-innovation-orange">{p}</span>
                    </div>
                  ))}
                </div>
@@ -86,58 +89,37 @@ const About: React.FC = () => {
 
             {/* Founder's Message */}
             <Reveal type="up" className="mt-40">
-              <div className="bg-gray-50 rounded-[4rem] p-16 border border-gray-100 relative overflow-hidden">
-                <Quote size={80} className="absolute -top-4 -left-4 text-blue-100 opacity-50" />
+              <div className="bg-tech-light rounded-[4rem] p-16 border border-gray-100 relative overflow-hidden">
+                <Quote size={80} className="absolute -top-4 -left-4 text-elite-blue opacity-5" />
                 <div className="relative z-10">
-                   <h3 className="text-[10px] font-black text-blue-700 uppercase tracking-[0.4em] mb-8">Founder’s Message</h3>
-                   <p className="text-3xl font-black text-gray-900 leading-tight mb-12 italic tracking-tighter">
+                   <h3 className="text-[10px] font-black text-elite-blue uppercase tracking-[0.4em] mb-8">Founder’s Message</h3>
+                   <p className="text-3xl font-black text-tech-dark leading-tight mb-12 italic tracking-tighter">
                      "Technology is shaping the future faster than ever. At Keshava Elite Projects, our mission is to ensure every student — regardless of background — gets the opportunity to learn, build, and innovate with Robotics and AI."
                    </p>
                    <div className="flex items-center space-x-6">
-                      <div className="w-16 h-16 bg-blue-700 rounded-2xl flex items-center justify-center text-white font-black text-xl">RV</div>
+                      <div className="w-20 h-20 bg-elite-blue rounded-3xl flex items-center justify-center text-white font-black text-2xl shadow-xl shadow-elite-blue/20">RV</div>
                       <div>
-                        <p className="text-xl font-black text-gray-900 tracking-tight">Rakesh Veerapaneni</p>
-                        <p className="text-xs font-black text-blue-700 uppercase tracking-widest">Founder, Keshava Elite Projects</p>
+                        <p className="text-2xl font-black text-tech-dark tracking-tight">Rakesh Veerapaneni</p>
+                        <p className="text-xs font-black text-innovation-orange uppercase tracking-[0.3em]">Founder, Keshava Elite Projects</p>
                       </div>
                    </div>
                 </div>
               </div>
             </Reveal>
 
-            {/* Vision/Mission */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mt-32">
-              <Reveal type="right" delay="delay-100">
-                <div className="bg-blue-700 p-16 rounded-[4rem] text-white shadow-2xl shadow-blue-700/20 relative overflow-hidden group h-full">
-                  <h3 className="text-xs font-black mb-10 uppercase tracking-[0.5em] text-blue-200">The Vision</h3>
-                  <p className="text-2xl font-black leading-tight tracking-tighter">{COMPANY_INFO.vision}</p>
+            {/* Mission Card */}
+            <Reveal type="up" className="mt-32">
+                <div className="bg-tech-dark p-20 rounded-[4rem] text-white shadow-3xl relative overflow-hidden group">
+                  <div className="absolute top-0 right-0 w-64 h-64 bg-innovation-orange/10 blur-[100px] rounded-full"></div>
+                  <h3 className="text-[10px] font-black mb-10 uppercase tracking-[0.5em] text-gray-500">The Social Mission</h3>
+                  <p className="text-3xl md:text-5xl font-black leading-none tracking-tighter mb-12">{COMPANY_INFO.mission}</p>
+                  <Link to="/contact" className="inline-flex items-center space-x-4 bg-innovation-orange px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-innovation-orange-hover transition-all">
+                    <span>Collaborate Now</span>
+                    <ArrowRight size={18} />
+                  </Link>
                 </div>
-              </Reveal>
-              <Reveal type="left" delay="delay-200">
-                <div className="bg-gray-950 p-16 rounded-[4rem] text-white shadow-2xl relative overflow-hidden group h-full">
-                  <h3 className="text-xs font-black mb-10 uppercase tracking-[0.5em] text-gray-500">The Mission</h3>
-                  <p className="text-2xl font-black leading-tight tracking-tighter">{COMPANY_INFO.mission}</p>
-                </div>
-              </Reveal>
-            </div>
+            </Reveal>
           </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-32 bg-white">
-        <div className="container mx-auto px-6">
-           <Reveal>
-              <div className="bg-blue-700 rounded-[5rem] p-24 text-center text-white relative overflow-hidden group shadow-[0_50px_100px_-20px_rgba(29,78,216,0.3)]">
-                 <div className="absolute inset-0 bg-grid opacity-10"></div>
-                 <div className="relative z-10">
-                    <h2 className="text-5xl md:text-7xl font-black mb-12 tracking-tighter">Standardizing <span className="italic">Excellence.</span></h2>
-                    <p className="text-2xl text-blue-50 mb-16 max-w-2xl mx-auto font-medium leading-relaxed">Join the elite network of institutions redefining technical education.</p>
-                    <Link to="/impact" className="bg-white text-blue-700 px-16 py-7 rounded-[2.5rem] font-black text-2xl hover:scale-105 transition-all shadow-2xl inline-block">
-                       Explore Impact
-                    </Link>
-                 </div>
-              </div>
-           </Reveal>
         </div>
       </section>
     </div>

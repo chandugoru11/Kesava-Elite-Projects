@@ -1,3 +1,4 @@
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -8,16 +9,17 @@ export default {
     extend: {
       colors: {
         'elite-blue': {
-          DEFAULT: '#1D4ED8',
-          dark: '#1E3A8A',
-          light: '#3B82F6',
+          DEFAULT: '#0056b3',
+          dark: '#003d80',
+          light: '#3b82f6',
         },
-        'industrial-gold': {
-          DEFAULT: '#D4AF37',
-          light: '#FFD700',
-          dark: '#B8860B',
+        'innovation-orange': {
+          DEFAULT: '#ff9800',
+          hover: '#e68900',
+          light: '#fff4e5',
         },
-        'tech-dark': '#0F172A',
+        'tech-dark': '#1a1a1a',
+        'tech-light': '#f4f7f6',
       },
       borderRadius: {
         '4xl': '2rem',
@@ -25,8 +27,8 @@ export default {
         '6xl': '4rem',
       },
       animation: {
-        'marquee-l': 'marquee-l 8s linear infinite',
-        'marquee-r': 'marquee-r 8s linear infinite',
+        'marquee-l': 'marquee-l 35s linear infinite',
+        'marquee-r': 'marquee-r 35s linear infinite',
         'shimmer': 'shimmer 3s linear infinite',
         'scan': 'scan 4s cubic-bezier(0.4, 0, 0.2, 1) infinite',
         'fade-in': 'fade-in 0.3s ease-out forwards',
@@ -59,9 +61,6 @@ export default {
           'from': { transform: 'scale(0.95)', opacity: '0' },
           'to': { transform: 'scale(1)', opacity: '1' },
         },
-      },
-      backgroundImage: {
-        'shimmer-gradient': 'linear-gradient(90deg, #1e3a8a 0%, #3b82f6 50%, #1e3a8a 100%)',
       },
     },
   },

@@ -1,20 +1,29 @@
 
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Mail, Phone, MapPin, Send, CheckCircle, ShieldAlert, ChevronDown, Globe, MessageSquare, Terminal, Building2, Landmark, GraduationCap, Lightbulb } from 'lucide-react';
+import { 
+  Mail, Phone, MapPin, Send, CheckCircle, MessageSquare, 
+  Globe, Building2, Landmark, GraduationCap, Lightbulb, 
+  ChevronDown, ClipboardList, ShieldCheck, Zap, UserPlus, 
+  Handshake, HelpCircle, Heart, Star
+} from 'lucide-react';
 import { COMPANY_INFO } from '../constants.tsx';
 
 const Contact: React.FC = () => {
   const { hash } = useLocation();
   const [formData, setFormData] = useState({
-    name: '', email: '', phone: '', message: '', inquiryType: 'general'
+    name: '', 
+    email: '', 
+    phone: '', 
+    message: '', 
+    inquiryType: 'general'
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
   useEffect(() => {
-    if (hash === '#recovery') {
-      setFormData(prev => ({ ...prev, inquiryType: 'recovery' }));
+    if (hash === '#recovery' || hash === '#approval') {
+      setFormData(prev => ({ ...prev, inquiryType: 'lms-approval' }));
       document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' });
     }
   }, [hash]);
@@ -22,6 +31,7 @@ const Contact: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    // Simulation of institutional broadcast
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSuccess(true);
@@ -29,11 +39,29 @@ const Contact: React.FC = () => {
     }, 1500);
   };
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleTypeSelect = (type: string) => {
+    setFormData(prev => ({ ...prev, inquiryType: type }));
+  };
+
+  const inquiryOptions = [
+    { value: 'lms-approval', label: 'LMS Account Approval', icon: <ShieldCheck size={18} /> },
+    { value: 'stem-lab', label: 'STEM Lab Installation', icon: <Zap size={18} /> },
+    { value: 'coe-setup', label: 'CoE Hub Setup', icon: <Building2 size={18} /> },
+    { value: 'partnership', label: 'Institutional Partner', icon: <Handshake size={18} /> },
+    { value: 'training', label: 'Student Training', icon: <GraduationCap size={18} /> },
+    { value: 'general', label: 'General Enquiry', icon: <HelpCircle size={18} /> }
+  ];
+
   return (
     <div className="bg-white">
       {/* Header Tier */}
       <div className="bg-blue-950 py-48 text-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-grid opacity-10"></div>
+        <div className="absolute inset-0 bg-animated-grid opacity-10"></div>
         <div className="container mx-auto px-6 relative z-10">
           <div className="inline-flex items-center space-x-3 bg-blue-600/10 border border-blue-600/20 px-8 py-3 rounded-full mb-10">
             <MessageSquare size={18} className="text-blue-400" />
@@ -106,13 +134,52 @@ const Contact: React.FC = () => {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-10">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <input type="text" required className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-5 text-sm focus:border-blue-700 outline-none transition-all font-bold" placeholder="Identity Name" />
-                  <input type="email" required className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-5 text-sm focus:border-blue-700 outline-none transition-all font-bold" placeholder="Auth Email" />
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-2">Full Identity</label>
+                    <input name="name" type="text" required value={formData.name} onChange={handleInputChange} className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-5 text-sm focus:border-blue-700 outline-none transition-all font-bold" placeholder="e.g. Rakesh V" />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-2">Auth Email</label>
+                    <input name="email" type="email" required value={formData.email} onChange={handleInputChange} className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-5 text-sm focus:border-blue-700 outline-none transition-all font-bold" placeholder="name@institution.in" />
+                  </div>
                 </div>
-                <input type="tel" required className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-5 text-sm focus:border-blue-700 outline-none transition-all font-bold" placeholder="Contact Node (Phone)" />
-                <textarea rows={6} required className="w-full bg-gray-50 border border-gray-100 rounded-3xl px-6 py-5 text-sm focus:border-blue-700 outline-none resize-none transition-all font-bold" placeholder="How can we assist your institution?"></textarea>
+
+                <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-2">Contact Node (Phone)</label>
+                    <input name="phone" type="tel" required value={formData.phone} onChange={handleInputChange} className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-5 text-sm focus:border-blue-700 outline-none transition-all font-bold" placeholder="+91 XXXXX XXXXX" />
+                </div>
+
+                {/* VISIBLE SUGGESTIONS GRID - Replaces Select Dropdown */}
+                <div className="space-y-4">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-blue-700 ml-2">How can we assist your institution?</label>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {inquiryOptions.map((opt) => (
+                      <button
+                        key={opt.value}
+                        type="button"
+                        onClick={() => handleTypeSelect(opt.value)}
+                        className={`flex items-center space-x-3 p-4 rounded-2xl border text-left transition-all ${
+                          formData.inquiryType === opt.value 
+                          ? 'bg-blue-700 border-blue-700 text-white shadow-lg' 
+                          : 'bg-gray-50 border-gray-100 text-gray-600 hover:border-blue-300'
+                        }`}
+                      >
+                        <span className={`${formData.inquiryType === opt.value ? 'text-white' : 'text-blue-700'}`}>
+                          {opt.icon}
+                        </span>
+                        <span className="text-[11px] font-black uppercase tracking-tight">{opt.label}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-2">Detailed Message</label>
+                  <textarea name="message" rows={5} required value={formData.message} onChange={handleInputChange} className="w-full bg-gray-50 border border-gray-100 rounded-3xl px-6 py-5 text-sm focus:border-blue-700 outline-none resize-none transition-all font-bold" placeholder="Provide specific details about your institutional requirements..."></textarea>
+                </div>
+
                 <button type="submit" disabled={isSubmitting} className="w-full bg-blue-700 text-white font-black py-7 rounded-[2rem] flex items-center justify-center space-x-4 hover:bg-blue-800 transition-all shadow-2xl shadow-blue-700/20 group">
-                  <span className="text-lg uppercase tracking-widest">Broadcast Transmission</span>
+                  <span className="text-lg uppercase tracking-widest">{isSubmitting ? 'Syncing...' : 'Broadcast Transmission'}</span>
                   <Send size={22} className="group-hover:translate-x-1 transition-transform" />
                 </button>
               </form>

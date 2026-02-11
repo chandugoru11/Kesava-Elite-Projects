@@ -8,11 +8,12 @@ export const COMPANY_INFO = {
   logo: ASSETS.LOGOS.PRIMARY,
   cin: "U62099AP2023PTC110407",
   tagline: "Empowering Future Innovators Through Robotics & STEM Excellence",
-  email: "info@keshavaeliteprojects.com",
+  email: "info@keshavaeliteprojects.in",
   phone: "+91 7659867411",
   address: "Andhra Pradesh, India",
   mission: "To deliver accessible, industry-aligned, and project-based technology education through modern labs, expert mentorship, and innovation-driven learning.",
   vision: "To create India’s most impactful Robotics & STEM innovation ecosystem — empowering every student to become a creator of technology, not just a consumer.",
+  aboutSnapshot: "Keshava Elite Projects is an ed-tech innovation organization specializing in STEM Robotics Labs for Schools and Center of Excellence (CoE) Programs for Colleges. We design ecosystems where students gain hands-on experience in AI, IoT, and Robotics.",
   philosophy: [
     "Learning by Building",
     "Innovation over Memorization",
@@ -65,7 +66,7 @@ export const COURSE_DATA: CourseCategory[] = [
       },
       {
         id: "data-science",
-        title: "Data Science",
+        title: "Data Science & Analytics",
         description: "Industrial data intelligence using predictive modeling.",
         duration: "6 Months",
         features: ["Python", "Pandas", "Scikit-Learn"],
@@ -73,22 +74,13 @@ export const COURSE_DATA: CourseCategory[] = [
         fullPrice: 29999, registrationFee: 3999
       },
       {
-        id: "ai",
-        title: "Artificial Intelligence",
+        id: "ai-ml",
+        title: "Artificial Intelligence & ML",
         description: "Frontier of computing: Neural nets and NLP.",
         duration: "5 Months",
         features: ["TensorFlow", "NLP", "Neural Nets"],
         modules: ["Deep Learning", "Generative AI", "Computer Vision", "Reinforcement Learning", "AI Ethics"],
         fullPrice: 34999, registrationFee: 4999
-      },
-      {
-        id: "ml",
-        title: "Machine Learning",
-        description: "Building software that learns from industrial patterns.",
-        duration: "4 Months",
-        features: ["Supervised Learning", "Regression", "Clustering"],
-        modules: ["Algorithmic Design", "Pattern Recognition", "Model Optimization", "Feature Engineering", "Neural Architecture"],
-        fullPrice: 27999, registrationFee: 3999
       },
       {
         id: "cybersecurity",
@@ -109,24 +101,6 @@ export const COURSE_DATA: CourseCategory[] = [
         fullPrice: 26999, registrationFee: 3499
       },
       {
-        id: "quantum-ai",
-        title: "Quantum AI Computing",
-        description: "Next-gen computing paradigms combining Quantum theory and AI.",
-        duration: "6 Months",
-        features: ["Qubits", "Quantum Gates", "AI Hybrid"],
-        modules: ["Quantum Circuits", "Hybrid Algorithms", "Quantum ML", "Physics of Computing", "Cryptography"],
-        fullPrice: 45999, registrationFee: 6999
-      },
-      {
-        id: "sw-testing",
-        title: "Software Testing",
-        description: "Comprehensive QA and Automation engineering.",
-        duration: "3 Months",
-        features: ["Selenium", "JMeter", "Unit Testing"],
-        modules: ["Manual Testing", "Automation Frameworks", "Load Testing", "Security Testing", "CI/CD Integration"],
-        fullPrice: 15999, registrationFee: 1999
-      },
-      {
         id: "python-dev",
         title: "Python Developer",
         description: "Complete backend mastery using Python and Django.",
@@ -134,39 +108,6 @@ export const COURSE_DATA: CourseCategory[] = [
         features: ["Django", "FastAPI", "Automation"],
         modules: ["Advanced Python", "Asynchronous Programming", "Database Integration", "Scripting", "Web Frameworks"],
         fullPrice: 18999, registrationFee: 2499
-      },
-      {
-        id: "data-analyst",
-        title: "Data Analyst",
-        description: "Interpreting complex data to drive business decisions.",
-        duration: "4 Months",
-        features: ["Excel", "SQL", "Tableau"],
-        modules: ["Data Cleaning", "Statistical Modeling", "Business Intelligence", "Query Optimization", "Reporting"],
-        fullPrice: 19999, registrationFee: 2499
-      }
-    ]
-  },
-  {
-    title: "Business & Management",
-    icon: "briefcase",
-    courses: [
-      {
-        id: "business-growth",
-        title: "Business Growth Specialist",
-        description: "Strategies for scaling startups and technical entities.",
-        duration: "3 Months",
-        features: ["Marketing", "Sales", "Strategy"],
-        modules: ["Customer Acquisition", "Growth Hacking", "Operational Scaling", "Venture Capital", "Branding"],
-        fullPrice: 19999, registrationFee: 2499
-      },
-      {
-        id: "stock-market",
-        title: "Stock Market & Investment Training",
-        description: "Technical analysis and capital market protocols.",
-        duration: "2 Months",
-        features: ["Technical Analysis", "Options", "Forex"],
-        modules: ["Price Action", "Derivative Strategies", "Risk Management", "Portfolio Balancing", "Market Psychology"],
-        fullPrice: 12999, registrationFee: 1499
       }
     ]
   },
@@ -195,11 +136,11 @@ export const COURSE_DATA: CourseCategory[] = [
       {
         id: "iort",
         title: "IoRT (Internet of Robotics Things)",
-        description: "The intersection of IoT and Robotics for advanced automation.",
-        duration: "5 Months",
-        features: ["Swarm Intel", "Edge Computing", "IoRT Arch"],
-        modules: ["Cloud Robotics", "Real-time Processing", "Communication Protocols", "Distributed Control", "Edge AI"],
-        fullPrice: 36999, registrationFee: 5499
+        description: "Advanced intersection of IoT and Autonomous Robotics.",
+        duration: "4 Months",
+        features: ["Real-time OS", "Edge Computing", "Sensors"],
+        modules: ["Edge AI", "Robot Connectivity", "Swarm Robotics", "Industrial IoT Protocols"],
+        fullPrice: 29999, registrationFee: 3999
       },
       {
         id: "embedded",
@@ -218,6 +159,48 @@ export const COURSE_DATA: CourseCategory[] = [
         features: ["PX4", "ArduPilot", "ROS"],
         modules: ["Flight Control", "Telemetry Systems", "Drone Assembly", "Payload Integration", "Aerial Imaging"],
         fullPrice: 32999, registrationFee: 4999
+      }
+    ]
+  },
+  {
+    title: "Business & Management",
+    icon: "briefcase",
+    courses: [
+      {
+        id: "business-growth",
+        title: "Business Growth Specialist",
+        description: "Strategies for scaling startups and technical entities.",
+        duration: "3 Months",
+        features: ["Marketing", "Sales", "Strategy"],
+        modules: ["Customer Acquisition", "Growth Hacking", "Operational Scaling", "Venture Capital", "Branding"],
+        fullPrice: 19999, registrationFee: 2499
+      },
+      {
+        id: "stock-market",
+        title: "Stock Market & Investment Training",
+        description: "Technical analysis and capital market protocols.",
+        duration: "2 Months",
+        features: ["Technical Analysis", "Options", "Forex"],
+        modules: ["Price Action", "Derivative Strategies", "Risk Management", "Portfolio Balancing", "Market Psychology"],
+        fullPrice: 12999, registrationFee: 1499
+      },
+      {
+        id: "power-bi",
+        title: "Power BI Mastery",
+        description: "Advanced data visualization and business intelligence reporting.",
+        duration: "2 Months",
+        features: ["DAX", "Data Modeling", "ETL"],
+        modules: ["Dashboard Design", "Power Query", "Advanced Analytics", "Enterprise Reporting"],
+        fullPrice: 11999, registrationFee: 1299
+      },
+      {
+        id: "digital-marketing",
+        title: "Digital Marketing Strategies",
+        description: "Mastering the digital landscape for business visibility.",
+        duration: "3 Months",
+        features: ["SEO", "SEM", "Content Strategy"],
+        modules: ["Social Media", "Paid Ads", "Analytics", "Email Marketing", "Brand Strategy"],
+        fullPrice: 14999, registrationFee: 1999
       }
     ]
   }
