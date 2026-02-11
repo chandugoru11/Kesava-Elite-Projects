@@ -7,69 +7,89 @@ interface LogoProps {
 }
 
 const Logo: React.FC<LogoProps> = ({ className = "h-12", variant = 'default' }) => {
-  const brandBlue = variant === 'white' ? '#FFFFFF' : '#0056b3';
-  const brandOrange = variant === 'white' ? '#FFFFFF' : '#ff9800';
-  const textColor = variant === 'white' ? '#FFFFFF' : '#1a1a1a';
+  // Brand Colors from image
+  const goldPrimary = variant === 'white' ? '#FFFFFF' : '#D4AF37';
+  const blueTech = variant === 'white' ? '#FFFFFF' : '#4dabf7';
+  const textColor = variant === 'white' ? '#FFFFFF' : '#D4AF37';
 
   return (
     <svg 
-      viewBox="0 0 400 180" 
+      viewBox="0 0 500 200" 
       fill="none" 
       xmlns="http://www.w3.org/2000/svg"
       className={className}
     >
+      <defs>
+        <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style={{ stopColor: '#C5A059', stopOpacity: 1 }} />
+          <stop offset="50%" style={{ stopColor: '#F7EF8A', stopOpacity: 1 }} />
+          <stop offset="100%" style={{ stopColor: '#D4AF37', stopOpacity: 1 }} />
+        </linearGradient>
+      </defs>
+
       <g id="LogoIcon">
-        {/* Abstract 'K' and 'E' structure */}
-        <path d="M157 50V130H182V50H157Z" fill={brandBlue} />
-        <path d="M182 90L235 50H262L200 95L263 130H235L182 100" fill={brandOrange} />
+        {/* The Stylized 'K' from image */}
+        <path 
+          d="M195 40H225V85L290 40H325L255 90L328 140H290L225 95V140H195V40Z" 
+          fill="url(#goldGradient)" 
+        />
 
-        {/* Technical nodes */}
-        <g stroke={brandBlue} strokeWidth="2.5" strokeLinecap="round">
-          <circle cx="138" cy="65" r="3.5" fill={brandBlue} stroke="none" />
-          <path d="M141.5 65H148L165 82" />
+        {/* Integrated Circuitry Lines and Nodes */}
+        <g stroke="url(#goldGradient)" strokeWidth="3" strokeLinecap="round">
+          {/* Top Line */}
+          <path d="M168 45L185 65L230 110" />
+          <circle cx="168" cy="45" r="4" fill="url(#goldGradient)" stroke="none" />
           
-          <circle cx="135" cy="82" r="3.5" fill={brandBlue} stroke="none" />
-          <path d="M138.5 82H145L165 102" />
+          {/* Middle Top Line */}
+          <path d="M165 65L182 85L220 120" />
+          <circle cx="165" cy="65" r="4" fill="url(#goldGradient)" stroke="none" />
 
-          <circle cx="135" cy="99" r="3.5" fill={brandBlue} stroke="none" />
-          <path d="M138.5 99H145L158 112" />
+          {/* Middle Bottom Line */}
+          <path d="M168 85L185 105L210 125" />
+          <circle cx="168" cy="85" r="4" fill="url(#goldGradient)" stroke="none" />
 
-          <circle cx="138" cy="116" r="3.5" fill={brandBlue} stroke="none" />
-          <path d="M141.5 116H148L158 126" />
+          {/* Bottom Line */}
+          <path d="M172 105L190 125L205 135" />
+          <circle cx="172" cy="105" r="4" fill="url(#goldGradient)" stroke="none" />
         </g>
       </g>
 
+      {/* Main Text: KESHAVA ELITE PROJECTS */}
       <text 
-        x="200" 
-        y="155" 
+        x="250" 
+        y="170" 
         textAnchor="middle"
         fill={textColor} 
         style={{ 
           fontFamily: 'Inter, sans-serif', 
           fontWeight: 900, 
-          fontSize: '28px', 
-          letterSpacing: '0.08em',
+          fontSize: '32px', 
+          letterSpacing: '0.05em',
           textTransform: 'uppercase'
         }}
       >
         KESHAVA ELITE PROJECTS
       </text>
       
-      <text 
-        x="200" 
-        y="175" 
-        textAnchor="middle"
-        fill={brandOrange} 
-        style={{ 
-          fontFamily: 'Inter, sans-serif', 
-          fontWeight: 700, 
-          fontSize: '14px', 
-          letterSpacing: '0.3em',
-          textTransform: 'uppercase'
-        }}
-      >
-        ROBOTICS & TECHNOLOGY
-      </text>
+      {/* Subtitle with separator: ROBOTICS & TECHNOLOGY */}
+      <g>
+        <line x1="120" y1="188" x2="160" y2="188" stroke={blueTech} strokeWidth="1" opacity="0.6" />
+        <text 
+          x="265" 
+          y="192" 
+          textAnchor="middle"
+          fill={blueTech} 
+          style={{ 
+            fontFamily: 'Inter, sans-serif', 
+            fontWeight: 700, 
+            fontSize: '18px', 
+            letterSpacing: '0.2em',
+            textTransform: 'uppercase'
+          }}
+        >
+          ROBOTICS & TECHNOLOGY
+        </text>
+      </g>
     </svg>
   );
 };
