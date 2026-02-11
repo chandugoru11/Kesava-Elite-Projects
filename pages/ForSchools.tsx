@@ -70,10 +70,10 @@ const ForSchools: React.FC = () => {
             <h2 className="text-5xl md:text-7xl font-black text-gray-900 mb-8 tracking-tighter">Trusted by Leading <br/><span className="text-blue-700">Educational Institutions.</span></h2>
           </Reveal>
         </div>
-        <div className="flex relative marquee-mask overflow-hidden">
-          <div className="animate-marquee-l flex items-center gap-12 py-12 px-6">
-            {[...schoolPartners, ...schoolPartners].map((client, i) => (
-              <div key={i} className="bg-white border border-gray-100 rounded-[4rem] p-14 min-w-[450px] h-72 shadow-sm flex items-center justify-center group">
+        <div className="relative marquee-mask overflow-hidden">
+          <div className="animate-marquee-l flex items-center gap-12 py-12 px-6 w-max">
+            {[...schoolPartners, ...schoolPartners, ...schoolPartners].map((client, i) => (
+              <div key={i} className="bg-white border border-gray-100 rounded-[4rem] p-14 w-[450px] h-72 shadow-sm flex items-center justify-center group flex-shrink-0">
                  <img src={client.logo} alt={client.name} className="max-h-36 object-contain filter grayscale group-hover:grayscale-0 transition-all duration-500" />
               </div>
             ))}

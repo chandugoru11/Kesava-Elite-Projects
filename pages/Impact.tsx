@@ -69,7 +69,7 @@ const Impact: React.FC = () => {
       </div>
 
       {/* Approved By - FAST Marquee scrolling Left to Right */}
-      <section className="py-24 bg-white border-b border-gray-100">
+      <section className="py-24 bg-white border-b border-gray-100 overflow-hidden">
         <div className="container mx-auto px-6 mb-16 text-center">
           <Reveal>
             <h2 className="text-[12px] font-black text-blue-700 uppercase tracking-[0.5em] mb-4">Approved & Accredited By</h2>
@@ -77,10 +77,10 @@ const Impact: React.FC = () => {
           </Reveal>
         </div>
         
-        <div className="marquee-container relative marquee-mask overflow-hidden">
-          <div className="animate-marquee-r flex items-center gap-12 py-8 px-6">
+        <div className="relative marquee-mask overflow-hidden">
+          <div className="animate-marquee-r flex items-center gap-12 py-8 px-6 w-max">
             {[...accreditations, ...accreditations, ...accreditations].map((item, i) => (
-              <div key={i} className="bg-white border border-gray-100 rounded-[2.5rem] p-10 min-w-[300px] h-44 shadow-sm flex items-center justify-center group hover:border-blue-700 transition-all duration-500">
+              <div key={i} className="bg-white border border-gray-100 rounded-[2.5rem] p-10 w-[300px] h-44 shadow-sm flex items-center justify-center group hover:border-blue-700 transition-all duration-500 flex-shrink-0">
                 <img src={item.logo} alt={item.name} className="max-h-24 object-contain grayscale group-hover:grayscale-0 transition-all duration-700" />
               </div>
             ))}
@@ -113,7 +113,7 @@ const Impact: React.FC = () => {
       </section>
 
       {/* Trusted By - FAST Marquee scrolling Right to Left */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-white overflow-hidden">
         <div className="container mx-auto px-6 mb-16 text-center">
           <Reveal>
             <h2 className="text-[12px] font-black text-blue-700 uppercase tracking-[0.5em] mb-4">Trusted By Institutional Partners</h2>
@@ -121,10 +121,10 @@ const Impact: React.FC = () => {
           </Reveal>
         </div>
         
-        <div className="marquee-container relative marquee-mask overflow-hidden">
-          <div className="animate-marquee-l flex items-center gap-12 py-8 px-6">
+        <div className="relative marquee-mask overflow-hidden">
+          <div className="animate-marquee-l flex items-center gap-12 py-8 px-6 w-max">
             {[...partners, ...partners, ...partners].map((item, i) => (
-              <div key={i} className="bg-white border border-gray-100 rounded-[2.5rem] p-10 min-w-[300px] h-44 shadow-sm flex items-center justify-center group hover:border-blue-700 transition-all duration-500">
+              <div key={i} className="bg-white border border-gray-100 rounded-[2.5rem] p-10 w-[300px] h-44 shadow-sm flex items-center justify-center group hover:border-blue-700 transition-all duration-500 flex-shrink-0">
                 <img src={item.logo} alt={item.name} className="max-h-24 object-contain grayscale group-hover:grayscale-0 transition-all duration-700" />
               </div>
             ))}

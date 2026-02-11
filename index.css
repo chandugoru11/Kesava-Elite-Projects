@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-white font-sans antialiased text-gray-900;
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Moving Lines Background Effect */
+  .bg-animated-grid {
+    background-image: linear-gradient(to right, rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+                      linear-gradient(to bottom, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
+    background-size: 60px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .grid-line-h {
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(to right, transparent, #3b82f6, transparent);
+    left: 0;
+    animation: line-h 8s linear infinite;
+    opacity: 0.3;
+  }
+
+  .grid-line-v {
+    position: absolute;
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent, #3b82f6, transparent);
+    top: 0;
+    animation: line-v 12s linear infinite;
+    opacity: 0.3;
+  }
+
+  @keyframes line-h { 0% { top: -10%; } 100% { top: 110%; } }
+  @keyframes line-v { 0% { left: -10%; } 100% { left: 110%; } }
+
+  /* Premium Shimmer Effect */
+  .shimmer-text { 
+    background-image: linear-gradient(90deg, #1e3a8a 0%, #3b82f6 50%, #1e3a8a 100%); 
+    background-size: 200% auto; 
+    color: transparent; 
+    -webkit-background-clip: text; 
+    animation: shimmer 3s linear infinite; 
+  }
+
+  /* Scanner Component */
+  .scanner-container { position: relative; display: inline-block; }
+  .scanner-line {
+    @apply absolute top-0 left-0 w-1 h-full bg-blue-500 z-20;
+    box-shadow: 0 0 20px 5px rgba(59, 130, 246, 0.7);
+    animation: scan 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+
+  /* Reveal Animations */
+  .reveal { opacity: 0; transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
+  .reveal.active { opacity: 1; transform: translate(0, 0); }
+  .reveal-up { transform: translateY(50px); }
+
+  .marquee-mask {
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  }
+
+  /* Custom Professional Scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #f8fafc;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
+}
